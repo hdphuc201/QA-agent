@@ -34,3 +34,5 @@ examples/**/.qa-agent/*
 !examples/**/.qa-agent/config.json
 examples/**/e2e/generated/
 examples/**/tests/qa/
+junit-*.xml
+ci-artifacts/

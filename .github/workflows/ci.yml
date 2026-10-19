@@ -1,0 +1,96 @@
+# QA Agent CI (P9): static checks, unit/contract tests and plugin validation on Linux and Windows;
+# live integration tests (real browsers, Playwright MCP, both example apps, cross-browser) on Linux.
+# No secrets are used: example apps run locally with fixture accounts.
+
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FORCE_COLOR: '0'
+  CLAUDE_CODE_VERSION: 2.1.71
+
+jobs:
+  checks:
+    name: checks (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.15.0
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run build
+      - name: unit + contract tests
+        run: npm run test:unit:ci
+      - name: plugin validate (Claude Code ${{ env.CLAUDE_CODE_VERSION }})
+        run: |
+          npm install -g @anthropic-ai/claude-code@${{ env.CLAUDE_CODE_VERSION }}
+          claude plugin validate .
+      - name: progress state is consistent
+        run: node scripts/progress.mjs check
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-unit-${{ matrix.os }}
+          path: junit-unit.xml
+          retention-days: 14
+
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    needs: checks
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.15.0
+          cache: npm
+      - run: npm ci
+      - name: cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: install browsers (Chromium, Firefox, WebKit + system deps; Chrome is preinstalled for Playwright MCP)
+        run: npx playwright install --with-deps chromium firefox webkit
+      - name: warm up Playwright MCP
+        run: npm run smoke:mcp
+      - name: integration tests (serial, live)
+        env:
+          QA_AGENT_BROWSER_CHANNEL: chrome
+        run: npm run test:integration:ci
+      - name: vertical slice (sample app, 20 cases)
+        run: node scripts/smoke/vertical-slice.mjs --out ci-artifacts/vertical-slice
+      - name: failure summary
+        if: always()
+        run: node scripts/ci/junit-summary.mjs junit-integration.xml >> "$GITHUB_STEP_SUMMARY"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-results
+          path: |
+            junit-integration.xml
+            ci-artifacts/
+          retention-days: 14
+          if-no-files-found: ignore

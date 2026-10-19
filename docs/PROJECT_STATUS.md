@@ -2,11 +2,11 @@
 
 # QA Agent — Project Status
 
-- State revision: 121
-- Last update: 2026-10-19T17:16:14.714Z
-- Active phase: P8 — HARDENING, SECURITY & CROSS-PROJECT TESTING
+- State revision: 122
+- Last update: 2026-10-19T17:17:05.345Z
+- Active phase: P9 — CI/CD, PACKAGING & v1.0
 - Task progress: 56/62 completed (90.3%) — share of roadmap tasks, not test coverage
-- In progress: 0 · Blocked: 0
+- In progress: 1 · Blocked: 0
 - Latest gate decision: P8 passed at 2026-10-19T17:16:14.691Z — docs/PHASE_REVIEWS/P8.md; node scripts/quality-gate.mjs P8 exit=0 (evidence/P8/test.log); execution-layer policies, 2 target apps, benchmark baseline evidence/P8/benchmark.md, no secret leak via artifacts (tests/integration/security-live.test.ts)
 
 ## Phases
@@ -22,11 +22,11 @@
 | P6 | END-TO-END HYBRID VERTICAL SLICE (MVP CORE) | completed | passed | 6/6 |
 | P7 | EVIDENCE, REPORTING & MVP RELEASE CANDIDATE | completed | passed | 6/6 |
 | P8 | HARDENING, SECURITY & CROSS-PROJECT TESTING | completed | passed | 7/7 |
-| P9 | CI/CD, PACKAGING & v1.0 | not_started | pending | 0/6 |
+| P9 | CI/CD, PACKAGING & v1.0 | in_progress | pending | 0/6 |
 
 ## In progress
 
-_None_
+- P9-T01 — Setup GitHub Actions hoặc CI tương đương theo nền tảng được phép: lint/typecheck/unit/integration/plugin validate. (since 2026-10-19T17:17:05.343Z)
 
 ## Blocked
 
@@ -139,7 +139,7 @@ _None_
 
 | Task | Status | Title | Evidence |
 |---|---|---|---|
-| P9-T01 | not_started | Setup GitHub Actions hoặc CI tương đương theo nền tảng được phép: lint/typecheck/unit/integration/plugin validate. | — |
+| P9-T01 | in_progress | Setup GitHub Actions hoặc CI tương đương theo nền tảng được phép: lint/typecheck/unit/integration/plugin validate. | — |
 | P9-T02 | not_started | Chạy Playwright regression có cache/browser install phù hợp CI, artifact retention, failure summaries. | — |
 | P9-T03 | not_started | Package/version plugin; test install từ directory/marketplace theo docs hiện hành; release notes/CHANGELOG. | — |
 | P9-T04 | not_started | Viết tutorial cài đặt vào 2 target projects, example config và CLI usage. | — |

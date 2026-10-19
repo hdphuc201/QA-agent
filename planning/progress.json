@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "project": "qa-agent",
-  "activePhase": "P8",
-  "updatedAt": "2026-10-19T17:16:14.714Z",
-  "revision": 121,
+  "activePhase": "P9",
+  "updatedAt": "2026-10-19T17:17:05.345Z",
+  "revision": 122,
   "phases": {
     "P0": {
       "title": "BOOTSTRAP & AUTOMATED PROGRESS",
@@ -1015,18 +1015,18 @@
     },
     "P9": {
       "title": "CI/CD, PACKAGING & v1.0",
-      "status": "not_started",
+      "status": "in_progress",
       "gate": "pending",
       "gateEvidence": [],
-      "startedAt": null,
+      "startedAt": "2026-10-19T17:17:05.343Z",
       "completedAt": null,
       "tasks": {
         "P9-T01": {
           "title": "Setup GitHub Actions hoặc CI tương đương theo nền tảng được phép: lint/typecheck/unit/integration/plugin validate.",
-          "status": "not_started",
+          "status": "in_progress",
           "evidence": [],
           "blockers": [],
-          "startedAt": null,
+          "startedAt": "2026-10-19T17:17:05.343Z",
           "completedAt": null
         },
         "P9-T02": {

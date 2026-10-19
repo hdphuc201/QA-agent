@@ -16,6 +16,8 @@
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "node --test --experimental-strip-types --disable-warning=ExperimentalWarning \"tests/unit/**/*.test.ts\" \"tests/contract/**/*.test.ts\"",
     "test:integration": "node --test --experimental-strip-types --disable-warning=ExperimentalWarning --test-concurrency=1 \"tests/integration/**/*.test.ts\"",
+    "test:unit:ci": "node --test --experimental-strip-types --disable-warning=ExperimentalWarning --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=junit-unit.xml \"tests/unit/**/*.test.ts\" \"tests/contract/**/*.test.ts\"",
+    "test:integration:ci": "node --test --experimental-strip-types --disable-warning=ExperimentalWarning --test-concurrency=1 --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=junit-integration.xml \"tests/integration/**/*.test.ts\"",
     "smoke:mcp": "node scripts/smoke/mcp-smoke.mjs",
     "smoke:claude": "node scripts/smoke/claude-plugin-smoke.mjs",
     "smoke:claude-hook": "node scripts/smoke/claude-hook-smoke.mjs",
