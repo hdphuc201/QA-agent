@@ -1,0 +1,12 @@
+$ grep -rniE '(api[_-]?key|secret|token|password|passwd|bearer)\s*[:=]|sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{20,}' (repo files, excluding node_modules/.git/.serena/.code-review-graph/roadmap)
+# exit=1 (1 = no matches)
+$ ls -d .env* playwright/.auth test-results
+ls: cannot access '.env*': No such file or directory
+ls: cannot access 'playwright/.auth': No such file or directory
+ls: cannot access 'test-results': No such file or directory
+$ git check-ignore -v node_modules planning/.progress.lock .env evidence/P0/test.log
+.gitignore:2:node_modules/	node_modules
+.gitignore:23:planning/.progress.lock	planning/.progress.lock
+.gitignore:16:.env	.env
+.gitignore:29:!evidence/**/*.log	evidence/P0/test.log
+# exit=0 (evidence/P0/test.log must NOT be listed)

@@ -1,0 +1,59 @@
+# PowerShell 7.6.7 / Microsoft Windows NT 10.0.26200.0 / node v22.15.0
+## 1. render idempotency on real state
+render: docs/PROJECT_STATUS.md unchanged
+exit=0
+render: docs/PROJECT_STATUS.md unchanged
+exit=0
+PROJECT_STATUS.md sha256 before=723D5DA1F06422280266FD36751252368732C1BB2C4B6C1571B75DC4A330E678 after=723D5DA1F06422280266FD36751252368732C1BB2C4B6C1571B75DC4A330E678 identical=True
+progress.json sha256 before=1BB8AF05694AEBFA66B0BDFDF76AD9FD82101E6370016DD583D1A3601FF4DBAB after=1BB8AF05694AEBFA66B0BDFDF76AD9FD82101E6370016DD583D1A3601FF4DBAB identical=True
+## 2. temp fixture (path with spaces): complete one task, block another
+fixture root: <scratchpad>\qa progress demo
+init: created planning/progress.json with 62 task(s)
+init exit=0
+P0-T01: in_progress
+exit=0
+P0-T01: completed
+exit=0
+P0-T02: blocked
+exit=0
+error: Invalid transition for P0-T02: blocked -> completed (start it first)
+complete-on-blocked exit=1 (expected 1)
+--- PROJECT_STATUS.md diff (<= before, => after) ---
+=> - State revision: 4
+=> - Last update: 2026-10-19T05:03:50.819Z
+=> - Task progress: 1/62 completed (1.6%) — share of roadmap tasks, not test coverage
+=> - In progress: 0 · Blocked: 1
+=> | P0 | BOOTSTRAP & AUTOMATED PROGRESS | in_progress | pending | 1/7 |
+=> - P0-T02 — Node runtime unavailable (since 2026-10-19T05:03:50.814Z)
+=> | P0-T01 | completed | Audit hệ thống: git/node/npm/claude, OS, package manager, quyền truy cập; ghi phiên bản và các điều kiện thiếu. | git status --short: exit=0 |
+=> | P0-T02 | blocked | Khởi tạo `package.json`, TypeScript strict, scripts `lint`, `typecheck`, `test`, `build` (chỉ những script có implementation thật), `.gitignore`, `.editorconfig`. | — |
+<= - State revision: 1
+<= - Last update: 2026-10-19T05:03:50.441Z
+<= - Task progress: 0/62 completed (0.0%) — share of roadmap tasks, not test coverage
+<= - In progress: 0 · Blocked: 0
+<= | P0 | BOOTSTRAP & AUTOMATED PROGRESS | not_started | pending | 0/7 |
+<= _None_
+<= | P0-T01 | not_started | Audit hệ thống: git/node/npm/claude, OS, package manager, quyền truy cập; ghi phiên bản và các điều kiện thiếu. | — |
+<= | P0-T02 | not_started | Khởi tạo `package.json`, TypeScript strict, scripts `lint`, `typecheck`, `test`, `build` (chỉ những script có implementation thật), `.gitignore`, `.editorconfig`. | — |
+check OK
+check exit=0
+## 3. stop/resume: new process reads persisted state
+QA Agent progress — revision 4, updated 2026-10-19T05:03:50.819Z
+Tasks: 1/62 completed (1.6%) — task completion, not test coverage
+Active phase: P0 — BOOTSTRAP & AUTOMATED PROGRESS
+Phases:
+  P0  in_progress  gate=pending  1/7
+  P1  not_started  gate=pending  0/6
+  P2  not_started  gate=pending  0/6
+  P3  not_started  gate=pending  0/6
+  P4  not_started  gate=pending  0/6
+  P5  not_started  gate=pending  0/6
+  P6  not_started  gate=pending  0/6
+  P7  not_started  gate=pending  0/6
+  P8  not_started  gate=pending  0/7
+  P9  not_started  gate=pending  0/6
+In progress: none
+Blocked: P0-T02 (Node runtime unavailable)
+Latest gate: none
+summary exit=0
+real progress.json untouched by fixture run: True

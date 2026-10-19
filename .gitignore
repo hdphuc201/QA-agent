@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build / coverage output
+dist/
+coverage/
+
+# Playwright artifacts (may contain sensitive data: cookies, traces, screenshots)
+playwright/.auth/
+test-results/
+playwright-report/
+blob-report/
+qa-artifacts/
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.storageState.json
+
+# Progress CLI transient files
+planning/*.tmp
+planning/.progress.lock
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+!evidence/**/*.log

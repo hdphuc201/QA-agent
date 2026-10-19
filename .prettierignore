@@ -1,0 +1,13 @@
+node_modules/
+coverage/
+package-lock.json
+.serena/
+.code-review-graph/
+# Protected / generated / append-only documents
+QA_AGENT_MASTER_ROADMAP.md
+planning/progress.json
+docs/PROJECT_STATUS.md
+docs/WORKLOG.md
+docs/BOOTSTRAP_LOG.md
+docs/PHASE_REVIEWS/
+evidence/

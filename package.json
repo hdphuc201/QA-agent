@@ -1,0 +1,27 @@
+{
+  "name": "qa-agent",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Claude Code plugin for hybrid QA: Playwright MCP exploration + Playwright Test regression + AI result analysis.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint .",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
+    "test": "node --test --experimental-strip-types --disable-warning=ExperimentalWarning \"tests/**/*.test.ts\"",
+    "progress": "node scripts/progress.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "22.20.5",
+    "eslint": "10.12.0",
+    "globals": "17.13.0",
+    "prettier": "3.9.9",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0"
+  }
+}
