@@ -128,6 +128,11 @@ export function buildReport(options: {
 }
 
 const md = (s: string) => s.replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
+/** " (chromium PASS, firefox FAIL)" when a case ran in more than one browser. */
+const perBrowser = (x: NormalizedResult) => {
+  const e = Object.entries(x.byBrowser ?? {});
+  return e.length > 1 ? ` (${e.map(([b, s]) => `${b} ${s}`).join(', ')})` : '';
+};
 
 export function reportToMarkdown(r: QaReport): string {
   const c = r.coverage.counts;
@@ -188,7 +193,7 @@ export function reportToMarkdown(r: QaReport): string {
   );
   for (const x of r.results) {
     lines.push(
-      `| ${x.caseId} | ${x.status}${x.flaky ? ' (flaky)' : ''} | ${x.category} | ${x.priority} | ${(x.durationMs / 1000).toFixed(1)}s | ${x.phase ?? '—'} | ${x.requirementRefs.join(', ')} |`,
+      `| ${x.caseId} | ${x.status}${x.flaky ? ' (flaky)' : ''}${perBrowser(x)} | ${x.category} | ${x.priority} | ${(x.durationMs / 1000).toFixed(1)}s | ${x.phase ?? '—'} | ${x.requirementRefs.join(', ')} |`,
     );
   }
   const notRun = r.results.filter((x) => x.note);
@@ -230,7 +235,7 @@ export function reportToHtml(r: QaReport, reportDir: string, projectRoot: string
       const atts = x.attachments
         .map((t) => `<a href="${link(t.path)}">${esc(t.name)}</a>`)
         .join(' ');
-      return `<tr><td>${esc(x.caseId)}</td><td>${badge(x.status)}${x.flaky ? ' flaky' : ''}</td><td>${esc(x.title)}</td><td>${esc(x.requirementRefs.join(', '))}</td><td>${esc(x.category)}</td><td>${(x.durationMs / 1000).toFixed(1)}s</td><td>${a.map((y) => `${esc(y.classification)} (${y.confidence}, ${y.source})`).join('<br>')}${x.error ? `<details><summary>error</summary><pre>${esc(x.error.message)}</pre></details>` : ''}${x.note ? `<small>${esc(x.note)}</small>` : ''}</td><td>${atts}</td></tr>`;
+      return `<tr><td>${esc(x.caseId)}</td><td>${badge(x.status)}${x.flaky ? ' flaky' : ''}${esc(perBrowser(x))}</td><td>${esc(x.title)}</td><td>${esc(x.requirementRefs.join(', '))}</td><td>${esc(x.category)}</td><td>${(x.durationMs / 1000).toFixed(1)}s</td><td>${a.map((y) => `${esc(y.classification)} (${y.confidence}, ${y.source})`).join('<br>')}${x.error ? `<details><summary>error</summary><pre>${esc(x.error.message)}</pre></details>` : ''}${x.note ? `<small>${esc(x.note)}</small>` : ''}</td><td>${atts}</td></tr>`;
     })
     .join('\n');
   const cov = r.coverage.rows

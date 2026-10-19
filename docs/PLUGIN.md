@@ -8,6 +8,7 @@
 | Skills         | `skills/{discover,plan,generate,run,report,full-test}/SKILL.md` | all implemented; each calls `node --experimental-strip-types "${CLAUDE_PLUGIN_ROOT}/src/cli.ts" <stage>`; `disable-model-invocation: true` (user-invoked only)                                                               |
 | Agent          | `agents/failure-analyzer.md`                                    | read-only (Read, Grep, Glob); second opinion on failures, returned as JSON and merged by `report`                                                                                                                            |
 | Playwright MCP | `.mcp.json`                                                     | `@playwright/mcp@0.0.83`, headless, isolated profile, localhost-only origins by default, output under `qa-artifacts/playwright-mcp/`; discovery overrides the allowlist with the project's `allowedOrigins` (ADR 0002, 0004) |
+| Hook           | `hooks/hooks.json` → `hooks/guard-credentials.mjs`              | PreToolUse on Bash/PowerShell: denies commands that would print or embed `QA_AGENT_ACCOUNT_*_PASSWORD` values or dump the environment (threat model T5). The presence check that prints only set/MISSING is allowed          |
 
 Skills are invoked as `/qa-agent:<name>`, and every skill ends with a `QA-AGENT-SKILL: <name> | status=… | phase=…` line. `discover --smoke <localhost url>` is a pure MCP connectivity check. The MCP server appears in `/mcp` as `plugin:qa-agent:playwright`; its tools are named `mcp__plugin_qa-agent_playwright__<tool>`.
 
@@ -19,6 +20,7 @@ claude --plugin-dir D:\path\to\QA-agent          # interactive, from the target 
 npm run smoke:mcp                                 # MCP over JSON-RPC, no AI, no cost
 npm run smoke:claude                              # plugin + discover --smoke inside Claude Code (~0.11 USD)
 node scripts/smoke/claude-fulltest-smoke.mjs      # /qa-agent:full-test inside Claude Code (owner terminal)
+npm run smoke:claude-hook                         # credential guard hook denies echo of a canary password (owner terminal)
 ```
 
 The `smoke:claude` and full-test smokes must run in a normal terminal, because Claude Code refuses to start inside another Claude Code session. This project does not bypass that guard. Run Claude from the **target project**, not from this repository: the repository root `.mcp.json` doubles as a project-scoped MCP config there.

@@ -2,12 +2,14 @@
 // dependencies and honest statuses. A case is READY only when every expected result comes from a
 // requirement sentence and is machine-checkable; otherwise NEEDS_REVIEW or BLOCKED.
 
+import { destructiveReason } from '../config/policy.ts';
 import type { ProjectConfig } from '../config/project-config.schema.ts';
 import type { ProjectMapFile } from '../discovery/discover.ts';
 import {
   interpretExpected,
   interpretGiven,
   interpretWhen,
+  RECORD_REF,
   sentenceActors,
   type InterpretContext,
 } from './interpret.ts';
@@ -365,7 +367,8 @@ export function resolveDependencies<
       if (c.status !== 'READY') continue;
       const bad = c.dependencies.find((id) => cases.find((x) => x.id === id)?.status !== 'READY');
       if (bad) {
-        c.blockers.push(`BLOCKED: depends on ${bad}, which is not READY`);
+        const msg = `BLOCKED: depends on ${bad}, which is not READY`;
+        if (!c.blockers.includes(msg)) c.blockers.push(msg);
         c.status = 'BLOCKED';
         changed = true;
       }
@@ -439,6 +442,10 @@ export function buildPlan(input: PlanInput): TestPlan {
     ];
     for (const s of allSteps(d))
       if (s.do === 'fill' && 'unique' in s.value) d.data[s.value.unique] = 'unique';
+    const recordKey = Object.keys(d.data)[0];
+    for (const a of d.expectations.flatMap((e) => e.asserts))
+      if (a.kind === 'text' && 'ref' in a.value && a.value.ref === RECORD_REF && recordKey)
+        a.value = { ref: `data.${recordKey}` };
     const refs = d.expectations
       .flatMap((e) => e.asserts)
       .flatMap((a) => (a.kind === 'text' && 'ref' in a.value ? [a.value.ref] : []));
@@ -458,6 +465,17 @@ export function buildPlan(input: PlanInput): TestPlan {
     for (const role of new Set([d.actor, ...allSteps(d).map((s) => s.as)])) {
       if (role !== 'anonymous' && !config.roles.some((r) => r.name === role))
         d.blockers.push(`BLOCKED: role "${role}" has no account in the project config`);
+    }
+    // Threat model T2: destructive steps run only when the owner allowed them in the config.
+    if (!config.policy.allowDestructive) {
+      const reasons = [...allSteps(d), ...allAsserts(d)]
+        .map(destructiveReason)
+        .filter((r): r is string => r !== null);
+      if (reasons.length) {
+        d.blockers.push(
+          `BLOCKED: destructive action (${[...new Set(reasons)].join(', ')}) requires policy.allowDestructive in the project config`,
+        );
+      }
     }
   }
 

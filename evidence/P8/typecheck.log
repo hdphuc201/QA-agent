@@ -1,0 +1,8 @@
+$ npm.cmd run typecheck
+# started 2026-10-19T17:08:02.478Z node v22.15.0 on win32
+
+> qa-agent@0.1.0 typecheck
+> tsc --noEmit -p tsconfig.json
+
+
+# exit=0

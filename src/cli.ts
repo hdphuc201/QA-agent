@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import { ConfigError, resolvePluginRoot, resolveProjectRoot } from './config/paths.ts';
 import { loadProjectConfig, type ProjectConfig } from './config/project-config.schema.ts';
+import { assertEnvironmentAllowed, PolicyError } from './config/policy.ts';
 import { WriteDeniedError } from './config/write-guard.ts';
 import { runDiscover } from './discovery/discover.ts';
 import { startPlaywrightTools } from './discovery/explorer.ts';
@@ -93,6 +94,7 @@ export async function main(argv: string[], io: Io): Promise<number> {
     switch (command) {
       case 'discover': {
         const ctx = loadContext(parsed.values.project, io);
+        if (!parsed.values.offline) assertEnvironmentAllowed(ctx.config, io.env, 'explore');
         const tools = parsed.values.offline ? null : await startPlaywrightTools(ctx);
         const res = await runDiscover({
           projectRoot: ctx.projectRoot,
@@ -217,7 +219,7 @@ export async function main(argv: string[], io: Io): Promise<number> {
             projectRoot: ctx.projectRoot,
             outputRoot: res.outputRoot,
             pluginRoot: ctx.pluginRoot,
-            expected: res.cases.length,
+            expected: res.cases.length * ctx.config.browsers.length,
           });
           lines.push(
             `  typecheck: ${v.typecheck.ok ? 'ok' : 'FAILED'}`,
@@ -237,6 +239,10 @@ export async function main(argv: string[], io: Io): Promise<number> {
     if (e instanceof ConfigError) {
       io.err(`config error (${e.configPath}): ${e.message}`);
       return EXIT.CONFIG;
+    }
+    if (e instanceof PolicyError) {
+      io.err(`policy: ${e.message}`);
+      return EXIT.FAILED;
     }
     if (e instanceof WriteDeniedError) {
       io.err(`write denied: ${e.message}`);

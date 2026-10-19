@@ -138,6 +138,13 @@ export function fixturesSource(runtimeFile: string, config: ProjectConfig): stri
   return out;
 }
 
+/** `use` of each browser project; QA_AGENT_BROWSER_CHANNEL (e.g. "chrome") applies to Chromium only. */
+const BROWSER_USE: Record<ProjectConfig['browsers'][number], string> = {
+  chromium: `{ ...devices['Desktop Chrome'], ...(env.QA_AGENT_BROWSER_CHANNEL ? { channel: env.QA_AGENT_BROWSER_CHANNEL } : {}) }`,
+  firefox: `{ ...devices['Desktop Firefox'] }`,
+  webkit: `{ ...devices['Desktop Safari'] }`,
+};
+
 export function playwrightConfigSource(config: ProjectConfig, outputRoot: string): string {
   const { resetBefore, resetAfter, purge } = lifecycle(config);
   // Paths are relative to the config file (which lives in the output root).
@@ -177,10 +184,12 @@ export function playwrightConfigSource(config: ProjectConfig, outputRoot: string
     `    navigationTimeout: 30_000,`,
     `  },`,
     `  projects: [`,
-    `    {`,
-    `      name: 'chromium',`,
-    `      use: { ...devices['Desktop Chrome'], ...(env.QA_AGENT_BROWSER_CHANNEL ? { channel: env.QA_AGENT_BROWSER_CHANNEL } : {}) },`,
-    `    },`,
+    ...config.browsers.flatMap((b) => [
+      `    {`,
+      `      name: '${b}',`,
+      `      use: ${BROWSER_USE[b]},`,
+      `    },`,
+    ]),
     `  ],`,
     `});`,
     ``,

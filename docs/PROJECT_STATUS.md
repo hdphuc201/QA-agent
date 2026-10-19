@@ -2,12 +2,12 @@
 
 # QA Agent — Project Status
 
-- State revision: 106
-- Last update: 2026-10-19T15:04:22.839Z
-- Active phase: P7 — EVIDENCE, REPORTING & MVP RELEASE CANDIDATE
-- Task progress: 49/62 completed (79.0%) — share of roadmap tasks, not test coverage
+- State revision: 121
+- Last update: 2026-10-19T17:16:14.714Z
+- Active phase: P8 — HARDENING, SECURITY & CROSS-PROJECT TESTING
+- Task progress: 56/62 completed (90.3%) — share of roadmap tasks, not test coverage
 - In progress: 0 · Blocked: 0
-- Latest gate decision: P7 passed at 2026-10-19T15:04:22.805Z — docs/PHASE_REVIEWS/P7.md; evidence/P7/claude-fulltest-smoke.json; evidence/P7/clean-env.log
+- Latest gate decision: P8 passed at 2026-10-19T17:16:14.691Z — docs/PHASE_REVIEWS/P8.md; node scripts/quality-gate.mjs P8 exit=0 (evidence/P8/test.log); execution-layer policies, 2 target apps, benchmark baseline evidence/P8/benchmark.md, no secret leak via artifacts (tests/integration/security-live.test.ts)
 
 ## Phases
 
@@ -21,7 +21,7 @@
 | P5 | AUTH, MULTI-TAB, MULTI-ROLE & TEST ORCHESTRATION | completed | passed | 6/6 |
 | P6 | END-TO-END HYBRID VERTICAL SLICE (MVP CORE) | completed | passed | 6/6 |
 | P7 | EVIDENCE, REPORTING & MVP RELEASE CANDIDATE | completed | passed | 6/6 |
-| P8 | HARDENING, SECURITY & CROSS-PROJECT TESTING | not_started | pending | 0/7 |
+| P8 | HARDENING, SECURITY & CROSS-PROJECT TESTING | completed | passed | 7/7 |
 | P9 | CI/CD, PACKAGING & v1.0 | not_started | pending | 0/6 |
 
 ## In progress
@@ -127,13 +127,13 @@ _None_
 
 | Task | Status | Title | Evidence |
 |---|---|---|---|
-| P8-T01 | not_started | Threat model: sensitive cookies/storageState, secrets, prompt injection từ web/docs, exfiltration qua report, path traversal. | — |
-| P8-T02 | not_started | Enforcement cho origin/path allowlist, read-only target docs, policy đối với mutations/destructive operations; test negative cases. | — |
-| P8-T03 | not_started | Xây adapter cho ít nhất 1 target app thứ hai; không hardcode CHUNJI schema/router. | — |
-| P8-T04 | not_started | Cross-browser checks Chromium + Firefox/WebKit khi test case/môi trường hỗ trợ. | — |
-| P8-T05 | not_started | Benchmark runtime, memory, token consumption (exploration vs regression), flaky-rate, concurrency limits. | — |
-| P8-T06 | not_started | Optional hooks SessionStart/Stop **chỉ sau khi kiểm tra upstream API và test**; không dùng hooks để sửa giả status. | — |
-| P8-T07 | not_started | Regression suite, security review, docs P8. | — |
+| P8-T01 | completed | Threat model: sensitive cookies/storageState, secrets, prompt injection từ web/docs, exfiltration qua report, path traversal. | docs/THREAT_MODEL.md: assets, actors, 11 threats (origins, production/destructive, credentials in outputs and traces, AI echo, prompt injection, path traversal, repo secrets, session files, supply chain, evidence) with controls and residual risks<br>trace leak (T4) confirmed by unzipping run traces: fill values recorded verbatim, documented in docs/THREAT_MODEL.md |
+| P8-T02 | completed | Enforcement cho origin/path allowlist, read-only target docs, policy đối với mutations/destructive operations; test negative cases. | src/config/policy.ts + src/evidence/scrub.ts + runtime route guard; tests/unit/security.test.ts 7/7; tests/integration/security-live.test.ts 2/2 (live: no password in traces/HTML/JSON after scrub, cross-origin navigation+fetch aborted); quality gate exit=0 evidence/P8/test.log |
+| P8-T03 | completed | Xây adapter cho ít nhất 1 target app thứ hai; không hardcode CHUNJI schema/router. | examples/helpdesk-app (express-style router, /signin Email/Passphrase, roles customer/agent/auditor, testOutputRoot tests/qa): live full-test 17/17 passed evidence/P8/second-app-live-full-test.log; tests/integration/second-app.test.ts 1/1 (no sample-app strings in output); fixed hardcoded data.title in src/planning/interpret.ts + duplicate dependency blockers; quality gate exit=0 |
+| P8-T04 | completed | Cross-browser checks Chromium + Firefox/WebKit khi test case/môi trường hỗ trợ. | config browsers (chromium/firefox/webkit projects), worst-browser normalisation + byBrowser, per-browser session files; tests/integration/cross-browser.test.ts 3/3 stable runs after 1 cold-start Firefox failure: evidence/P8/cross-browser-stability.log; tests/unit/reporting.test.ts worst-browser case; quality gate exit=0 |
+| P8-T05 | completed | Benchmark runtime, memory, token consumption (exploration vs regression), flaky-rate, concurrency limits. | scripts/bench/benchmark.mjs (npm run bench) exit=0: evidence/P8/benchmark.md + evidence/P8/benchmark.json + evidence/P8/benchmark-run.log — live discover 8.5 s and 26.2 s, regression median 66.4 s to 53.8 s (sample-app) and 51.0 s to 40.5 s (helpdesk-app) for workers 1 vs 2, 12 of 12 runs all passed, 0 flaky; engine peak RSS 109 MB; tokens 0.11 / 0.26 / 0.68 USD per in-Claude session, regression reruns use 0 tokens; cross-browser flake rate in evidence/P8/cross-browser-stability.log |
+| P8-T06 | completed | Optional hooks SessionStart/Stop **chỉ sau khi kiểm tra upstream API và test**; không dùng hooks để sửa giả status. | hooks/hooks.json + hooks/guard-credentials.mjs (PreToolUse Bash\|PowerShell deny), protocol checked against installed Claude Code 2.1.71 cli.js (hookSpecificOutput.permissionDecision, hooks/hooks.json, CLAUDE_PLUGIN_ROOT); tests/unit/hooks.test.ts 4/4 (20 leak patterns refused, 9 normal commands allowed, protocol + no block on bad input); claude plugin validate exit=0; owner-terminal smoke scripts/smoke/claude-hook-smoke.mjs; deviation (PreToolUse instead of SessionStart/Stop) in docs/ADR/0007-hardening.md |
+| P8-T07 | completed | Regression suite, security review, docs P8. | quality gate P8 exit=0: unit+contract 153 (152 pass, 1 skipped), integration 16/16, logs evidence/P8/test.log; security review + defects + risks in docs/PHASE_REVIEWS/P8.md; ADR docs/ADR/0007-hardening.md; staged-diff secret scan exit=123 (no matches); README/CONFIG_GUIDE/PLUGIN/THREAT_MODEL updated |
 
 ### P9 — CI/CD, PACKAGING & v1.0
 

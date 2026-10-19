@@ -1,0 +1,8 @@
+# P8-T04 cross-browser: tests/integration/cross-browser.test.ts (examples/helpdesk-app, 17 cases x chromium(chrome channel)/firefox 155 (pw 1543)/webkit 26.6 (pw 2359), session cache on, 2 workers)
+# browsers installed with: npx playwright install firefox webkit  (exit=0)
+run 0 (first Firefox/WebKit launch): exit=1, duration_ms 502856 — HD-REQ-ACC-002-001 {"chromium":"PASS","firefox":"FAIL","webkit":"PASS"} (error text not captured; assertion message improved afterwards)
+reproduction: firefox-only full-test of a copy (session cache off): exit=0, passed 17/17
+run 1: exit=0, pass 1 fail 0, duration_ms 147232
+run 2: exit=0, pass 1 fail 0, duration_ms 172991
+run 3: exit=0, pass 1 fail 0, duration_ms 128453
+# flaky observations: 1 of 204 browser-case executions (0.5%), only on the first cold Firefox launch; tracked in docs/PHASE_REVIEWS/P8.md

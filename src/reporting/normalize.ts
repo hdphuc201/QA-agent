@@ -28,6 +28,8 @@ export interface NormalizedResult {
   attempts: number;
   durationMs: number;
   browser: string | null;
+  /** Status per browser project (one entry with a single browser). */
+  byBrowser: Record<string, QaStatus>;
   phase: string | null;
   worker: number | null;
   startTime: string | null;
@@ -86,6 +88,8 @@ function* specsOf(suite: PwSuite): Generator<PwSpec> {
   for (const c of suite.suites ?? []) yield* specsOf(c);
 }
 
+const SEVERITY: Record<QaStatus, number> = { PASS: 0, SKIPPED: 1, NOT_RUN: 2, BLOCKED: 3, FAIL: 4 };
+
 export function normalizeRun(options: {
   projectRoot: string;
   record: RunRecord;
@@ -140,7 +144,7 @@ export function normalizeRun(options: {
             status = 'NOT_RUN';
         }
         const loc = last?.error?.location;
-        seen.set(caseId, {
+        const result: NormalizedResult = {
           runId: record.runId,
           caseId,
           title: c.title,
@@ -153,6 +157,7 @@ export function normalizeRun(options: {
           attempts: t.results.length,
           durationMs: t.results.reduce((n, r) => n + r.duration, 0),
           browser: t.projectName ?? null,
+          byBrowser: { [t.projectName ?? 'default']: status },
           phase: phase.name,
           worker: last?.workerIndex ?? null,
           startTime: last?.startTime ?? null,
@@ -171,7 +176,21 @@ export function normalizeRun(options: {
             .map((a) => a.description ?? ''),
           note: status === 'NOT_RUN' ? 'the run was interrupted before this test finished' : null,
           dependsOn: c.dependencies,
-        });
+        };
+        // Several browsers: the case reports its worst browser; every browser stays listed.
+        const prev = seen.get(caseId);
+        if (!prev) seen.set(caseId, result);
+        else {
+          const byBrowser = { ...prev.byBrowser, ...result.byBrowser };
+          const worst = SEVERITY[result.status] > SEVERITY[prev.status] ? result : prev;
+          seen.set(caseId, {
+            ...worst,
+            byBrowser,
+            flaky: prev.flaky || result.flaky,
+            attempts: prev.attempts + result.attempts,
+            durationMs: prev.durationMs + result.durationMs,
+          });
+        }
       }
     }
   }
@@ -194,6 +213,7 @@ export function normalizeRun(options: {
       attempts: 0,
       durationMs: 0,
       browser: null,
+      byBrowser: {},
       phase: null,
       worker: null,
       startTime: null,

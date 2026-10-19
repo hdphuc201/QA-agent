@@ -88,6 +88,8 @@ export class Actors {
   private readonly fromCache = new Set<string>();
   /** What happened to each role's session in this test: signed-in, reused, refreshed. */
   readonly sessionEvents: string[] = [];
+  /** Requests aborted because their origin is not in allowedOrigins. */
+  readonly blockedRequests: string[] = [];
 
   constructor(browser: Browser, authDir: string) {
     this.browser = browser;
@@ -95,7 +97,9 @@ export class Actors {
   }
 
   private sessionFile(role: string): string {
-    return path.join(this.authDir, `${role.replace(/[^\w-]/g, '_')}.json`);
+    // One file per browser engine: projects run in parallel and never share a session.
+    const name = `${this.browser.browserType().name()}-${role}`;
+    return path.join(this.authDir, `${name.replace(/[^\w-]/g, '_')}.json`);
   }
 
   private freshSession(role: string): string | null {
@@ -112,6 +116,14 @@ export class Actors {
       assertAllowedBaseURL();
       const cached = options.fresh || role === 'anonymous' ? null : this.freshSession(role);
       ctx = await this.browser.newContext({ baseURL, ...(cached ? { storageState: cached } : {}) });
+      // Execution-layer allowlist (threat model T1): any request to another origin is aborted.
+      await ctx.route('**/*', (route) => {
+        const url = route.request().url();
+        if (!/^https?:/i.test(url) || QA.allowedOrigins.includes(new URL(url).origin))
+          return route.continue();
+        this.blockedRequests.push(url);
+        return route.abort('blockedbyclient');
+      });
       if (cached) this.fromCache.add(role);
       this.contexts.set(role, ctx);
     }
@@ -249,6 +261,8 @@ export const test = base.extend<{ actors: Actors }>({
     } finally {
       for (const e of actors.sessionEvents)
         testInfo.annotations.push({ type: 'qa-session', description: e });
+      for (const u of new Set(actors.blockedRequests))
+        testInfo.annotations.push({ type: 'qa-blocked', description: u });
       await actors.close();
     }
   },

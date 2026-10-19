@@ -1,0 +1,1421 @@
+$ npm.cmd test
+# started 2026-10-19T17:08:24.236Z node v22.15.0 on win32
+
+> qa-agent@0.1.0 test
+> npm run test:unit && npm run test:integration
+
+
+> qa-agent@0.1.0 test:unit
+> node --test --experimental-strip-types --disable-warning=ExperimentalWarning "tests/unit/**/*.test.ts" "tests/contract/**/*.test.ts"
+
+TAP version 13
+# Subtest: plugin manifest
+    # Subtest: .claude-plugin/plugin.json has the expected shape
+    ok 1 - .claude-plugin/plugin.json has the expected shape
+      ---
+      duration_ms: 22.2988
+      type: 'test'
+      ...
+    # Subtest: only the manifest lives in .claude-plugin/
+    ok 2 - only the manifest lives in .claude-plugin/
+      ---
+      duration_ms: 4.3231
+      type: 'test'
+      ...
+    1..2
+ok 1 - plugin manifest
+  ---
+  duration_ms: 35.4624
+  type: 'suite'
+  ...
+# Subtest: Playwright MCP config
+    # Subtest: .mcp.json pins @playwright/mcp and keeps safe defaults
+    ok 1 - .mcp.json pins @playwright/mcp and keeps safe defaults
+      ---
+      duration_ms: 2.6059
+      type: 'test'
+      ...
+    1..1
+ok 2 - Playwright MCP config
+  ---
+  duration_ms: 3.2313
+  type: 'suite'
+  ...
+# Subtest: skills
+    # Subtest: exactly the six roadmap skills exist
+    ok 1 - exactly the six roadmap skills exist
+      ---
+      duration_ms: 1.8667
+      type: 'test'
+      ...
+    # Subtest: discover/SKILL.md frontmatter and status contract
+    ok 2 - discover/SKILL.md frontmatter and status contract
+      ---
+      duration_ms: 4.2294
+      type: 'test'
+      ...
+    # Subtest: full-test/SKILL.md frontmatter and status contract
+    ok 3 - full-test/SKILL.md frontmatter and status contract
+      ---
+      duration_ms: 6.2011
+      type: 'test'
+      ...
+    # Subtest: generate/SKILL.md frontmatter and status contract
+    ok 4 - generate/SKILL.md frontmatter and status contract
+      ---
+      duration_ms: 17.5715
+      type: 'test'
+      ...
+    # Subtest: plan/SKILL.md frontmatter and status contract
+    ok 5 - plan/SKILL.md frontmatter and status contract
+      ---
+      duration_ms: 1.7541
+      type: 'test'
+      ...
+    # Subtest: report/SKILL.md frontmatter and status contract
+    ok 6 - report/SKILL.md frontmatter and status contract
+      ---
+      duration_ms: 1.6005
+      type: 'test'
+      ...
+    # Subtest: run/SKILL.md frontmatter and status contract
+    ok 7 - run/SKILL.md frontmatter and status contract
+      ---
+      duration_ms: 1.75
+      type: 'test'
+      ...
+    # Subtest: discover smoke is restricted to localhost http
+    ok 8 - discover smoke is restricted to localhost http
+      ---
+      duration_ms: 1.5823
+      type: 'test'
+      ...
+    1..8
+ok 3 - skills
+  ---
+  duration_ms: 38.8031
+  type: 'suite'
+  ...
+# Subtest: agents
+    # Subtest: failure-analyzer is read-only and documents the classification contract
+    ok 1 - failure-analyzer is read-only and documents the classification contract
+      ---
+      duration_ms: 2.5249
+      type: 'test'
+      ...
+    1..1
+ok 4 - agents
+  ---
+  duration_ms: 2.9325
+  type: 'suite'
+  ...
+# Subtest: codegen
+    # Subtest: only READY cases are generated; manual steps or checks are refused
+    ok 1 - only READY cases are generated; manual steps or checks are refused
+      ---
+      duration_ms: 14.8104
+      type: 'test'
+      ...
+    # Subtest: locators are role/label based; no CSS or XPath selectors
+    ok 2 - locators are role/label based; no CSS or XPath selectors
+      ---
+      duration_ms: 19.286
+      type: 'test'
+      ...
+    # Subtest: every structured assertion becomes exactly one expect* call (nothing dropped or added)
+    ok 3 - every structured assertion becomes exactly one expect* call (nothing dropped or added)
+      ---
+      duration_ms: 7.2581
+      type: 'test'
+      ...
+    # Subtest: assertion kinds map to meaningful checks
+    ok 4 - assertion kinds map to meaningful checks
+      ---
+      duration_ms: 2.6546
+      type: 'test'
+      ...
+    # Subtest: every expectation step quotes its requirement line
+    ok 5 - every expectation step quotes its requirement line
+      ---
+      duration_ms: 1.0866
+      type: 'test'
+      ...
+    # Subtest: helpers: quoting, identifiers, paths, file names
+    ok 6 - helpers: quoting, identifiers, paths, file names
+      ---
+      duration_ms: 1.2661
+      type: 'test'
+      ...
+    # Subtest: fixtures template gets the project config and never credentials
+    ok 7 - fixtures template gets the project config and never credentials
+      ---
+      duration_ms: 22.1654
+      type: 'test'
+      ...
+    1..7
+ok 5 - codegen
+  ---
+  duration_ms: 73.768
+  type: 'suite'
+  ...
+# Subtest: mergeDiscovery
+    # Subtest: links static routes/ui/forms/roles to observations and adds observed-only routes
+    ok 1 - links static routes/ui/forms/roles to observations and adds observed-only routes
+      ---
+      duration_ms: 339.4772
+      type: 'test'
+      ...
+    # Subtest: static-only run is marked as not live
+    ok 2 - static-only run is marked as not live
+      ---
+      duration_ms: 0.4481
+      type: 'test'
+      ...
+    1..2
+ok 6 - mergeDiscovery
+  ---
+  duration_ms: 343.2401
+  type: 'suite'
+  ...
+# Subtest: write guard
+    # Subtest: allows the allowlist, denies everything else
+    ok 1 - allows the allowlist, denies everything else
+      ---
+      duration_ms: 57.9805
+      type: 'test'
+      ...
+    1..1
+ok 7 - write guard
+  ---
+  duration_ms: 58.3453
+  type: 'suite'
+  ...
+# Subtest: url guard
+    # Subtest: allowlist, schemes, embedded credentials, unsafe GET paths
+    ok 1 - allowlist, schemes, embedded credentials, unsafe GET paths
+      ---
+      duration_ms: 25.9292
+      type: 'test'
+      ...
+    1..1
+ok 8 - url guard
+  ---
+  duration_ms: 31.6743
+  type: 'suite'
+  ...
+# Subtest: snapshot parser
+    # Subtest: page header, roles, names, refs, levels, link urls and values
+    ok 1 - page header, roles, names, refs, levels, link urls and values
+      ---
+      duration_ms: 17.2509
+      type: 'test'
+      ...
+    1..1
+ok 9 - snapshot parser
+  ---
+  duration_ms: 18.7429
+  type: 'suite'
+  ...
+# Subtest: explorer (fake browser)
+    # Subtest: crawls inside the allowlist, signs in with the recipe, masks the password
+    ok 1 - crawls inside the allowlist, signs in with the recipe, masks the password
+      ---
+      duration_ms: 57.0861
+      type: 'test'
+      ...
+    # Subtest: no credentials: authenticated exploration is skipped, not faked
+    ok 2 - no credentials: authenticated exploration is skipped, not faked
+      ---
+      duration_ms: 8.845
+      type: 'test'
+      ...
+    # Subtest: failed login is reported as failed
+    ok 3 - failed login is reported as failed
+      ---
+      duration_ms: 4.5064
+      type: 'test'
+      ...
+    # Subtest: redirect to a foreign origin is blocked and not observed
+    ok 4 - redirect to a foreign origin is blocked and not observed
+      ---
+      duration_ms: 3.3903
+      type: 'test'
+      ...
+    # Subtest: retries transient failures and respects maxPages
+    ok 5 - retries transient failures and respects maxPages
+      ---
+      duration_ms: 3.8468
+      type: 'test'
+      ...
+    # Subtest: anonymous exploration only uses navigate and snapshot
+    ok 6 - anonymous exploration only uses navigate and snapshot
+      ---
+      duration_ms: 2.3394
+      type: 'test'
+      ...
+    # Subtest: navigation error results: transient ones are retried, blocked ones are final
+    ok 7 - navigation error results: transient ones are retried, blocked ones are final
+      ---
+      duration_ms: 23.1255
+      type: 'test'
+      ...
+    # Subtest: "interrupted by another navigation" is a redirect: followed inside the allowlist, blocked outside
+    ok 8 - "interrupted by another navigation" is a redirect: followed inside the allowlist, blocked outside
+      ---
+      duration_ms: 4.8229
+      type: 'test'
+      ...
+    # Subtest: maskValues and account env resolution
+    ok 9 - maskValues and account env resolution
+      ---
+      duration_ms: 1.6907
+      type: 'test'
+      ...
+    1..9
+ok 10 - explorer (fake browser)
+  ---
+  duration_ms: 112.2893
+  type: 'suite'
+  ...
+# Subtest: credential guard hook (P8-T06)
+    # Subtest: refuses commands that print or embed passwords, or dump the environment
+    ok 1 - refuses commands that print or embed passwords, or dump the environment
+      ---
+      duration_ms: 13.476
+      type: 'test'
+      ...
+    # Subtest: allows normal commands and the documented presence check
+    ok 2 - allows normal commands and the documented presence check
+      ---
+      duration_ms: 2.0453
+      type: 'test'
+      ...
+    # Subtest: speaks the PreToolUse protocol: deny JSON on a match, silence otherwise, never blocks on bad input
+    ok 3 - speaks the PreToolUse protocol: deny JSON on a match, silence otherwise, never blocks on bad input
+      ---
+      duration_ms: 4269.3802
+      type: 'test'
+      ...
+    # Subtest: is registered for Bash and PowerShell in the plugin hooks file
+    ok 4 - is registered for Bash and PowerShell in the plugin hooks file
+      ---
+      duration_ms: 1.9247
+      type: 'test'
+      ...
+    1..4
+ok 11 - credential guard hook (P8-T06)
+  ---
+  duration_ms: 4292.9622
+  type: 'suite'
+  ...
+# Subtest: isInside
+    # Subtest: Windows paths: spaces, drive-letter case, traversal
+    ok 1 - Windows paths: spaces, drive-letter case, traversal
+      ---
+      duration_ms: 8.0147
+      type: 'test'
+      ...
+    # Subtest: POSIX paths are case-sensitive
+    ok 2 - POSIX paths are case-sensitive
+      ---
+      duration_ms: 1.5462
+      type: 'test'
+      ...
+    # Subtest: toPortablePath converts separators only
+    ok 3 - toPortablePath converts separators only
+      ---
+      duration_ms: 0.9306
+      type: 'test'
+      ...
+    1..3
+ok 12 - isInside
+  ---
+  duration_ms: 14.7664
+  type: 'suite'
+  ...
+# Subtest: resolvePluginRoot
+    # Subtest: finds this repository from a nested directory
+    ok 1 - finds this repository from a nested directory
+      ---
+      duration_ms: 7.8203
+      type: 'test'
+      ...
+    # Subtest: prefers CLAUDE_PLUGIN_ROOT and handles spaces
+    ok 2 - prefers CLAUDE_PLUGIN_ROOT and handles spaces
+      ---
+      duration_ms: 12.2947
+      type: 'test'
+      ...
+    # Subtest: rejects a CLAUDE_PLUGIN_ROOT without manifest and a tree without plugin
+    ok 3 - rejects a CLAUDE_PLUGIN_ROOT without manifest and a tree without plugin
+      ---
+      duration_ms: 11.7083
+      type: 'test'
+      ...
+    1..3
+ok 13 - resolvePluginRoot
+  ---
+  duration_ms: 33.2658
+  type: 'suite'
+  ...
+# Subtest: resolveProjectRoot and config discovery
+    # Subtest: nearest .qa-agent wins over the Git root
+    ok 1 - nearest .qa-agent wins over the Git root
+      ---
+      duration_ms: 200.4966
+      type: 'test'
+      ...
+    # Subtest: falls back to the Git root, then cwd
+    ok 2 - falls back to the Git root, then cwd
+      ---
+      duration_ms: 24.4081
+      type: 'test'
+      ...
+    # Subtest: CLAUDE_PROJECT_DIR overrides discovery and must exist
+    ok 3 - CLAUDE_PROJECT_DIR overrides discovery and must exist
+      ---
+      duration_ms: 15.1856
+      type: 'test'
+      ...
+    # Subtest: invalid config JSON or non-object config raises ConfigError with the path
+    ok 4 - invalid config JSON or non-object config raises ConfigError with the path
+      ---
+      duration_ms: 214.2612
+      type: 'test'
+      ...
+    # Subtest: resolveContext combines plugin, project and config
+    ok 5 - resolveContext combines plugin, project and config
+      ---
+      duration_ms: 11.9126
+      type: 'test'
+      ...
+    1..5
+ok 14 - resolveProjectRoot and config discovery
+  ---
+  duration_ms: 468.2267
+  type: 'suite'
+  ...
+# Subtest: deduplication
+    # Subtest: identical behaviour and expected outcome from two requirements becomes one case with both refs
+    ok 1 - identical behaviour and expected outcome from two requirements becomes one case with both refs
+      ---
+      duration_ms: 356.6783
+      type: 'test'
+      ...
+    # Subtest: same action with a different expected outcome is not a duplicate
+    ok 2 - same action with a different expected outcome is not a duplicate
+      ---
+      duration_ms: 235.0596
+      type: 'test'
+      ...
+    1..2
+ok 15 - deduplication
+  ---
+  duration_ms: 606.2711
+  type: 'suite'
+  ...
+# Subtest: risk ranking
+    # Subtest: cases are ordered by risk score; priority derives from impact x likelihood
+    ok 1 - cases are ordered by risk score; priority derives from impact x likelihood
+      ---
+      duration_ms: 18.7989
+      type: 'test'
+      ...
+    1..1
+ok 16 - risk ranking
+  ---
+  duration_ms: 19.3911
+  type: 'suite'
+  ...
+# Subtest: dependencies
+    # Subtest: a dependency cycle blocks every case on it
+    ok 1 - a dependency cycle blocks every case on it
+      ---
+      duration_ms: 3.0841
+      type: 'test'
+      ...
+    # Subtest: a case depending on a non-READY case is BLOCKED, transitively
+    ok 2 - a case depending on a non-READY case is BLOCKED, transitively
+      ---
+      duration_ms: 3.0568
+      type: 'test'
+      ...
+    # Subtest: a subject nobody can produce blocks the case instead of guessing setup data
+    ok 3 - a subject nobody can produce blocks the case instead of guessing setup data
+      ---
+      duration_ms: 6.0904
+      type: 'test'
+      ...
+    # Subtest: roles without an account in the config block the case
+    ok 4 - roles without an account in the config block the case
+      ---
+      duration_ms: 3.9731
+      type: 'test'
+      ...
+    1..4
+ok 17 - dependencies
+  ---
+  duration_ms: 18.4761
+  type: 'suite'
+  ...
+# Subtest: plan stage and exports
+    # Subtest: writes versioned JSON, Markdown and CSV that agree with each other
+    ok 1 - writes versioned JSON, Markdown and CSV that agree with each other
+      ---
+      duration_ms: 1383.4438
+      type: 'test'
+      ...
+    # Subtest: CSV escapes quotes and commas; Markdown escapes pipes
+    ok 2 - CSV escapes quotes and commas; Markdown escapes pipes
+      ---
+      duration_ms: 3.1144
+      type: 'test'
+      ...
+    # Subtest: invalid inputs: duplicate requirement ids, corrupt project map, missing plan
+    ok 3 - invalid inputs: duplicate requirement ids, corrupt project map, missing plan
+      ---
+      duration_ms: 904.7223
+      type: 'test'
+      ...
+    1..3
+ok 18 - plan stage and exports
+  ---
+  duration_ms: 2300.3183
+  type: 'suite'
+  ...
+# Subtest: planning schemas reject invalid input
+    # Subtest: a valid case parses and gets defaults
+    ok 1 - a valid case parses and gets defaults
+      ---
+      duration_ms: 58.776
+      type: 'test'
+      ...
+    # Subtest: invalid cases
+    ok 2 - invalid cases
+      ---
+      duration_ms: 6.5543
+      type: 'test'
+      ...
+    # Subtest: expectations need at least one assertion and a valid HTTP status
+    ok 3 - expectations need at least one assertion and a valid HTTP status
+      ---
+      duration_ms: 26.7748
+      type: 'test'
+      ...
+    # Subtest: requirement ids are stable uppercase identifiers
+    ok 4 - requirement ids are stable uppercase identifiers
+      ---
+      duration_ms: 9.3892
+      type: 'test'
+      ...
+    1..4
+ok 19 - planning schemas reject invalid input
+  ---
+  duration_ms: 107.1077
+  type: 'suite'
+  ...
+# Subtest: case statuses
+    # Subtest: READY only when every step and assertion is automatable and nothing blocks
+    ok 1 - READY only when every step and assertion is automatable and nothing blocks
+      ---
+      duration_ms: 8.0919
+      type: 'test'
+      ...
+    # Subtest: NEEDS_REVIEW: no expected result, a manual step, a manual assertion, or a soft blocker
+    ok 2 - NEEDS_REVIEW: no expected result, a manual step, a manual assertion, or a soft blocker
+      ---
+      duration_ms: 1.3625
+      type: 'test'
+      ...
+    # Subtest: BLOCKED wins over everything
+    ok 3 - BLOCKED wins over everything
+      ---
+      duration_ms: 1.0154
+      type: 'test'
+      ...
+    # Subtest: only READY cases reach the runner
+    ok 4 - only READY cases reach the runner
+      ---
+      duration_ms: 20.0933
+      type: 'test'
+      ...
+    1..4
+ok 20 - case statuses
+  ---
+  duration_ms: 45.8777
+  type: 'suite'
+  ...
+# Subtest: interpreter
+    # Subtest: splits actions only before verbs and finds the acting roles
+    ok 1 - splits actions only before verbs and finds the acting roles
+      ---
+      duration_ms: 12.3408
+      type: 'test'
+      ...
+    # Subtest: field specs: unique, literal, empty, boundary placeholder
+    ok 2 - field specs: unique, literal, empty, boundary placeholder
+      ---
+      duration_ms: 14.3032
+      type: 'test'
+      ...
+    # Subtest: submits a form found through the project map (link → form → submit button)
+    ok 3 - submits a form found through the project map (link → form → submit button)
+      ---
+      duration_ms: 19.009
+      type: 'test'
+      ...
+    # Subtest: expected sentences become assertions; unknown ones become manual
+    ok 4 - expected sentences become assertions; unknown ones become manual
+      ---
+      duration_ms: 5.4703
+      type: 'test'
+      ...
+    1..4
+ok 21 - interpreter
+  ---
+  duration_ms: 63.1357
+  type: 'suite'
+  ...
+# Subtest: test matrix for the sample app
+    # Subtest: cases per category and status
+    ok 1 - cases per category and status
+      ---
+      duration_ms: 1.6726
+      type: 'test'
+      ...
+    # Subtest: boundary values each get a case with the matching expectation
+    ok 2 - boundary values each get a case with the matching expectation
+      ---
+      duration_ms: 1.8099
+      type: 'test'
+      ...
+    # Subtest: two-role workflow: requester creates (setup), approver acts, requester sees result
+    ok 3 - two-role workflow: requester creates (setup), approver acts, requester sees result
+      ---
+      duration_ms: 1.6087
+      type: 'test'
+      ...
+    # Subtest: every expectation quotes its requirement line (traceability)
+    ok 4 - every expectation quotes its requirement line (traceability)
+      ---
+      duration_ms: 2.2404
+      type: 'test'
+      ...
+    # Subtest: network-failure / concurrency cases appear only when a requirement asks for them
+    ok 5 - network-failure / concurrency cases appear only when a requirement asks for them
+      ---
+      duration_ms: 6.9935
+      type: 'test'
+      ...
+    # Subtest: risk and dependency helpers
+    ok 6 - risk and dependency helpers
+      ---
+      duration_ms: 1.4748
+      type: 'test'
+      ...
+    1..6
+ok 22 - test matrix for the sample app
+  ---
+  duration_ms: 19.6635
+  type: 'suite'
+  ...
+# Subtest: roadmap inventory
+    # Subtest: parses all P0–P9 phases and task ids from the roadmap
+    ok 1 - parses all P0–P9 phases and task ids from the roadmap
+      ---
+      duration_ms: 15.1932
+      type: 'test'
+      ...
+    # Subtest: ignores task ids listed under the wrong phase heading
+    ok 2 - ignores task ids listed under the wrong phase heading
+      ---
+      duration_ms: 1.3618
+      type: 'test'
+      ...
+    1..2
+ok 23 - roadmap inventory
+  ---
+  duration_ms: 18.9672
+  type: 'suite'
+  ...
+# Subtest: init
+    # Subtest: creates state, status and worklog with the full inventory
+    ok 1 - creates state, status and worklog with the full inventory
+      ---
+      duration_ms: 2306.3111
+      type: 'test'
+      ...
+    # Subtest: is idempotent: a second run changes nothing
+    ok 2 - is idempotent: a second run changes nothing
+      ---
+      duration_ms: 1483.5637
+      type: 'test'
+      ...
+    # Subtest: merges missing tasks without discarding existing progress
+    ok 3 - merges missing tasks without discarding existing progress
+      ---
+      duration_ms: 1289.3336
+      type: 'test'
+      ...
+    1..3
+ok 24 - init
+  ---
+  duration_ms: 5081.2902
+  type: 'suite'
+  ...
+# Subtest: task transitions
+    # Subtest: start + complete updates state, status markdown and worklog
+    ok 1 - start + complete updates state, status markdown and worklog
+      ---
+      duration_ms: 823.651
+      type: 'test'
+      ...
+    # Subtest: block shows the reason in status and start resumes the task
+    ok 2 - block shows the reason in status and start resumes the task
+      ---
+      duration_ms: 1034.4767
+      type: 'test'
+      ...
+    # Subtest: rejects invalid transitions with exit 1 and leaves state untouched
+    ok 3 - rejects invalid transitions with exit 1 and leaves state untouched
+      ---
+      duration_ms: 1039.713
+      type: 'test'
+      ...
+    # Subtest: cannot start a task of the next phase before the previous gate passed
+    ok 4 - cannot start a task of the next phase before the previous gate passed
+      ---
+      duration_ms: 249.83
+      type: 'test'
+      ...
+    1..4
+ok 25 - task transitions
+  ---
+  duration_ms: 3149.5081
+  type: 'suite'
+  ...
+# Subtest: evidence validation
+    # Subtest: requires concrete evidence
+    ok 1 - requires concrete evidence
+      ---
+      duration_ms: 898.2945
+      type: 'test'
+      ...
+    # Subtest: block requires a reason
+    ok 2 - block requires a reason
+      ---
+      duration_ms: 224.9773
+      type: 'test'
+      ...
+    1..2
+ok 26 - evidence validation
+  ---
+  duration_ms: 1123.519
+  type: 'suite'
+  ...
+# Subtest: gate
+    # Subtest: passes only when all tasks are complete, the review exists and check is clean
+    ok 1 - passes only when all tasks are complete, the review exists and check is clean
+      ---
+      duration_ms: 2501.5358
+      type: 'test'
+      ...
+    # Subtest: failed/blocked gates need a reason and are recorded
+    ok 2 - failed/blocked gates need a reason and are recorded
+      ---
+      duration_ms: 618.7308
+      type: 'test'
+      ...
+    1..2
+ok 27 - gate
+  ---
+  duration_ms: 3120.5371
+  type: 'suite'
+  ...
+# Subtest: render and check
+    # Subtest: render is idempotent and repairs a hand-edited status file
+    ok 1 - render is idempotent and repairs a hand-edited status file
+      ---
+      duration_ms: 654.9502
+      type: 'test'
+      ...
+    # Subtest: renderStatus is a pure function of state
+    ok 2 - renderStatus is a pure function of state
+      ---
+      duration_ms: 133.8136
+      type: 'test'
+      ...
+    # Subtest: check tolerates CRLF line endings (git autocrlf on Windows)
+    ok 3 - check tolerates CRLF line endings (git autocrlf on Windows)
+      ---
+      duration_ms: 246.2149
+      type: 'test'
+      ...
+    # Subtest: check detects semantic inconsistencies in a hand-edited state
+    ok 4 - check detects semantic inconsistencies in a hand-edited state
+      ---
+      duration_ms: 232.9982
+      type: 'test'
+      ...
+    1..4
+ok 28 - render and check
+  ---
+  duration_ms: 1268.4098
+  type: 'suite'
+  ...
+# Subtest: corruption, locking and resume
+    # Subtest: corrupt JSON is reported with exit 3 and never overwritten
+    ok 1 - corrupt JSON is reported with exit 3 and never overwritten
+      ---
+      duration_ms: 596.1005
+      type: 'test'
+      ...
+    # Subtest: schema violations and unsupported schemaVersion are rejected
+    ok 2 - schema violations and unsupported schemaVersion are rejected
+      ---
+      duration_ms: 313.9622
+      type: 'test'
+      ...
+    # Subtest: missing state asks for init
+    ok 3 - missing state asks for init
+      ---
+      duration_ms: 90.8465
+      type: 'test'
+      ...
+    # Subtest: a live lock blocks writers; a stale lock is reclaimed
+    ok 4 - a live lock blocks writers; a stale lock is reclaimed
+      ---
+      duration_ms: 2489.3413
+      type: 'test'
+      ...
+    # Subtest: a new process resumes from files: summary reflects prior session work
+    ok 5 - a new process resumes from files: summary reflects prior session work
+      ---
+      duration_ms: 462.4863
+      type: 'test'
+      ...
+    1..5
+ok 29 - corruption, locking and resume
+  ---
+  duration_ms: 3953.1145
+  type: 'suite'
+  ...
+# Subtest: historical import (--at) and usage errors
+    # Subtest: --at keeps original timestamps and tags the worklog entry
+    ok 1 - --at keeps original timestamps and tags the worklog entry
+      ---
+      duration_ms: 273.0941
+      type: 'test'
+      ...
+    # Subtest: --at rejects invalid, future and out-of-order timestamps
+    ok 2 - --at rejects invalid, future and out-of-order timestamps
+      ---
+      duration_ms: 409.4959
+      type: 'test'
+      ...
+    # Subtest: usage errors exit 2
+    ok 3 - usage errors exit 2
+      ---
+      duration_ms: 636.6555
+      type: 'test'
+      ...
+    1..3
+ok 30 - historical import (--at) and usage errors
+  ---
+  duration_ms: 1319.4699
+  type: 'suite'
+  ...
+# Subtest: project config schema
+    # Subtest: minimal config gets safe defaults
+    ok 1 - minimal config gets safe defaults
+      ---
+      duration_ms: 26.1166
+      type: 'test'
+      ...
+    # Subtest: full config with roles, auth recipe and budgets
+    ok 2 - full config with roles, auth recipe and budgets
+      ---
+      duration_ms: 14.6089
+      type: 'test'
+      ...
+    # Subtest: rejects baseURL origin missing from allowedOrigins and malformed origins
+    ok 3 - rejects baseURL origin missing from allowedOrigins and malformed origins
+      ---
+      duration_ms: 19.7022
+      type: 'test'
+      ...
+    # Subtest: rejects absolute or traversing paths
+    ok 4 - rejects absolute or traversing paths
+      ---
+      duration_ms: 21.0509
+      type: 'test'
+      ...
+    # Subtest: rejects credentials and unknown keys
+    ok 5 - rejects credentials and unknown keys
+      ---
+      duration_ms: 2.905
+      type: 'test'
+      ...
+    # Subtest: rejects duplicate roles, unknown authRole, bad budgets and wrong schemaVersion
+    ok 6 - rejects duplicate roles, unknown authRole, bad budgets and wrong schemaVersion
+      ---
+      duration_ms: 12.8647
+      type: 'test'
+      ...
+    # Subtest: loadProjectConfig reads from the project and returns null when absent
+    ok 7 - loadProjectConfig reads from the project and returns null when absent
+      ---
+      duration_ms: 208.16
+      type: 'test'
+      ...
+    # Subtest: JSON Schema export covers every top-level field
+    ok 8 - JSON Schema export covers every top-level field
+      ---
+      duration_ms: 55.0575
+      type: 'test'
+      ...
+    1..8
+ok 31 - project config schema
+  ---
+  duration_ms: 366.5905
+  type: 'suite'
+  ...
+# Subtest: static project map
+    # Subtest: sample app: routes, API refs, forms, UI and roles with sources
+    ok 1 - sample app: routes, API refs, forms, UI and roles with sources
+      ---
+      duration_ms: 168.0792
+      type: 'test'
+      ...
+    # Subtest: express-style and file-system routes
+    ok 2 - express-style and file-system routes
+      ---
+      duration_ms: 4.4219
+      type: 'test'
+      ...
+    # Subtest: roles found only in code naming are hypothesized with low confidence
+    ok 3 - roles found only in code naming are hypothesized with low confidence
+      ---
+      duration_ms: 1.5969
+      type: 'test'
+      ...
+    # Subtest: regex route conversion
+    ok 4 - regex route conversion
+      ---
+      duration_ms: 1.2177
+      type: 'test'
+      ...
+    1..4
+ok 32 - static project map
+  ---
+  duration_ms: 212.2621
+  type: 'suite'
+  ...
+# Subtest: evidence redaction
+    # Subtest: home directory in native, forward-slash and JSON-escaped forms
+    ok 1 - home directory in native, forward-slash and JSON-escaped forms
+      ---
+      duration_ms: 4.4852
+      type: 'test'
+      ...
+    # Subtest: user name as a whole word only
+    ok 2 - user name as a whole word only
+      ---
+      duration_ms: 1.0855
+      type: 'test'
+      ...
+    # Subtest: init keeps qa-agent entries and redacts unrelated plugins, servers, skills and tools
+    ok 3 - init keeps qa-agent entries and redacts unrelated plugins, servers, skills and tools
+      ---
+      duration_ms: 7.9991
+      type: 'test'
+      ...
+    # Subtest: hook output is removed, other events are untouched
+    ok 4 - hook output is removed, other events are untouched
+      ---
+      duration_ms: 2.0654
+      type: 'test'
+      ...
+    # Subtest: transcript lines are redacted and remain valid JSON
+    ok 5 - transcript lines are redacted and remain valid JSON
+      ---
+      duration_ms: 1.3305
+      type: 'test'
+      ...
+    # Subtest: credential values are masked (passed explicitly or found in QA_AGENT_ACCOUNT_*_PASSWORD)
+    ok 6 - credential values are masked (passed explicitly or found in QA_AGENT_ACCOUNT_*_PASSWORD)
+      ---
+      duration_ms: 24.2192
+      type: 'test'
+      ...
+    1..6
+ok 33 - evidence redaction
+  ---
+  duration_ms: 46.3533
+  type: 'suite'
+  ...
+# Subtest: normalisation
+    # Subtest: one result per plan case with the QA Agent status
+    ok 1 - one result per plan case with the QA Agent status
+      ---
+      duration_ms: 4.7376
+      type: 'test'
+      ...
+    # Subtest: case metadata, project-relative paths, ANSI stripped, secrets masked
+    ok 2 - case metadata, project-relative paths, ANSI stripped, secrets masked
+      ---
+      duration_ms: 3.9043
+      type: 'test'
+      ...
+    # Subtest: failure analysis: classification, confidence and evidence
+    ok 3 - failure analysis: classification, confidence and evidence
+      ---
+      duration_ms: 6.6166
+      type: 'test'
+      ...
+    # Subtest: coverage keeps generated / ready / executed / passed apart
+    ok 4 - coverage keeps generated / ready / executed / passed apart
+      ---
+      duration_ms: 3.9642
+      type: 'test'
+      ...
+    1..4
+ok 34 - normalisation
+  ---
+  duration_ms: 23.4716
+  type: 'suite'
+  ...
+# Subtest: interrupted runs
+    # Subtest: a test cut off by --global-timeout is NOT_RUN; a deliberate skip stays SKIPPED
+    ok 1 - a test cut off by --global-timeout is NOT_RUN; a deliberate skip stays SKIPPED
+      ---
+      duration_ms: 263.4068
+      type: 'test'
+      ...
+    1..1
+ok 35 - interrupted runs
+  ---
+  duration_ms: 264.2961
+  type: 'suite'
+  ...
+# Subtest: report files
+    # Subtest: JSON, Markdown and HTML agree; AI analysis is merged only when valid and for failing cases
+    ok 1 - JSON, Markdown and HTML agree; AI analysis is merged only when valid and for failing cases
+      ---
+      duration_ms: 586.4846
+      type: 'test'
+      ...
+    # Subtest: HTML escapes page-controlled text
+    ok 2 - HTML escapes page-controlled text
+      ---
+      duration_ms: 129.6283
+      type: 'test'
+      ...
+    1..2
+ok 36 - report files
+  ---
+  duration_ms: 718.8969
+  type: 'suite'
+  ...
+# Subtest: several browsers (P8-T04)
+    # Subtest: a case reports its worst browser and lists every browser
+    ok 1 - a case reports its worst browser and lists every browser
+      ---
+      duration_ms: 56.5254
+      type: 'test'
+      ...
+    1..1
+ok 37 - several browsers (P8-T04)
+  ---
+  duration_ms: 58.5038
+  type: 'suite'
+  ...
+# Subtest: requirements mapper
+    # Subtest: parses ids, fields, labelled expectations, boundaries and source lines
+    ok 1 - parses ids, fields, labelled expectations, boundaries and source lines
+      ---
+      duration_ms: 19.1827
+      type: 'test'
+      ...
+    # Subtest: links mentioned paths and UI names to map items; reports unreferenced routes
+    ok 2 - links mentioned paths and UI names to map items; reports unreferenced routes
+      ---
+      duration_ms: 4.4536
+      type: 'test'
+      ...
+    # Subtest: actor lists
+    ok 3 - actor lists
+      ---
+      duration_ms: 1.2536
+      type: 'test'
+      ...
+    1..3
+ok 38 - requirements mapper
+  ---
+  duration_ms: 29.864
+  type: 'suite'
+  ...
+# Subtest: sample app fixture (behaves as docs/requirements.md says)
+    # Subtest: AUTH-001/002/003: login, invalid login, anonymous redirect and 401
+    ok 1 - AUTH-001/002/003: login, invalid login, anonymous redirect and 401
+      ---
+      duration_ms: 242.5562
+      type: 'test'
+      ...
+    # Subtest: REQ-001..003: create, required title, amount boundaries
+    ok 2 - REQ-001..003: create, required title, amount boundaries
+      ---
+      duration_ms: 58.0352
+      type: 'test'
+      ...
+    # Subtest: APP-001..003 and VIEW-001: RBAC and decisions
+    ok 3 - APP-001..003 and VIEW-001: RBAC and decisions
+      ---
+      duration_ms: 172.1801
+      type: 'test'
+      ...
+    # Subtest: test reset only in test mode; intentional bug only when enabled
+    ok 4 - test reset only in test mode; intentional bug only when enabled
+      ---
+      duration_ms: 77.6163
+      type: 'test'
+      ...
+    1..4
+ok 39 - sample app fixture (behaves as docs/requirements.md says)
+  ---
+  duration_ms: 611.6551
+  type: 'suite'
+  ...
+# Subtest: isolation analysis
+    # Subtest: cases that create their own data are isolated; shared-list counts are serial
+    ok 1 - cases that create their own data are isolated; shared-list counts are serial
+      ---
+      duration_ms: 14.8885
+      type: 'test'
+      ...
+    # Subtest: acting on a record the case did not create, or POSTing to shared state, is serial
+    ok 2 - acting on a record the case did not create, or POSTing to shared state, is serial
+      ---
+      duration_ms: 1.6149
+      type: 'test'
+      ...
+    1..2
+ok 40 - isolation analysis
+  ---
+  duration_ms: 20.4926
+  type: 'suite'
+  ...
+# Subtest: schedule
+    # Subtest: sample plan: dependency levels, 19 parallel + 1 serial, worker budget
+    ok 1 - sample plan: dependency levels, 19 parallel + 1 serial, worker budget
+      ---
+      duration_ms: 150.4892
+      type: 'test'
+      ...
+    # Subtest: budget: workers.max=1 → 1; large max is capped at 2; one isolated case → 1
+    ok 2 - budget: workers.max=1 → 1; large max is capped at 2; one isolated case → 1
+      ---
+      duration_ms: 9.4946
+      type: 'test'
+      ...
+    # Subtest: only READY cases are scheduled; a cycle among READY cases is refused
+    ok 3 - only READY cases are scheduled; a cycle among READY cases is refused
+      ---
+      duration_ms: 5.7539
+      type: 'test'
+      ...
+    1..3
+ok 41 - schedule
+  ---
+  duration_ms: 166.7562
+  type: 'suite'
+  ...
+# Subtest: zip
+    # Subtest: round trip keeps names and bytes; garbage is rejected
+    ok 1 - round trip keeps names and bytes; garbage is rejected
+      ---
+      duration_ms: 17.9396
+      type: 'test'
+      ...
+    1..1
+ok 42 - zip
+  ---
+  duration_ms: 25.8376
+  type: 'suite'
+  ...
+# Subtest: artifact scrubber
+    # Subtest: removes credential values from traces (raw, URL-encoded, JSON-escaped), nested zips, HTML embeds and text
+    ok 1 - removes credential values from traces (raw, URL-encoded, JSON-escaped), nested zips, HTML embeds and text
+      ---
+      duration_ms: 243.2928
+      type: 'test'
+      ...
+    # Subtest: a corrupt archive is reported, not silently kept
+    ok 2 - a corrupt archive is reported, not silently kept
+      ---
+      duration_ms: 27.7234
+      type: 'test'
+      ...
+    1..2
+ok 43 - artifact scrubber
+  ---
+  duration_ms: 271.7752
+  type: 'suite'
+  ...
+# Subtest: execution policies
+    # Subtest: production is refused for live work unless explicitly allowed
+    ok 1 - production is refused for live work unless explicitly allowed
+      ---
+      duration_ms: 2.049
+      type: 'test'
+      ...
+    # Subtest: destructive steps are recognised
+    ok 2 - destructive steps are recognised
+      ---
+      duration_ms: 1.7431
+      type: 'test'
+      ...
+    # Subtest: the planner blocks destructive cases unless policy.allowDestructive
+    ok 3 - the planner blocks destructive cases unless policy.allowDestructive
+      ---
+      duration_ms: 110.3708
+      type: 'test'
+      ...
+    # Subtest: the CLI refuses live exploration of production, but a static (offline) discover is fine
+    ok 4 - the CLI refuses live exploration of production, but a static (offline) discover is fine
+      ---
+      duration_ms: 94.0813
+      type: 'test'
+      ...
+    1..4
+ok 44 - execution policies
+  ---
+  duration_ms: 211.4279
+  type: 'suite'
+  ...
+# Subtest: portability (P8-T03)
+    # Subtest: "appears on" checks the first generated value of the created record, whatever its field is
+    ok 1 - "appears on" checks the first generated value of the created record, whatever its field is
+      ---
+      duration_ms: 11.6899
+      type: 'test'
+      ...
+    1..1
+ok 45 - portability (P8-T03)
+  ---
+  duration_ms: 12.3675
+  type: 'suite'
+  ...
+# Subtest: source reader
+    # Subtest: reads docs and source, skipping secrets, binaries and excluded folders
+    ok 1 - reads docs and source, skipping secrets, binaries and excluded folders
+      ---
+      duration_ms: 321.2489
+      type: 'test'
+      ...
+    # Subtest: redacts secret-looking values inside readable files
+    ok 2 - redacts secret-looking values inside readable files
+      ---
+      duration_ms: 57.5976
+      type: 'test'
+      ...
+    # Subtest: redactSecrets handles private key blocks and JWTs
+    ok 3 - redactSecrets handles private key blocks and JWTs
+      ---
+      duration_ms: 0.5757
+      type: 'test'
+      ...
+    # Subtest: enforces size and count limits
+    ok 4 - enforces size and count limits
+      ---
+      duration_ms: 38.2084
+      type: 'test'
+      ...
+    # Subtest: never leaves the project root (.. paths and symlinks)
+    ok 5 - never leaves the project root (.. paths and symlinks) # SKIP symlinks need developer mode/admin on Windows
+      ---
+      duration_ms: 17.5685
+      type: 'test'
+      ...
+    # Subtest: secret file name rules
+    ok 6 - secret file name rules
+      ---
+      duration_ms: 0.9424
+      type: 'test'
+      ...
+    1..6
+ok 46 - source reader
+  ---
+  duration_ms: 441.0416
+  type: 'suite'
+  ...
+1..46
+# tests 153
+# suites 46
+# pass 152
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 20754.1316
+
+> qa-agent@0.1.0 test:integration
+> node --test --experimental-strip-types --disable-warning=ExperimentalWarning --test-concurrency=1 "tests/integration/**/*.test.ts"
+
+TAP version 13
+# Subtest: P8 gate: cross-browser
+    # Subtest: every case passes in Chromium, Firefox and WebKit and lists each browser
+    ok 1 - every case passes in Chromium, Firefox and WebKit and lists each browser
+      ---
+      duration_ms: 132266.8432
+      type: 'test'
+      ...
+    1..1
+ok 1 - P8 gate: cross-browser
+  ---
+  duration_ms: 132291.2193
+  type: 'suite'
+  ...
+# Subtest: P2 gate: live discovery of the sample app
+    # Subtest: discover writes a valid manifest; routes/elements trace back to observations; no secrets; no mutation
+    ok 1 - discover writes a valid manifest; routes/elements trace back to observations; no secrets; no mutation
+      ---
+      duration_ms: 6808.228
+      type: 'test'
+      ...
+    # Subtest: URLs outside allowedOrigins are refused by QA Agent and by the MCP server
+    ok 2 - URLs outside allowedOrigins are refused by QA Agent and by the MCP server
+      ---
+      duration_ms: 3763.242
+      type: 'test'
+      ...
+    1..2
+ok 2 - P2 gate: live discovery of the sample app
+  ---
+  duration_ms: 10621.7461
+  type: 'suite'
+  ...
+# Subtest: P7: full-test pipeline
+    # Subtest: runs every stage and produces the report
+    ok 1 - runs every stage and produces the report
+      ---
+      duration_ms: 34749.0948
+      type: 'test'
+      ...
+    # Subtest: --resume skips finished stages with unchanged inputs
+    ok 2 - --resume skips finished stages with unchanged inputs
+      ---
+      duration_ms: 71.2602
+      type: 'test'
+      ...
+    # Subtest: a failing stage stops the pipeline; --resume restarts from it once fixed
+    ok 3 - a failing stage stops the pipeline; --resume restarts from it once fixed
+      ---
+      duration_ms: 35608.8535
+      type: 'test'
+      ...
+    1..3
+ok 3 - P7: full-test pipeline
+  ---
+  duration_ms: 70465.7633
+  type: 'suite'
+  ...
+# Subtest: P4 gate: code generation
+    # Subtest: generated specs compile, are discovered by Playwright and match the golden files
+    ok 1 - generated specs compile, are discovered by Playwright and match the golden files
+      ---
+      duration_ms: 3975.8459
+      type: 'test'
+      ...
+    # Subtest: regeneration is stable; edited and custom files are never overwritten; stale files are removed
+    ok 2 - regeneration is stable; edited and custom files are never overwritten; stale files are removed
+      ---
+      duration_ms: 4318.3927
+      type: 'test'
+      ...
+    # Subtest: writes outside the allowlist or into read-only paths are refused
+    ok 3 - writes outside the allowlist or into read-only paths are refused
+      ---
+      duration_ms: 179.9224
+      type: 'test'
+      ...
+    # Subtest: validation reports BLOCKED when the target project has no @playwright/test
+    ok 4 - validation reports BLOCKED when the target project has no @playwright/test
+      ---
+      duration_ms: 959.3186
+      type: 'test'
+      ...
+    1..4
+ok 4 - P4 gate: code generation
+  ---
+  duration_ms: 9435.1498
+  type: 'suite'
+  ...
+# Subtest: P8 gate: second target app
+    # Subtest: discover → plan → generate → run → report passes every case of the helpdesk app
+    ok 1 - discover → plan → generate → run → report passes every case of the helpdesk app
+      ---
+      duration_ms: 32082.1307
+      type: 'test'
+      ...
+    1..1
+ok 5 - P8 gate: second target app
+  ---
+  duration_ms: 32131.18
+  type: 'suite'
+  ...
+# Subtest: P8 gate: security at the execution layer
+    # Subtest: no credential value survives in traces, HTML/JSON reports or other run artifacts
+    ok 1 - no credential value survives in traces, HTML/JSON reports or other run artifacts
+      ---
+      duration_ms: 41025.783
+      type: 'test'
+      ...
+    # Subtest: generated tests cannot reach other origins (navigation and fetch are aborted)
+    ok 2 - generated tests cannot reach other origins (navigation and fetch are aborted)
+      ---
+      duration_ms: 3136.742
+      type: 'test'
+      ...
+    1..2
+ok 6 - P8 gate: security at the execution layer
+  ---
+  duration_ms: 44760.9197
+  type: 'suite'
+  ...
+# Subtest: P5 gate: sessions, roles, orchestration
+    # Subtest: runtime: isolation, shared tabs, refresh of expired sessions, cleanup after errors
+    ok 1 - runtime: isolation, shared tabs, refresh of expired sessions, cleanup after errors
+      ---
+      duration_ms: 7920.8383
+      type: 'test'
+      ...
+    # Subtest: two-role workflow and forbidden actions pass through the scheduler (parallel + serial)
+    ok 2 - two-role workflow and forbidden actions pass through the scheduler (parallel + serial)
+      ---
+      duration_ms: 30237.2883
+      type: 'test'
+      ...
+    # Subtest: a cancelled run (global timeout) stops cleanly and the next run is clean
+    ok 3 - a cancelled run (global timeout) stops cleanly and the next run is clean
+      ---
+      duration_ms: 82762.9257
+      type: 'test'
+      ...
+    1..3
+ok 7 - P5 gate: sessions, roles, orchestration
+  ---
+  duration_ms: 121678.2126
+  type: 'suite'
+  ...
+1..7
+# tests 16
+# suites 7
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 426407.8005
+
+# exit=0

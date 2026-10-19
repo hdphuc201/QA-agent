@@ -11,6 +11,9 @@ import { assertWritable, writeProjectFile } from '../config/write-guard.ts';
 import { PW_CONFIG } from '../generator/generate.ts';
 import { resolveFromProject } from '../generator/validate.ts';
 import type { TestPlan } from '../planning/schema.ts';
+import { assertEnvironmentAllowed } from '../config/policy.ts';
+import { scrubArtifacts } from '../evidence/scrub.ts';
+import { secretValues } from '../reporting/normalize.ts';
 import { buildSchedule, type Schedule } from './scheduler.ts';
 
 export interface RunPhase {
@@ -21,6 +24,8 @@ export interface RunPhase {
   exitCode: number | null;
   resultsFile: string;
   durationMs: number;
+  /** Credential values removed from this phase's artifacts (traces, reports). */
+  scrub?: { replacements: number; files: number; errors: number };
 }
 
 export interface RunMetadata {
@@ -67,9 +72,13 @@ export function collectMetadata(
     playwrightVersion: pwPkg
       ? (JSON.parse(fs.readFileSync(pwPkg, 'utf8')) as { version: string }).version
       : null,
-    browser: env.QA_AGENT_BROWSER_CHANNEL
-      ? `chromium (channel ${env.QA_AGENT_BROWSER_CHANNEL})`
-      : 'chromium',
+    browser: config.browsers
+      .map((b) =>
+        b === 'chromium' && env.QA_AGENT_BROWSER_CHANNEL
+          ? `chromium (channel ${env.QA_AGENT_BROWSER_CHANNEL})`
+          : b,
+      )
+      .join(', '),
     buildId: env.QA_AGENT_BUILD_ID ?? (gitHead ? `git:${gitHead}` : 'unknown'),
     environment: config.environment,
   };
@@ -175,6 +184,17 @@ export async function runSuite(options: {
   };
   const specFiles = [...new Set(caseMap.cases.map((c) => path.basename(c.file)))].sort();
 
+  assertEnvironmentAllowed(config, options.env, 'run tests');
+  const secrets = secretValues(options.env);
+  // A run that was killed earlier never reached its scrub step: scrub it now.
+  const runsAbs = path.join(projectRoot, RUNS_DIR);
+  if (fs.existsSync(runsAbs)) {
+    for (const d of fs.readdirSync(runsAbs)) {
+      if (!fs.existsSync(path.join(runsAbs, d, 'run.json')))
+        scrubArtifacts(path.join(runsAbs, d), secrets);
+    }
+  }
+
   const runId = options.runId ?? newRunId();
   const runDir = `${RUNS_DIR}/${runId}`;
   const schedule = buildSchedule(plan, config);
@@ -225,6 +245,13 @@ export async function runSuite(options: {
         out: options.out,
       },
     );
+    // Traces record typed values and request bodies: remove credential values right away.
+    const scrub = scrubArtifacts(path.join(projectRoot, runDir), secrets);
+    if (scrub.replacements)
+      options.out(
+        `   scrubbed ${scrub.replacements} credential value(s) in ${scrub.filesChanged.length} artifact(s)\n`,
+      );
+    for (const e of scrub.errors) options.out(`   WARNING scrub failed: ${e}\n`);
     phases.push({
       name,
       workers,
@@ -233,6 +260,11 @@ export async function runSuite(options: {
       exitCode: code,
       resultsFile,
       durationMs: Date.now() - t0,
+      scrub: {
+        replacements: scrub.replacements,
+        files: scrub.filesChanged.length,
+        errors: scrub.errors.length,
+      },
     });
   }
   // Sessions hold cookies: the engine deletes them after every run, even a failed or interrupted one.

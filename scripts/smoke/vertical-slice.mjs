@@ -149,7 +149,10 @@ if (values.out) {
     fs.cpSync(from, path.join(out, to), {
       recursive: true,
       filter: (src) =>
-        !/[\\/](test-results|html|trace|auth)([\\/]|$)|\.zip$|\.webm$|\.png$/.test(src),
+        // Per-phase dirs are test-results-<phase>/ and html-<phase>/: exclude every variant.
+        !/[\\/](test-results[^\\/]*|html[^\\/]*|trace|auth)([\\/]|$)|\.zip$|\.webm$|\.png$/.test(
+          src,
+        ),
     });
   };
   copy(path.join(project, '.qa-agent/discovery'), 'discovery');

@@ -5,6 +5,7 @@
 import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
+import { assertEnvironmentAllowed } from '../config/policy.ts';
 import type { ProjectConfig } from '../config/project-config.schema.ts';
 import { writeProjectFile } from '../config/write-guard.ts';
 import { runDiscover } from '../discovery/discover.ts';
@@ -137,6 +138,7 @@ export async function runFullTest(options: {
       let summary = '';
       switch (stage) {
         case 'discover': {
+          if (!options.offline) assertEnvironmentAllowed(config, options.env, 'explore');
           const tools = options.offline
             ? null
             : await startPlaywrightTools({ pluginRoot: options.pluginRoot, projectRoot, config });
@@ -168,7 +170,7 @@ export async function runFullTest(options: {
             projectRoot,
             outputRoot: config.testOutputRoot,
             pluginRoot: options.pluginRoot,
-            expected: g.cases.length,
+            expected: g.cases.length * config.browsers.length, // one per browser project
           });
           if (!v.ok) throw new Error(`validation failed: ${v.problems.join('; ')}`);
           summary = `${g.cases.length} tests, type-check ok, ${v.listed} listed`;

@@ -74,7 +74,13 @@ Writes outside `.qa-agent/`, `<testOutputRoot>/` and `qa-artifacts/`, or into `r
 - Browser exploration only inside `allowedOrigins`, checked before and after navigation. Playwright MCP's own `--allowed-origins` is a second layer, not a security boundary. Exploration never opens state-changing GETs and only fills/clicks the login form.
 - No credentials in config (rejected) or outputs (masked); session caches are opt-in and purged after runs.
 - The data reset endpoint (`testData.resetPath`) is refused for `environment: production` and for base URLs outside the allowlist.
+- Generated tests can only reach `allowedOrigins`: the runtime aborts every other request (navigation, fetch, assets) and reports it.
+- `run`, live `discover` and `full-test` refuse `environment: production` unless the owner sets `QA_AGENT_ALLOW_PRODUCTION=1`. Destructive steps (Delete/Remove/… buttons, HTTP DELETE) make a case BLOCKED unless `policy.allowDestructive` is set.
+- Traces, HTML/JSON reports and other run artifacts are scrubbed of credential values after every run phase.
+- The plugin hook refuses shell commands that would print `QA_AGENT_ACCOUNT_*_PASSWORD` values or dump the environment.
 - Generated specs and plans are never edited to make results pass; edited generated files are not overwritten.
+
+Threat model: [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md).
 
 ## Development
 
@@ -82,15 +88,16 @@ Writes outside `.qa-agent/`, `<testOutputRoot>/` and `qa-artifacts/`, or into `r
 npm run typecheck · npm run lint · npm run format:check · npm run build · npm test
 node scripts/quality-gate.mjs <phase>     # all checks, logs in evidence/<phase>/
 node scripts/progress.mjs summary         # roadmap progress (see CLAUDE.md for the workflow)
+npm run bench                             # runtime/memory/flakiness baseline, evidence/P8/benchmark.md
 ```
 
 Tests use the Node test runner with TypeScript type stripping. Live tests (real browser, Playwright MCP) run by default; `QA_AGENT_SKIP_LIVE=1` skips them and they are reported as skipped. The architecture decisions are in [`docs/ADR/`](docs/ADR/). Plugin details and known limitations: [`docs/PLUGIN.md`](docs/PLUGIN.md).
 
-| Path                                                                                                                      | Purpose                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| `.claude-plugin/plugin.json`, `skills/`, `agents/`, `.mcp.json`                                                           | Claude Code plugin                                                         |
-| `src/config` · `src/discovery` · `src/planning` · `src/generator` · `src/orchestrator` · `src/reporting` · `src/sessions` | engine stages                                                              |
-| `examples/sample-app/`                                                                                                    | demo target app (fixture requirements, not a real product)                 |
-| `scripts/progress.mjs` · `scripts/quality-gate.mjs` · `scripts/smoke/`                                                    | progress CLI, gate runner, smokes and the vertical slice                   |
-| `tests/`                                                                                                                  | unit, contract, integration tests; golden generated files                  |
-| `planning/`, `docs/`, `evidence/`                                                                                         | progress state, docs (status, worklog, ADRs, reviews), acceptance evidence |
+| Path                                                                                                                                       | Purpose                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `.claude-plugin/plugin.json`, `skills/`, `agents/`, `hooks/`, `.mcp.json`                                                                  | Claude Code plugin                                                                                                      |
+| `src/config` · `src/discovery` · `src/planning` · `src/generator` · `src/orchestrator` · `src/reporting` · `src/sessions` · `src/evidence` | engine stages                                                                                                           |
+| `examples/sample-app/`, `examples/helpdesk-app/`                                                                                           | two demo target apps with different routing, labels, roles and output folders (fixture requirements, not real products) |
+| `scripts/progress.mjs` · `scripts/quality-gate.mjs` · `scripts/smoke/`                                                                     | progress CLI, gate runner, smokes and the vertical slice                                                                |
+| `tests/`                                                                                                                                   | unit, contract, integration tests; golden generated files                                                               |
+| `planning/`, `docs/`, `evidence/`                                                                                                          | progress state, docs (status, worklog, ADRs, reviews), acceptance evidence                                              |

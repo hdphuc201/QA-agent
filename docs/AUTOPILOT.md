@@ -31,10 +31,10 @@ Force-push, other remotes or branches, publish, release tags, deployment; produc
 
 Updated at every phase boundary. On a new session: restore from this section, `planning/progress.json`, `git log` and `git status`, not from chat memory.
 
-- Last completed phase: P7 — MVP release candidate (gate passed; commit "feat: reporting, full-test pipeline and MVP release candidate (P7)", pushed)
-- Current phase / task: P8 / P8-T01 (not started)
+- Last completed phase: P8 — hardening, security & scale (gate passed; commit "feat: hardening, security and scale (P8)", pushed)
+- Current phase / task: P9 / P9-T01 (not started)
 - Work in progress: none
-- Files changed since last commit: none expected after the P7 commit
-- Last test results: quality gate P7 all passed (152 tests, 151 pass, 1 skipped); in-Claude full-test smoke PASS (run 2); clean-environment reproduction ok
-- Open blockers: none
-- Next action: start P8-T01 (threat model), incl. hook-level guard against printing credentials found in P7
+- Files changed since last commit: none expected after the P8 commit (`.serena/` stays untracked)
+- Last test results: quality gate P8 all passed (unit+contract 153: 152 pass, 1 skipped; integration 16/16); cross-browser 3/3 stable after 1 cold-start flake; benchmark 12/12 runs passed
+- Open blockers: none. Owner-terminal (optional): `npm run smoke:claude-hook` proves the credential hook in a live Claude session
+- Next action: start P9-T01 (GitHub Actions: lint/typecheck/unit/integration/plugin validate; install Chrome + Firefox + WebKit in CI)

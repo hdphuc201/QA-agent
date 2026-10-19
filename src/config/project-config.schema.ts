@@ -75,6 +75,16 @@ export const ProjectConfigSchema = z
         purgeAfterRun: z.boolean().default(true),
       })
       .default({ cache: false, maxAgeMinutes: 15, verifyPath: '/', purgeAfterRun: true }),
+    /** Browser engines every generated test runs in (one Playwright project each). */
+    browsers: z
+      .array(z.enum(['chromium', 'firefox', 'webkit']))
+      .min(1)
+      .refine((b) => new Set(b).size === b.length, 'browsers must be unique')
+      .default(['chromium']),
+    /** Destructive steps (delete/remove/… buttons, HTTP DELETE) are BLOCKED unless allowed here. */
+    policy: z
+      .strictObject({ allowDestructive: z.boolean().default(false) })
+      .default({ allowDestructive: false }),
     /** Test data lifecycle: POST <resetPath> before and/or after a run (never on production). */
     testData: z
       .strictObject({

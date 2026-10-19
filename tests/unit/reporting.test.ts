@@ -341,3 +341,46 @@ describe('report files', () => {
     assert.match(reportToMarkdown(report), /# QA report — sample-approvals — run-test-0001/);
   });
 });
+
+describe('several browsers (P8-T04)', () => {
+  test('a case reports its worst browser and lists every browser', () => {
+    const { root, runId } = fakeRun();
+    const runDir = path.join(root, 'qa-artifacts/runs', runId);
+    const id = 'DEMO-REQ-REQ-001-001';
+    const test3 = (projectName: string, status: string, r: object) => ({
+      projectName,
+      status,
+      results: [r],
+    });
+    const report = {
+      suites: [
+        {
+          specs: [
+            {
+              title: `${id} x`,
+              tests: [
+                test3('chromium', 'expected', res('passed')),
+                test3(
+                  'firefox',
+                  'unexpected',
+                  res('failed', { error: { message: 'boom in firefox' } }),
+                ),
+                test3('webkit', 'expected', res('passed')),
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    fs.writeFileSync(path.join(runDir, 'results-parallel.json'), JSON.stringify(report));
+    const record = JSON.parse(fs.readFileSync(path.join(runDir, 'run.json'), 'utf8')) as RunRecord;
+    const r = normalizeRun({ projectRoot: root, record, plan, env: ENV }).find(
+      (x) => x.caseId === id,
+    );
+    assert.equal(r?.status, 'FAIL', 'a pass in another browser never hides a failure');
+    assert.equal(r?.browser, 'firefox');
+    assert.match(r?.error?.message ?? '', /boom in firefox/);
+    assert.deepEqual(r?.byBrowser, { chromium: 'PASS', firefox: 'FAIL', webkit: 'PASS' });
+    assert.equal(r?.attempts, 3);
+  });
+});

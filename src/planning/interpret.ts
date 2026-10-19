@@ -17,6 +17,8 @@ export interface InterpretedExpected {
 }
 
 const METHOD = '(GET|POST|PUT|PATCH|DELETE)';
+/** Placeholder for "the value that identifies the created record" (first unique field). */
+export const RECORD_REF = 'data.*';
 const ACTION_VERBS = 'signs|opens|submits|enters|clicks|tries|selects|types';
 
 /** "<id>" placeholders → subject reference. */
@@ -192,7 +194,8 @@ export function interpretExpected(
     asserts.push({ kind: 'url', as, path: m[1] });
   if ((m = /appears on [\w ]*?`([^`]+)`/i.exec(s))?.[1]) {
     before.push({ do: 'goto', as, path: m[1] });
-    asserts.push({ kind: 'text', as, value: { ref: 'data.title' } });
+    // The created record is recognised by its first generated value (resolved by the planner).
+    asserts.push({ kind: 'text', as, value: { ref: RECORD_REF } });
   }
   if ((m = /the heading "([^"]+)"/i.exec(s))?.[1])
     asserts.push({ kind: 'heading', as, name: m[1] });

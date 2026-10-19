@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "projectId": "helpdesk",
+  "framework": "node-http (express-style router)",
+  "environment": "local",
+  "baseURL": "http://127.0.0.1:4200/",
+  "allowedOrigins": ["http://127.0.0.1:4200"],
+  "docsPaths": ["docs"],
+  "sourcePaths": ["server.mjs"],
+  "testOutputRoot": "tests/qa",
+  "readOnlyPaths": ["docs", "server.mjs"],
+  "roles": [
+    { "name": "customer", "accountKey": "helpdesk.customer" },
+    { "name": "agent", "accountKey": "helpdesk.agent" },
+    { "name": "auditor", "accountKey": "helpdesk.auditor" }
+  ],
+  "workers": { "max": 2, "writeHeavy": 1 },
+  "session": { "cache": true, "verifyPath": "/tickets" },
+  "testData": { "resetPath": "/__qa/reset", "resetOn": "before" },
+  "exploration": {
+    "maxPages": 10,
+    "authRole": "customer",
+    "auth": {
+      "loginPath": "/signin",
+      "usernameLabel": "Email",
+      "passwordLabel": "Passphrase",
+      "submitButton": "Log in"
+    }
+  }
+}

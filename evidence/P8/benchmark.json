@@ -1,0 +1,292 @@
+{
+  "generatedAt": "2026-10-19T17:05:23.234Z",
+  "machine": {
+    "platform": "win32 x64",
+    "cpus": 14,
+    "totalMemGB": 16,
+    "node": "v22.15.0"
+  },
+  "runsPerWorkerSetting": 3,
+  "engineMaxRssMB": 109,
+  "apps": [
+    {
+      "app": "sample-app",
+      "stages": {
+        "discover": {
+          "live": true,
+          "ms": 8468,
+          "sysPeakMB": 430,
+          "observedPages": 7,
+          "routes": 17
+        },
+        "plan": {
+          "ms": 165,
+          "cases": 22,
+          "ready": 20
+        },
+        "generateAndValidate": {
+          "ms": 9619,
+          "tests": 20,
+          "valid": true
+        }
+      },
+      "regression": [
+        {
+          "workers": 1,
+          "run": 1,
+          "ms": 47623,
+          "sysPeakMB": 506,
+          "exitCode": 0,
+          "generated": 22,
+          "ready": 20,
+          "executed": 20,
+          "passed": 20,
+          "failed": [],
+          "blocked": 0,
+          "skipped": 0,
+          "notRun": 2,
+          "flaky": 0
+        },
+        {
+          "workers": 1,
+          "run": 2,
+          "ms": 93525,
+          "sysPeakMB": 1234,
+          "exitCode": 0,
+          "generated": 22,
+          "ready": 20,
+          "executed": 20,
+          "passed": 20,
+          "failed": [],
+          "blocked": 0,
+          "skipped": 0,
+          "notRun": 2,
+          "flaky": 0
+        },
+        {
+          "workers": 1,
+          "run": 3,
+          "ms": 66383,
+          "sysPeakMB": 1679,
+          "exitCode": 0,
+          "generated": 22,
+          "ready": 20,
+          "executed": 20,
+          "passed": 20,
+          "failed": [],
+          "blocked": 0,
+          "skipped": 0,
+          "notRun": 2,
+          "flaky": 0
+        },
+        {
+          "workers": 2,
+          "run": 1,
+          "ms": 52717,
+          "sysPeakMB": 1053,
+          "exitCode": 0,
+          "generated": 22,
+          "ready": 20,
+          "executed": 20,
+          "passed": 20,
+          "failed": [],
+          "blocked": 0,
+          "skipped": 0,
+          "notRun": 2,
+          "flaky": 0
+        },
+        {
+          "workers": 2,
+          "run": 2,
+          "ms": 53826,
+          "sysPeakMB": 1476,
+          "exitCode": 0,
+          "generated": 22,
+          "ready": 20,
+          "executed": 20,
+          "passed": 20,
+          "failed": [],
+          "blocked": 0,
+          "skipped": 0,
+          "notRun": 2,
+          "flaky": 0
+        },
+        {
+          "workers": 2,
+          "run": 3,
+          "ms": 67950,
+          "sysPeakMB": 793,
+          "exitCode": 0,
+          "generated": 22,
+          "ready": 20,
+          "executed": 20,
+          "passed": 20,
+          "failed": [],
+          "blocked": 0,
+          "skipped": 0,
+          "notRun": 2,
+          "flaky": 0
+        }
+      ]
+    },
+    {
+      "app": "helpdesk-app",
+      "stages": {
+        "discover": {
+          "live": true,
+          "ms": 26161,
+          "sysPeakMB": 635,
+          "observedPages": 5,
+          "routes": 13
+        },
+        "plan": {
+          "ms": 89,
+          "cases": 17,
+          "ready": 17
+        },
+        "generateAndValidate": {
+          "ms": 8884,
+          "tests": 17,
+          "valid": true
+        }
+      },
+      "regression": [
+        {
+          "workers": 1,
+          "run": 1,
+          "ms": 50966,
+          "sysPeakMB": 1139,
+          "exitCode": 0,
+          "generated": 17,
+          "ready": 17,
+          "executed": 17,
+          "passed": 17,
+          "failed": [],
+          "blocked": 0,
+          "skipped": 0,
+          "notRun": 0,
+          "flaky": 0
+        },
+        {
+          "workers": 1,
+          "run": 2,
+          "ms": 52554,
+          "sysPeakMB": 987,
+          "exitCode": 0,
+          "generated": 17,
+          "ready": 17,
+          "executed": 17,
+          "passed": 17,
+          "failed": [],
+          "blocked": 0,
+          "skipped": 0,
+          "notRun": 0,
+          "flaky": 0
+        },
+        {
+          "workers": 1,
+          "run": 3,
+          "ms": 40908,
+          "sysPeakMB": 885,
+          "exitCode": 0,
+          "generated": 17,
+          "ready": 17,
+          "executed": 17,
+          "passed": 17,
+          "failed": [],
+          "blocked": 0,
+          "skipped": 0,
+          "notRun": 0,
+          "flaky": 0
+        },
+        {
+          "workers": 2,
+          "run": 1,
+          "ms": 44169,
+          "sysPeakMB": 892,
+          "exitCode": 0,
+          "generated": 17,
+          "ready": 17,
+          "executed": 17,
+          "passed": 17,
+          "failed": [],
+          "blocked": 0,
+          "skipped": 0,
+          "notRun": 0,
+          "flaky": 0
+        },
+        {
+          "workers": 2,
+          "run": 2,
+          "ms": 40455,
+          "sysPeakMB": 792,
+          "exitCode": 0,
+          "generated": 17,
+          "ready": 17,
+          "executed": 17,
+          "passed": 17,
+          "failed": [],
+          "blocked": 0,
+          "skipped": 0,
+          "notRun": 0,
+          "flaky": 0
+        },
+        {
+          "workers": 2,
+          "run": 3,
+          "ms": 30097,
+          "sysPeakMB": 1015,
+          "exitCode": 0,
+          "generated": 17,
+          "ready": 17,
+          "executed": 17,
+          "passed": 17,
+          "failed": [],
+          "blocked": 0,
+          "skipped": 0,
+          "notRun": 0,
+          "flaky": 0
+        }
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "label": "plugin smoke (P1, skill discovery + 1 MCP call)",
+      "source": "evidence/P1/claude-plugin-smoke.jsonl",
+      "model": "claude-sonnet-4-6",
+      "costUsd": 0.11237525000000001,
+      "turns": 5,
+      "durationMs": 33015,
+      "inputTokens": 14,
+      "outputTokens": 605,
+      "cacheReadTokens": 49523,
+      "cacheWriteTokens": 11587
+    },
+    {
+      "label": "full-test in Claude, run 1 (P7, no failure analysis)",
+      "source": "evidence/P7/claude-fulltest-smoke-run1.jsonl",
+      "model": "claude-sonnet-4-6",
+      "costUsd": 0.26088775,
+      "turns": 11,
+      "durationMs": 121009,
+      "inputTokens": 10,
+      "outputTokens": 2297,
+      "cacheReadTokens": 97613,
+      "cacheWriteTokens": 24737
+    },
+    {
+      "label": "full-test in Claude, run 2 (P7, with failure-analyzer subagent)",
+      "source": "evidence/P7/claude-fulltest-smoke.jsonl",
+      "model": "claude-sonnet-4-6",
+      "costUsd": 0.67583975,
+      "turns": 14,
+      "durationMs": 208461,
+      "inputTokens": 21,
+      "outputTokens": 3781,
+      "cacheReadTokens": 225191,
+      "cacheWriteTokens": 29216
+    }
+  ],
+  "totalMs": 696299
+}

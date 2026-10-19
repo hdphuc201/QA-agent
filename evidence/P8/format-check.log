@@ -1,0 +1,10 @@
+$ npm.cmd run format:check
+# started 2026-10-19T17:08:13.766Z node v22.15.0 on win32
+
+> qa-agent@0.1.0 format:check
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+
+# exit=0

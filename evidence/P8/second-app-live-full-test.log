@@ -1,0 +1,55 @@
+# live: HELPDESK_TEST_MODE=1 node examples/helpdesk-app/server.mjs 4200; qa-agent full-test --project examples/helpdesk-app (live Playwright MCP discovery, chrome)
+== discover
+   13 routes, 5 observed page(s), auth signed-in
+== plan
+   17 cases, 17 READY
+== generate
+   17 tests, type-check ok, 17 listed
+== run
+
+== parallel: 15 case(s), 2 worker(s)
+
+Running 15 tests using 2 workers
+
+  ok  2 [chromium] › tests\qa\access.spec.ts:17:3 › Access › HD-REQ-ACC-001-001 Log in @P0 @happy @HD-REQ-ACC-001 (3.3s)
+  ok  1 [chromium] › tests\qa\audit.spec.ts:17:3 › Audit › HD-REQ-AUD-001-001 Auditors are read-only — the auditor has no "Open a ticket" link on `/tickets` @P1 @rbac @HD-REQ-AUD-001 (3.4s)
+  ok  4 [chromium] › tests\qa\audit.spec.ts:39:3 › Audit › HD-REQ-AUD-001-002 Auditors are read-only — `POST /api/tickets` returns HTTP 403 for the auditor @P1 @rbac @HD-REQ-AUD-001 (1.2s)
+  ok  3 [chromium] › tests\qa\access.spec.ts:46:3 › Access › HD-REQ-ACC-002-001 Wrong passphrase @P1 @negative @HD-REQ-ACC-002 (1.8s)
+
+  ok  6 [chromium] › tests\qa\access.spec.ts:72:3 › Access › HD-REQ-ACC-003-001 Anonymous users are sent to the login page @P0 @rbac @HD-REQ-ACC-003 (994ms)
+  ok  7 [chromium] › tests\qa\access.spec.ts:92:3 › Access › HD-REQ-ACC-003-002 Anonymous users are sent to the login page — API denies access @P0 @rbac @HD-REQ-ACC-003 (209ms)
+  ok  5 [chromium] › tests\qa\tickets.spec.ts:17:3 › Tickets › HD-REQ-TCK-001-001 Open a ticket @P0 @happy @HD-REQ-TCK-001 (2.0s)
+  ok  8 [chromium] › tests\qa\tickets.spec.ts:52:3 › Tickets › HD-REQ-TCK-002-001 Severity limits — severity 1 (accepted) @P1 @boundary @HD-REQ-TCK-002 (1.6s)
+  ok  9 [chromium] › tests\qa\tickets.spec.ts:80:3 › Tickets › HD-REQ-TCK-002-002 Severity limits — severity 4 (accepted) @P1 @boundary @HD-REQ-TCK-002 (1.8s)
+  ok 10 [chromium] › tests\qa\tickets.spec.ts:184:3 › Tickets › HD-REQ-TCK-003-001 Agent closes a ticket @P0 @state-transition @HD-REQ-TCK-003 (4.2s)
+  ok 11 [chromium] › tests\qa\tickets.spec.ts:230:3 › Tickets › HD-REQ-TCK-003-002 Agent closes a ticket — API rejects invalid input @P0 @negative @HD-REQ-TCK-003 (2.1s)
+  ok 12 [chromium] › tests\qa\tickets.spec.ts:271:3 › Tickets › HD-REQ-TCK-004-001 Only agents close tickets — as customer @P0 @rbac @HD-REQ-TCK-004 (1.3s)
+  ok 13 [chromium] › tests\qa\tickets.spec.ts:304:3 › Tickets › HD-REQ-TCK-004-002 Only agents close tickets — as customer — API denies access @P0 @rbac @HD-REQ-TCK-004 (1.2s)
+  ok 14 [chromium] › tests\qa\tickets.spec.ts:339:3 › Tickets › HD-REQ-TCK-004-003 Only agents close tickets — as auditor @P0 @rbac @HD-REQ-TCK-004 (2.2s)
+  ok 15 [chromium] › tests\qa\tickets.spec.ts:374:3 › Tickets › HD-REQ-TCK-004-004 Only agents close tickets — as auditor — API denies access @P0 @rbac @HD-REQ-TCK-004 (2.2s)
+
+  15 passed (27.1s)
+   scrubbed 4 credential value(s) in 1 artifact(s)
+
+== serial: 2 case(s), 1 worker(s)
+
+Running 2 tests using 1 worker
+
+  ok 1 [chromium] › tests\qa\tickets.spec.ts:108:3 › Tickets › HD-REQ-TCK-002-003 Severity limits — severity 0 (rejected) @P1 @boundary @serial @HD-REQ-TCK-002 (1.8s)
+
+  ok 2 [chromium] › tests\qa\tickets.spec.ts:146:3 › Tickets › HD-REQ-TCK-002-004 Severity limits — severity 5 (rejected) @P1 @boundary @serial @HD-REQ-TCK-002 (1.1s)
+
+
+  2 passed (5.0s)
+   scrubbed 1 credential value(s) in 1 artifact(s)
+   run-20261019T154440-cxxg: parallel exit=0, serial exit=0
+== report
+   passed 17/17, failed 0, blocked 0, not run 0
+full-test: all stages completed
+  ran: discover, plan, generate, run, report; resumed: —
+  report: qa-artifacts\runs\run-20261019T154440-cxxg\report\results.json
+  report: qa-artifacts\runs\run-20261019T154440-cxxg\report\summary.md
+  report: qa-artifacts\runs\run-20261019T154440-cxxg\report\report.html
+  state: .qa-agent/full-test-state.json
+
+# exit=0

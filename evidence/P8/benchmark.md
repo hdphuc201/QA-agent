@@ -1,0 +1,27 @@
+# QA Agent benchmark (2026-10-19T17:05:23.234Z)
+
+Machine: win32 x64, 14 CPUs, 16 GB, Node v22.15.0. Engine peak RSS (whole benchmark process): 109 MB. "sys peak" = peak growth of used system memory during the step (browsers included; noisy).
+
+## Stages (first pass)
+
+| App | Discover | Plan | Generate + validate |
+| --- | --- | --- | --- |
+| sample-app | 8.5s (live, 7 pages, sys peak 430 MB) | 165 ms (20/22 READY) | 9.6s (20 tests, valid true) |
+| helpdesk-app | 26.2s (live, 5 pages, sys peak 635 MB) | 89 ms (17/17 READY) | 8.9s (17 tests, valid true) |
+
+## Regression runs (3 per worker setting)
+
+| App | Workers (isolated phase) | Median wall time | Min–max | Sys peak (max) | Passed (each run) | Failed runs | Flaky |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| sample-app | 1 | 66.4s | 47.6–93.5s | 1679 MB | 20/20, 20/20, 20/20 | 0 | 0 |
+| sample-app | 2 | 53.8s | 52.7–68.0s | 1476 MB | 20/20, 20/20, 20/20 | 0 | 0 |
+| helpdesk-app | 1 | 51.0s | 40.9–52.6s | 1139 MB | 17/17, 17/17, 17/17 | 0 | 0 |
+| helpdesk-app | 2 | 40.5s | 30.1–44.2s | 1015 MB | 17/17, 17/17, 17/17 | 0 | 0 |
+
+## Token consumption (model use happens only in Claude sessions; the engine itself uses none)
+
+| Session | Model | Cost (USD) | Turns | Duration | Output tokens | Cache read | Cache write |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| plugin smoke (P1, skill discovery + 1 MCP call) | claude-sonnet-4-6 | 0.11 | 5 | 33s | 605 | 49523 | 11587 |
+| full-test in Claude, run 1 (P7, no failure analysis) | claude-sonnet-4-6 | 0.26 | 11 | 121s | 2297 | 97613 | 24737 |
+| full-test in Claude, run 2 (P7, with failure-analyzer subagent) | claude-sonnet-4-6 | 0.68 | 14 | 208s | 3781 | 225191 | 29216 |
