@@ -2,12 +2,12 @@
 
 # QA Agent — Project Status
 
-- State revision: 131
-- Last update: 2026-10-19T18:24:19.282Z
+- State revision: 134
+- Last update: 2026-10-19T18:36:55.587Z
 - Active phase: P9 — CI/CD, PACKAGING & v1.0
-- Task progress: 61/62 completed (98.4%) — share of roadmap tasks, not test coverage
+- Task progress: 62/62 completed (100.0%) — share of roadmap tasks, not test coverage
 - In progress: 0 · Blocked: 0
-- Latest gate decision: P8 passed at 2026-10-19T17:16:14.691Z — docs/PHASE_REVIEWS/P8.md; node scripts/quality-gate.mjs P8 exit=0 (evidence/P8/test.log); execution-layer policies, 2 target apps, benchmark baseline evidence/P8/benchmark.md, no secret leak via artifacts (tests/integration/security-live.test.ts)
+- Latest gate decision: P9 passed at 2026-10-19T18:36:55.570Z — docs/PHASE_REVIEWS/P9.md; CI pass evidence/P9/ci-run-2.log; install smoke tests pass evidence/P9/install-smoke-github.json; reproducible docs docs/TUTORIAL.md + docs/FINAL_PROJECT_REPORT.md; dry-run evidence/P9/release-dry-run.json; no tag/publish (owner request required)
 
 ## Phases
 
@@ -22,7 +22,7 @@
 | P6 | END-TO-END HYBRID VERTICAL SLICE (MVP CORE) | completed | passed | 6/6 |
 | P7 | EVIDENCE, REPORTING & MVP RELEASE CANDIDATE | completed | passed | 6/6 |
 | P8 | HARDENING, SECURITY & CROSS-PROJECT TESTING | completed | passed | 7/7 |
-| P9 | CI/CD, PACKAGING & v1.0 | in_progress | pending | 5/6 |
+| P9 | CI/CD, PACKAGING & v1.0 | completed | passed | 6/6 |
 
 ## In progress
 
@@ -144,4 +144,4 @@ _None_
 | P9-T03 | completed | Package/version plugin; test install từ directory/marketplace theo docs hiện hành; release notes/CHANGELOG. | bin/qa-agent.mjs bundle (scripts/bundle.mjs, CI bundle:check) + .claude-plugin/marketplace.json + version 1.0.0 + CHANGELOG.md; scripts/smoke/install-smoke.mjs PASS on 9f3f50b: clean git clone, claude plugin marketplace add + install into isolated CLAUDE_CONFIG_DIR, installed copy without node_modules, installed engine full-test 17 of 17 in a fresh target with only @playwright/test, uninstall exit=0 — evidence/P9/install-smoke.json; packaging decisions docs/ADR/0008-packaging.md |
 | P9-T04 | completed | Viết tutorial cài đặt vào 2 target projects, example config và CLI usage. | docs/TUTORIAL.md: install from the GitHub marketplace, project A (approvals) and project B (helpdesk) with configs, credentials, Claude and CLI usage, cross-browser, own project, troubleshooting; project B flow reproduced by the install smoke (evidence/P9/install-smoke.json), project A flow by the vertical slice in CI (evidence/P9/ci-run-1.log); README links it |
 | P9-T05 | completed | Release dry-run, compatibility matrix, licensing/security checklist. **Không publish thật nếu chưa được người dùng đồng ý.** | scripts/release-dry-run.mjs exit=0 DRY-RUN OK for 1.0.0: clean tree, versions agree, bundle fresh, plugin validate, secret/personal-path scan of 434 tracked files, permissive licenses, archive sha256 recorded, nothing tagged or published — evidence/P9/release-dry-run.json; compatibility matrix + licensing/security checklists in docs/RELEASE.md (project license = owner decision) |
-| P9-T06 | not_started | Final readiness review và `v1.0` gate. | — |
+| P9-T06 | completed | Final readiness review và `v1.0` gate. | final readiness review in docs/PHASE_REVIEWS/P9.md; docs/FINAL_PROJECT_REPORT.md; quality gate P9 exit=0 (evidence/P9/test.log); CI run 39302621730 success (evidence/P9/ci-run-2.log); install smokes PASS (evidence/P9/install-smoke.json, evidence/P9/install-smoke-github.json); release dry-run OK (evidence/P9/release-dry-run.json) |

@@ -1,0 +1,24 @@
+{
+  "startedAt": "2026-10-19T18:27:21.941Z",
+  "source": "hdphuc201/QA-agent",
+  "installed": true,
+  "version": "1.0.0",
+  "layout": {
+    "noNodeModules": true,
+    "noLocalArtifacts": true,
+    "bundle": true,
+    "skills": true,
+    "agent": true,
+    "hook": true,
+    "runtime": true
+  },
+  "targetDeps": "@playwright/test@1.63.0 only",
+  "fullTest": {
+    "exit": 0,
+    "report": "passed 17/17",
+    "typecheck": "not run (no TypeScript in target)"
+  },
+  "generatedIn": "tests/qa",
+  "uninstalled": true,
+  "pass": true
+}

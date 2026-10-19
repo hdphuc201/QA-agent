@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "project": "qa-agent",
   "activePhase": "P9",
-  "updatedAt": "2026-10-19T18:24:19.282Z",
-  "revision": 131,
+  "updatedAt": "2026-10-19T18:36:55.587Z",
+  "revision": 134,
   "phases": {
     "P0": {
       "title": "BOOTSTRAP & AUTOMATED PROGRESS",
@@ -1015,11 +1015,17 @@
     },
     "P9": {
       "title": "CI/CD, PACKAGING & v1.0",
-      "status": "in_progress",
-      "gate": "pending",
-      "gateEvidence": [],
+      "status": "completed",
+      "gate": "passed",
+      "gateEvidence": [
+        {
+          "at": "2026-10-19T18:36:55.570Z",
+          "decision": "passed",
+          "text": "docs/PHASE_REVIEWS/P9.md; CI pass evidence/P9/ci-run-2.log; install smoke tests pass evidence/P9/install-smoke-github.json; reproducible docs docs/TUTORIAL.md + docs/FINAL_PROJECT_REPORT.md; dry-run evidence/P9/release-dry-run.json; no tag/publish (owner request required)"
+        }
+      ],
       "startedAt": "2026-10-19T17:17:05.343Z",
-      "completedAt": null,
+      "completedAt": "2026-10-19T18:36:55.570Z",
       "tasks": {
         "P9-T01": {
           "title": "Setup GitHub Actions hoặc CI tương đương theo nền tảng được phép: lint/typecheck/unit/integration/plugin validate.",
@@ -1088,11 +1094,16 @@
         },
         "P9-T06": {
           "title": "Final readiness review và `v1.0` gate.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T18:36:55.453Z",
+              "text": "final readiness review in docs/PHASE_REVIEWS/P9.md; docs/FINAL_PROJECT_REPORT.md; quality gate P9 exit=0 (evidence/P9/test.log); CI run 39302621730 success (evidence/P9/ci-run-2.log); install smokes PASS (evidence/P9/install-smoke.json, evidence/P9/install-smoke-github.json); release dry-run OK (evidence/P9/release-dry-run.json)"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T18:29:16.833Z",
+          "completedAt": "2026-10-19T18:36:55.453Z"
         }
       }
     }

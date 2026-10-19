@@ -31,10 +31,10 @@ Force-push, other remotes or branches, publish, release tags, deployment; produc
 
 Updated at every phase boundary. On a new session: restore from this section, `planning/progress.json`, `git log` and `git status`, not from chat memory.
 
-- Last completed phase: P8 — hardening, security & scale (gate passed; commit "feat: hardening, security and scale (P8)", pushed)
-- Current phase / task: P9 / P9-T01 (not started)
+- Last completed phase: P9 — CI/CD, packaging & v1.0 (gate passed; all phases P0–P9 passed; v1.0.0 release candidate on main, pushed; NOT tagged or published)
+- Current phase / task: none — roadmap complete
 - Work in progress: none
-- Files changed since last commit: none expected after the P8 commit (`.serena/` stays untracked)
-- Last test results: quality gate P8 all passed (unit+contract 153: 152 pass, 1 skipped; integration 16/16); cross-browser 3/3 stable after 1 cold-start flake; benchmark 12/12 runs passed
-- Open blockers: none. Owner-terminal (optional): `npm run smoke:claude-hook` proves the credential hook in a live Claude session
-- Next action: start P9-T01 (GitHub Actions: lint/typecheck/unit/integration/plugin validate; install Chrome + Firefox + WebKit in CI)
+- Files changed since last commit: none expected after the P9 commit (`.serena/` stays untracked)
+- Last test results: quality gate P9 all passed (unit+contract 157: 156 pass, 1 skipped; integration 16/16); CI run 39302621730 success; install smokes (local clone + GitHub) PASS; release dry-run OK
+- Open blockers: none. Owner decisions: project license; optional `npm run smoke:claude-hook`; tag v1.0.0 / GitHub release only on explicit request
+- Next action: none until the owner requests a release or new scope (propose scope changes as ADRs)

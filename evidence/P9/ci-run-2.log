@@ -1,0 +1,50 @@
+# GitHub Actions run 39302621730 (commit 7d561ca, 1.0.0 release candidate)
+# https://github.com/hdphuc201/QA-agent/actions/runs/39302621730
+conclusion: success
+checks (ubuntu-latest): success (2026-10-19T18:27:48Z -> 2026-10-19T18:28:20Z)
+checks (windows-latest): success (2026-10-19T18:27:48Z -> 2026-10-19T18:29:04Z)
+integration: success (2026-10-19T18:29:08Z -> 2026-10-19T18:35:07Z)
+  [job 118231677721] checks (ubuntu-latest)	bundled engine (bin/qa-agent.mjs) is up to date	﻿2026-10-19T18:28:08.5124700Z ##[group]Run npm run bundle:check
+  [job 118231677721] [36;1mnpm run bundle:check[0m
+  [job 118231677721] shell: /usr/bin/bash -e {0}
+  [job 118231677721] env:
+  [job 118231677721]   FORCE_COLOR: 0
+  [job 118231677721]   CLAUDE_CODE_VERSION: 2.1.71
+  [job 118231677721] ##[endgroup]
+  [job 118231677721] 
+  [job 118231677721] > qa-agent@1.0.0 bundle:check
+  [job 118231677721] > node scripts/bundle.mjs --check
+  [job 118231677721] 
+  [job 118231677721] bin/qa-agent.mjs is up to date
+  [job 118231677721] ℹ tests 157
+  [job 118231677721] ℹ pass 157
+  [job 118231677721] ℹ fail 0
+  [job 118231677721] ℹ skipped 0
+  [job 118231677721] ✔ Validation passed
+  [job 118231677721] check OK
+  [job 118231677969] checks (windows-latest)	bundled engine (bin/qa-agent.mjs) is up to date	﻿2026-10-19T18:28:40.1009843Z ##[group]Run npm run bundle:check
+  [job 118231677969] [36;1mnpm run bundle:check[0m
+  [job 118231677969] shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+  [job 118231677969] env:
+  [job 118231677969]   FORCE_COLOR: 0
+  [job 118231677969]   CLAUDE_CODE_VERSION: 2.1.71
+  [job 118231677969] ##[endgroup]
+  [job 118231677969] 
+  [job 118231677969] > qa-agent@1.0.0 bundle:check
+  [job 118231677969] > node scripts/bundle.mjs --check
+  [job 118231677969] 
+  [job 118231677969] bin/qa-agent.mjs is up to date
+  [job 118231677969] ℹ tests 157
+  [job 118231677969] ℹ pass 157
+  [job 118231677969] ℹ fail 0
+  [job 118231677969] ℹ skipped 0
+  [job 118231677969] √ Validation passed
+  [job 118231677969] check OK
+  [job 118232323490] ℹ tests 16
+  [job 118232323490] ℹ pass 16
+  [job 118232323490] ℹ fail 0
+  [job 118232323490] ℹ skipped 0
+  [job 118232323490]   "ok": true
+artifact integration-results 53686 bytes, expires 2026-11-02T18:34:37Z
+artifact junit-unit-windows-latest 6482 bytes, expires 2026-11-02T18:28:59Z
+artifact junit-unit-ubuntu-latest 6409 bytes, expires 2026-11-02T18:28:17Z
