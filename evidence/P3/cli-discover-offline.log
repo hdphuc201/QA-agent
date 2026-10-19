@@ -1,0 +1,9 @@
+$ npm run -s qa -- discover --project <HOME>/AppData/Local/Temp/claude/d--Coding-Phuc-Huynh-QA-agent/4aad6c9d-cf8e-40ad-8d1c-90a8df677185/scratchpad/p3 sample --offline
+# started 2026-10-19T09:39:32Z node v22.15.0 on MINGW64_NT-10.0-26200
+discover: sample-approvals
+  sources read: 2, skipped: 0
+  routes: 17 (observed live: 0), forms: 5, ui: 7, roles: 4
+  live exploration: off (--offline)
+  wrote .qa-agent\discovery\project-map.json
+  wrote .qa-agent\discovery\observations.json
+# exit=0

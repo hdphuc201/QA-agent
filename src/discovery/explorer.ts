@@ -56,6 +56,8 @@ export interface BrowserTools {
   close(): Promise<void>;
 }
 
+export const LAUNCH_TIMEOUT_MS = 120_000;
+
 const ALLOWED_TOOLS = new Set([
   'browser_navigate',
   'browser_snapshot',
@@ -99,6 +101,7 @@ export async function explore(options: ExploreOptions): Promise<ExplorationResul
   };
   const { timeoutMs, retries, maxPages } = config.exploration;
   let loginFlowActive = false;
+  let browserStarted = false;
 
   const call = async (
     tool: string,
@@ -115,7 +118,10 @@ export async function explore(options: ExploreOptions): Promise<ExplorationResul
     let lastResult: ToolResult | null = null;
     for (let attempt = 0; attempt <= retries; attempt++) {
       try {
-        const r = await withTimeout(tools.callTool(tool, args), timeoutMs, tool);
+        // The first call launches the browser, which is slow on a loaded machine: allow at least 2 min.
+        const limit = browserStarted ? timeoutMs : Math.max(timeoutMs, LAUNCH_TIMEOUT_MS);
+        const r = await withTimeout(tools.callTool(tool, args), limit, tool);
+        browserStarted = true;
         lastResult = { text: maskValues(r.text, secrets), isError: r.isError };
         // A navigation error right after another failed navigation is often transient
         // (aborted load); blocked origins are final and must not be retried.
@@ -123,6 +129,7 @@ export async function explore(options: ExploreOptions): Promise<ExplorationResul
           r.isError &&
           tool === 'browser_navigate' &&
           !/ERR_BLOCKED_BY_CLIENT/.test(r.text) &&
+          !redirectTarget(r.text) &&
           attempt < retries
         )
           continue;
@@ -160,8 +167,11 @@ export async function explore(options: ExploreOptions): Promise<ExplorationResul
     }
     visited.add(`${as} ${href}`);
     const nav = await call('browser_navigate', { url: href }, href);
-    const landed = parseSnapshot(nav.text).url;
-    if (nav.isError) {
+    // A server redirect can surface as "interrupted by another navigation to <target>": that is a
+    // redirect, not a failure. The target still goes through the allowlist check below.
+    const redirectedTo = nav.isError ? redirectTarget(nav.text) : null;
+    const landed = redirectedTo ?? parseSnapshot(nav.text).url;
+    if (nav.isError && !redirectedTo) {
       result.blocked.push({ kind: 'blocked', url: href, reason: firstLine(nav.text), as });
       return null;
     }
@@ -301,6 +311,14 @@ export async function explore(options: ExploreOptions): Promise<ExplorationResul
   return result;
 }
 
+/** Target URL of a navigation that Playwright reports as interrupted by another navigation. */
+export function redirectTarget(text: string): string | null {
+  const target = /is interrupted by another navigation to "([^"]+)"/.exec(text)?.[1] ?? null;
+  // Only a real http(s) target is a redirect; `chrome-error://…` / `about:` are leftovers of an
+  // earlier failed navigation and are treated as transient errors (retried).
+  return target && /^https?:\/\//.test(target) ? target : null;
+}
+
 /** The informative error line of an MCP error result (skips markdown headings like `### Error`). */
 export function firstLine(text: string): string {
   const lines = text
@@ -341,7 +359,8 @@ export async function startPlaywrightTools(options: {
   cfg = { ...cfg, args: withFlag(cfg.args, '--output-dir', 'qa-artifacts/playwright-mcp') };
   const client = await McpClient.start(cfg, {
     cwd: options.projectRoot,
-    timeoutMs: options.config.exploration.timeoutMs,
+    // Backstop only: per-call limits are enforced by explore() (launch allowance included).
+    timeoutMs: Math.max(options.config.exploration.timeoutMs, LAUNCH_TIMEOUT_MS),
   });
   return {
     client,

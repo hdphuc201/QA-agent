@@ -11,6 +11,7 @@ import { loadProjectConfig, type ProjectConfig } from './config/project-config.s
 import { WriteDeniedError } from './config/write-guard.ts';
 import { runDiscover } from './discovery/discover.ts';
 import { startPlaywrightTools } from './discovery/explorer.ts';
+import { runPlan } from './planning/plan-stage.ts';
 
 export const EXIT = { OK: 0, FAILED: 1, USAGE: 2, CONFIG: 3 } as const;
 
@@ -25,7 +26,8 @@ const USAGE = `Usage: qa-agent <command> [--project <dir>] [options]
 
 Commands:
   discover [--offline]     read config/docs/source, explore the app with Playwright MCP,
-                           write .qa-agent/discovery/{project-map,observations}.json`;
+                           write .qa-agent/discovery/{project-map,observations}.json
+  plan                     requirements docs + project map -> .qa-agent/plan/test-plan.{json,md}, test-cases.csv`;
 
 export interface Context {
   projectRoot: string;
@@ -94,6 +96,21 @@ export async function main(argv: string[], io: Io): Promise<number> {
           ].join('\n'),
         );
         return m.exploration.auth?.status === 'failed' ? EXIT.FAILED : EXIT.OK;
+      }
+      case 'plan': {
+        const ctx = loadContext(parsed.values.project, io);
+        const { plan, files } = runPlan({ projectRoot: ctx.projectRoot, config: ctx.config });
+        const count = (s: string) => plan.cases.filter((c) => c.status === s).length;
+        io.out(
+          [
+            `plan: ${plan.projectId}`,
+            `  requirements: ${plan.coverage.requirements} (with READY cases: ${plan.coverage.withReadyCases}) from ${plan.inputs.requirementsFiles.join(', ') || 'no requirement documents'}`,
+            `  project map: ${plan.inputs.projectMap ?? 'none (run discover first for form/link resolution)'}`,
+            `  cases: ${plan.cases.length} — READY ${count('READY')}, NEEDS_REVIEW ${count('NEEDS_REVIEW')}, BLOCKED ${count('BLOCKED')}`,
+            ...files.map((f) => `  wrote ${path.relative(ctx.projectRoot, f)}`),
+          ].join('\n'),
+        );
+        return EXIT.OK;
       }
       default:
         io.err(`Unknown command "${command}"\n\n${USAGE}`);

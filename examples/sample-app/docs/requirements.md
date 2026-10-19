@@ -2,7 +2,7 @@
 
 Fixture requirements for the QA Agent sample app (`examples/sample-app/server.mjs`). They are **not** requirements of any real product (e.g. CHUNJI).
 
-Format: each requirement is a level-3 heading `### <ID> — <title>` followed by `- Key: value` lines. `Expected` lines are the only accepted source of expected results.
+Format: each requirement is a level-3 heading `### <ID> — <title>` followed by `- Key: value` lines (see `docs/REQUIREMENTS_FORMAT.md` in the QA Agent repository). `Expected` lines are the only accepted source of expected results.
 
 ## Roles
 
@@ -53,14 +53,14 @@ Format: each requirement is a level-3 heading `### <ID> — <title>` followed by
 - Given: the requester is signed in
 - When: the requester submits "New request" with a title and an amount of 250
 - Expected: the request detail page shows the title and the status "Pending"
-- Expected: the request appears on the requests page with the status "Pending"
+- Expected: the request appears on the requests page `/` with the status "Pending"
 
 ### DEMO-REQ-REQ-002 — Title is required
 
 - Feature: Requests
 - Priority: P1
 - Actors: requester
-- When: the requester submits "New request" with an empty title
+- When: the requester submits "New request" with an empty title and an amount of 250
 - Expected: the alert "Title is required" is shown
 - Expected: no request is created
 
@@ -70,9 +70,11 @@ Format: each requirement is a level-3 heading `### <ID> — <title>` followed by
 - Priority: P1
 - Actors: requester
 - Rule: the amount must be a whole number from 1 to 10000 (inclusive)
-- Boundary: amount 1 and 10000 are accepted
-- Boundary: amount 0 and 10001 are rejected
-- Expected: a rejected amount shows the alert "Amount must be a whole number between 1 and 10000"
+- When: the requester submits "New request" with a title and the amount under test
+- Boundary (accepted): amount 1, 10000
+- Boundary (rejected): amount 0, 10001
+- Expected (accepted): the request detail page shows the status "Pending"
+- Expected (rejected): the alert "Amount must be a whole number between 1 and 10000" is shown
 
 ### DEMO-REQ-REQ-004 — Requests are easy to find
 

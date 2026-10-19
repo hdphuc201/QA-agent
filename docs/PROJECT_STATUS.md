@@ -2,12 +2,12 @@
 
 # QA Agent — Project Status
 
-- State revision: 41
-- Last update: 2026-10-19T09:11:01.918Z
-- Active phase: P2 — TARGET CONFIG, DISCOVERY & SAFE BROWSER EXPLORATION
-- Task progress: 19/62 completed (30.6%) — share of roadmap tasks, not test coverage
+- State revision: 54
+- Last update: 2026-10-19T10:04:17.538Z
+- Active phase: P3 — REQUIREMENTS & TEST PLANNING ENGINE
+- Task progress: 25/62 completed (40.3%) — share of roadmap tasks, not test coverage
 - In progress: 0 · Blocked: 0
-- Latest gate decision: P2 passed at 2026-10-19T09:11:01.889Z — docs/PHASE_REVIEWS/P2.md; evidence/P2/test.log; evidence/P2/live-stability.log
+- Latest gate decision: P3 passed at 2026-10-19T10:04:17.525Z — docs/PHASE_REVIEWS/P3.md; evidence/P3/test.log; evidence/P3/sample-test-plan.md
 
 ## Phases
 
@@ -16,7 +16,7 @@
 | P0 | BOOTSTRAP & AUTOMATED PROGRESS | completed | passed | 7/7 |
 | P1 | CLAUDE CODE PLUGIN FOUNDATION | completed | passed | 6/6 |
 | P2 | TARGET CONFIG, DISCOVERY & SAFE BROWSER EXPLORATION | completed | passed | 6/6 |
-| P3 | REQUIREMENTS & TEST PLANNING ENGINE | not_started | pending | 0/6 |
+| P3 | REQUIREMENTS & TEST PLANNING ENGINE | completed | passed | 6/6 |
 | P4 | PLAYWRIGHT CODE GENERATION ENGINE | not_started | pending | 0/6 |
 | P5 | AUTH, MULTI-TAB, MULTI-ROLE & TEST ORCHESTRATION | not_started | pending | 0/6 |
 | P6 | END-TO-END HYBRID VERTICAL SLICE (MVP CORE) | not_started | pending | 0/6 |
@@ -72,12 +72,12 @@ _None_
 
 | Task | Status | Title | Evidence |
 |---|---|---|---|
-| P3-T01 | not_started | Xây schema `Requirement`, `TestScenario`, `TestCase`, `TestPlan` có schemaVersion, IDs, preconditions, actors, actions, expectations, priority, category, provenance, blockers. | — |
-| P3-T02 | not_started | Requirements mapper từ docs/code/observations. Không lấy UI hiện hành làm chứng cứ duy nhất cho expected results. | — |
-| P3-T03 | not_started | Sinh matrix: happy path, negative, boundary, RBAC, state transition, network failure, concurrency (nếu có yêu cầu). | — |
-| P3-T04 | not_started | Deduplicate theo hành vi/expected outcome; chấm điểm rủi ro P0/P1/P2 và dependencies. | — |
-| P3-T05 | not_started | Xác định statuses `DRAFT`, `NEEDS_REVIEW`, `READY`, `BLOCKED`; case không đủ căn cứ không tự động vào runner. | — |
-| P3-T06 | not_started | Export versioned JSON + human-readable Markdown/CSV (nếu cần), test schema invalid inputs và review P3. | — |
+| P3-T01 | completed | Xây schema `Requirement`, `TestScenario`, `TestCase`, `TestPlan` có schemaVersion, IDs, preconditions, actors, actions, expectations, priority, category, provenance, blockers. | src/planning/schema.ts: Requirement, TestScenario, TestCase, TestPlan (schemaVersion 1) with IDs, preconditions, actors, structured steps/assertions, priority, category, provenance, blockers, statuses<br>tests/unit/plan-schema.test.ts: exit=0 (invalid inputs rejected) |
+| P3-T02 | completed | Requirements mapper từ docs/code/observations. Không lấy UI hiện hành làm chứng cứ duy nhất cho expected results. | src/planning/requirements.ts: parses requirement docs (ids, fields, labelled Expected, boundaries, file:line), links to project-map routes/UI, lists unreferenced routes; expectations only from Expected lines<br>tests/unit/requirements.test.ts: exit=0, 3/3 pass |
+| P3-T03 | completed | Sinh matrix: happy path, negative, boundary, RBAC, state transition, network failure, concurrency (nếu có yêu cầu). | src/planning/interpret.ts + planner.ts: controlled-language interpreter and matrix (happy, negative, boundary, rbac, state-transition; network-failure/concurrency only when required); sample app: 21 cases, 19 READY<br>tests/unit/planner.test.ts: exit=0, 10/10 pass |
+| P3-T04 | completed | Deduplicate theo hành vi/expected outcome; chấm điểm rủi ro P0/P1/P2 và dependencies. | src/planning/planner.ts: dedupe by behaviour+expected outcome (refs merged, highest priority kept), risk score impact x likelihood, dependencies via subject producers, cycle detection<br>tests/unit/plan-dedupe.test.ts: exit=0, 7/7 pass (duplicates, non-duplicates, ranking, cycle, transitive BLOCKED, missing producer, missing role) |
+| P3-T05 | completed | Xác định statuses `DRAFT`, `NEEDS_REVIEW`, `READY`, `BLOCKED`; case không đủ căn cứ không tự động vào runner. | src/planning/planner.ts decideStatus/runnableCases: DRAFT initial; READY only if fully automatable; NEEDS_REVIEW for missing/manual expectations; BLOCKED for structural blockers; only READY is runnable<br>tests/unit/plan-status.test.ts: exit=0, 4/4 pass |
+| P3-T06 | completed | Export versioned JSON + human-readable Markdown/CSV (nếu cần), test schema invalid inputs và review P3. | src/planning/export.ts + plan-stage.ts + qa-agent plan: versioned test-plan.json, test-plan.md, test-cases.csv; evidence/P3/sample-test-plan.md (21 cases, 19 READY)<br>tests/unit/plan-export.test.ts: exit=0; npm test exit=0 121 tests 120 pass 1 skipped, 3/3 stable: evidence/P3/full-suite-stability.log; review docs/PHASE_REVIEWS/P3.md |
 
 ### P4 — PLAYWRIGHT CODE GENERATION ENGINE
 

@@ -1,0 +1,9 @@
+$ npm run format:check
+# started 2026-10-19T10:01:58Z node v22.15.0 on MINGW64_NT-10.0-26200
+
+> qa-agent@0.0.0 format:check
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+# exit=0

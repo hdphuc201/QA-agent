@@ -1,0 +1,10 @@
+$ npm run -s qa -- plan --project <HOME>/AppData/Local/Temp/claude/d--Coding-Phuc-Huynh-QA-agent/4aad6c9d-cf8e-40ad-8d1c-90a8df677185/scratchpad/p3 sample
+# started 2026-10-19T09:39:39Z node v22.15.0 on MINGW64_NT-10.0-26200
+plan: sample-approvals
+  requirements: 11 (with READY cases: 10) from docs/requirements.md
+  project map: .qa-agent/discovery/project-map.json
+  cases: 21 — READY 19, NEEDS_REVIEW 2, BLOCKED 0
+  wrote .qa-agent\plan\test-plan.json
+  wrote .qa-agent\plan\test-plan.md
+  wrote .qa-agent\plan\test-cases.csv
+# exit=0

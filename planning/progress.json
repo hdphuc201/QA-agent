@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "project": "qa-agent",
-  "activePhase": "P2",
-  "updatedAt": "2026-10-19T09:11:01.918Z",
-  "revision": 41,
+  "activePhase": "P3",
+  "updatedAt": "2026-10-19T10:04:17.538Z",
+  "revision": 54,
   "phases": {
     "P0": {
       "title": "BOOTSTRAP & AUTOMATED PROGRESS",
@@ -370,59 +370,119 @@
     },
     "P3": {
       "title": "REQUIREMENTS & TEST PLANNING ENGINE",
-      "status": "not_started",
-      "gate": "pending",
-      "gateEvidence": [],
-      "startedAt": null,
-      "completedAt": null,
+      "status": "completed",
+      "gate": "passed",
+      "gateEvidence": [
+        {
+          "at": "2026-10-19T10:04:17.525Z",
+          "decision": "passed",
+          "text": "docs/PHASE_REVIEWS/P3.md; evidence/P3/test.log; evidence/P3/sample-test-plan.md"
+        }
+      ],
+      "startedAt": "2026-10-19T09:13:07.265Z",
+      "completedAt": "2026-10-19T10:04:17.525Z",
       "tasks": {
         "P3-T01": {
           "title": "Xây schema `Requirement`, `TestScenario`, `TestCase`, `TestPlan` có schemaVersion, IDs, preconditions, actors, actions, expectations, priority, category, provenance, blockers.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T09:14:53.148Z",
+              "text": "src/planning/schema.ts: Requirement, TestScenario, TestCase, TestPlan (schemaVersion 1) with IDs, preconditions, actors, structured steps/assertions, priority, category, provenance, blockers, statuses"
+            },
+            {
+              "at": "2026-10-19T09:14:53.148Z",
+              "text": "tests/unit/plan-schema.test.ts: exit=0 (invalid inputs rejected)"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T09:13:07.265Z",
+          "completedAt": "2026-10-19T09:14:53.148Z"
         },
         "P3-T02": {
           "title": "Requirements mapper từ docs/code/observations. Không lấy UI hiện hành làm chứng cứ duy nhất cho expected results.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T09:16:15.699Z",
+              "text": "src/planning/requirements.ts: parses requirement docs (ids, fields, labelled Expected, boundaries, file:line), links to project-map routes/UI, lists unreferenced routes; expectations only from Expected lines"
+            },
+            {
+              "at": "2026-10-19T09:16:15.699Z",
+              "text": "tests/unit/requirements.test.ts: exit=0, 3/3 pass"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T09:14:53.375Z",
+          "completedAt": "2026-10-19T09:16:15.699Z"
         },
         "P3-T03": {
           "title": "Sinh matrix: happy path, negative, boundary, RBAC, state transition, network failure, concurrency (nếu có yêu cầu).",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T09:23:37.357Z",
+              "text": "src/planning/interpret.ts + planner.ts: controlled-language interpreter and matrix (happy, negative, boundary, rbac, state-transition; network-failure/concurrency only when required); sample app: 21 cases, 19 READY"
+            },
+            {
+              "at": "2026-10-19T09:23:37.357Z",
+              "text": "tests/unit/planner.test.ts: exit=0, 10/10 pass"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T09:16:16.189Z",
+          "completedAt": "2026-10-19T09:23:37.357Z"
         },
         "P3-T04": {
           "title": "Deduplicate theo hành vi/expected outcome; chấm điểm rủi ro P0/P1/P2 và dependencies.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T09:26:30.327Z",
+              "text": "src/planning/planner.ts: dedupe by behaviour+expected outcome (refs merged, highest priority kept), risk score impact x likelihood, dependencies via subject producers, cycle detection"
+            },
+            {
+              "at": "2026-10-19T09:26:30.327Z",
+              "text": "tests/unit/plan-dedupe.test.ts: exit=0, 7/7 pass (duplicates, non-duplicates, ranking, cycle, transitive BLOCKED, missing producer, missing role)"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T09:23:37.637Z",
+          "completedAt": "2026-10-19T09:26:30.327Z"
         },
         "P3-T05": {
           "title": "Xác định statuses `DRAFT`, `NEEDS_REVIEW`, `READY`, `BLOCKED`; case không đủ căn cứ không tự động vào runner.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T09:27:24.137Z",
+              "text": "src/planning/planner.ts decideStatus/runnableCases: DRAFT initial; READY only if fully automatable; NEEDS_REVIEW for missing/manual expectations; BLOCKED for structural blockers; only READY is runnable"
+            },
+            {
+              "at": "2026-10-19T09:27:24.137Z",
+              "text": "tests/unit/plan-status.test.ts: exit=0, 4/4 pass"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T09:26:30.473Z",
+          "completedAt": "2026-10-19T09:27:24.137Z"
         },
         "P3-T06": {
           "title": "Export versioned JSON + human-readable Markdown/CSV (nếu cần), test schema invalid inputs và review P3.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T10:04:17.342Z",
+              "text": "src/planning/export.ts + plan-stage.ts + qa-agent plan: versioned test-plan.json, test-plan.md, test-cases.csv; evidence/P3/sample-test-plan.md (21 cases, 19 READY)"
+            },
+            {
+              "at": "2026-10-19T10:04:17.342Z",
+              "text": "tests/unit/plan-export.test.ts: exit=0; npm test exit=0 121 tests 120 pass 1 skipped, 3/3 stable: evidence/P3/full-suite-stability.log; review docs/PHASE_REVIEWS/P3.md"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T09:27:24.309Z",
+          "completedAt": "2026-10-19T10:04:17.342Z"
         }
       }
     },

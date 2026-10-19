@@ -31,10 +31,10 @@ Push, publish, release tags, deployment; production or third-party targets; unli
 
 Updated at every phase boundary. On a new session: restore from this section, `planning/progress.json`, `git log` and `git status`, not from chat memory.
 
-- Last completed phase: P2 (gate passed; commit "feat: discovery engine ... (P2)")
-- Current phase / task: P3 / P3-T01 (not started)
+- Last completed phase: P3 (gate passed; commit "feat: requirements and test planning engine (P3)")
+- Current phase / task: P4 / P4-T01 (not started)
 - Work in progress: none
-- Files changed since last commit: none expected after the P2 commit
-- Last test results: npm test 89 (88 pass, 1 skipped: symlink on Windows); live discovery 3/3; typecheck/lint/format/build/validate/smoke:mcp/progress check exit=0
-- Open blockers: none. Deferred verification: in-Claude run of implemented skills (owner terminal), planned with the full pipeline in P7
-- Next action: start P3-T01 (Requirement/TestCase/TestPlan schemas)
+- Files changed since last commit: none expected after the P3 commit
+- Last test results: npm test 121 (120 pass, 1 skipped: symlink on Windows), full suite 3/3 stable; typecheck/lint/format/build/validate/smoke:mcp/progress check exit=0
+- Open blockers: none. Deferred: in-Claude run of implemented skills (owner terminal) with the full pipeline in P7
+- Next action: start P4-T01 (spec generator from READY cases)

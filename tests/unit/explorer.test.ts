@@ -1,7 +1,13 @@
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 import { parseProjectConfig } from '../../src/config/project-config.schema.ts';
-import { explore, firstLine, maskValues, type BrowserTools } from '../../src/discovery/explorer.ts';
+import {
+  explore,
+  firstLine,
+  maskValues,
+  redirectTarget,
+  type BrowserTools,
+} from '../../src/discovery/explorer.ts';
 import type { ToolResult } from '../../src/discovery/mcp-client.ts';
 import { parseSnapshot, suggestLocator } from '../../src/discovery/snapshot.ts';
 import { checkExplorationUrl, checkUrl } from '../../src/discovery/url-guard.ts';
@@ -314,6 +320,43 @@ describe('explorer (fake browser)', () => {
       'Error: net::ERR_BLOCKED_BY_CLIENT at /b',
     );
     assert.equal(firstLine(['### Error', 'Error: boom', 'Call log:'].join('\n')), 'Error: boom');
+  });
+
+  test('"interrupted by another navigation" is a redirect: followed inside the allowlist, blocked outside', async () => {
+    const tools = fakeBrowser({
+      pages: { '/login': LOGIN_YAML },
+      errorTimes: {
+        [`${ORIGIN}/r`]: {
+          times: 1,
+          text: `Navigation to "${ORIGIN}/r" is interrupted by another navigation to "${ORIGIN}/login"`,
+        },
+        [`${ORIGIN}/x`]: {
+          times: 1,
+          text: `Navigation to "${ORIGIN}/x" is interrupted by another navigation to "https://evil.example/"`,
+        },
+      },
+    });
+    const res = await explore({ config: config({ retries: 2 }), seeds: ['/r', '/x'], tools });
+    const navR = tools.calls.filter(
+      (c) => c.name === 'browser_navigate' && c.args.url === `${ORIGIN}/r`,
+    );
+    assert.equal(navR.length, 1, 'not retried');
+    assert.ok(!res.blocked.some((b) => b.url.endsWith('/r')));
+    assert.deepEqual(
+      res.blocked.map((b) => [b.url, b.reason]),
+      [['https://evil.example/', `redirected outside allowedOrigins from ${ORIGIN}/x`]],
+    );
+    assert.equal(
+      redirectTarget('Navigation to "a" is interrupted by another navigation to "http://h/b"'),
+      'http://h/b',
+    );
+    assert.equal(
+      redirectTarget(
+        'Navigation to "a" is interrupted by another navigation to "chrome-error://chromewebdata/"',
+      ),
+      null,
+      'a browser error page is not a redirect',
+    );
   });
 
   test('maskValues and account env resolution', () => {
