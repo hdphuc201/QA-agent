@@ -8,7 +8,7 @@ var __export = (target, all) => {
 
 // src/cli.ts
 import path14 from "node:path";
-import { fileURLToPath as fileURLToPath2 } from "node:url";
+import { fileURLToPath as fileURLToPath3 } from "node:url";
 import { parseArgs } from "node:util";
 
 // src/config/paths.ts
@@ -42,6 +42,12 @@ function findUp(start, match) {
     if (parent === dir) return null;
     dir = parent;
   }
+}
+function pluginVersion(start) {
+  const dir = findUp(start, (d) => isFile(path.join(d, PLUGIN_MANIFEST)));
+  if (!dir) return "unknown";
+  const m = JSON.parse(fs.readFileSync(path.join(dir, PLUGIN_MANIFEST), "utf8"));
+  return m.version ?? "unknown";
 }
 function resolvePluginRoot(options) {
   const fromEnv = options.env?.CLAUDE_PLUGIN_ROOT;
@@ -19985,6 +19991,8 @@ function resolveCredentials(accountKey, env = process.env) {
 import { spawn } from "node:child_process";
 import fs3 from "node:fs";
 import path4 from "node:path";
+import { fileURLToPath } from "node:url";
+var QA_AGENT_VERSION = pluginVersion(path4.dirname(fileURLToPath(import.meta.url)));
 var MCP_PROTOCOL_VERSION = "2025-06-18";
 function readServerConfig(pluginRoot, name = "playwright") {
   const raw = JSON.parse(fs3.readFileSync(path4.join(pluginRoot, ".mcp.json"), "utf8"));
@@ -20052,7 +20060,7 @@ var McpClient = class _McpClient {
       {
         protocolVersion: MCP_PROTOCOL_VERSION,
         capabilities: {},
-        clientInfo: { name: "qa-agent", version: "0.1.0" }
+        clientInfo: { name: "qa-agent", version: QA_AGENT_VERSION }
       },
       Math.max(options.timeoutMs, 18e4)
     );
@@ -22642,7 +22650,7 @@ import path12 from "node:path";
 import { spawn as spawn2, spawnSync as spawnSync2 } from "node:child_process";
 import fs10 from "node:fs";
 import path11 from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath as fileURLToPath2 } from "node:url";
 
 // src/evidence/scrub.ts
 import fs8 from "node:fs";
@@ -23003,7 +23011,7 @@ function collectMetadata(projectRoot, config2, env) {
   });
   const gitHead = git.status === 0 ? git.stdout.trim() : "";
   return {
-    qaAgentVersion: QA_AGENT_VERSION,
+    qaAgentVersion: QA_AGENT_VERSION2,
     node: process.version,
     platform: `${process.platform} ${process.arch}`,
     playwrightVersion: pwPkg ? JSON.parse(fs10.readFileSync(pwPkg, "utf8")).version : null,
@@ -23014,11 +23022,7 @@ function collectMetadata(projectRoot, config2, env) {
     environment: config2.environment
   };
 }
-var pluginDir = findUp(
-  path11.dirname(fileURLToPath(import.meta.url)),
-  (d) => fs10.existsSync(path11.join(d, PLUGIN_MANIFEST))
-);
-var QA_AGENT_VERSION = pluginDir ? JSON.parse(fs10.readFileSync(path11.join(pluginDir, PLUGIN_MANIFEST), "utf8")).version : "unknown";
+var QA_AGENT_VERSION2 = pluginVersion(path11.dirname(fileURLToPath2(import.meta.url)));
 function snapshotInputs(projectRoot, config2, runDir, plan) {
   const sources = [
     [".qa-agent/discovery/project-map.json", "project-map.json"],
@@ -23036,7 +23040,7 @@ function snapshotInputs(projectRoot, config2, runDir, plan) {
   }
   const manifest = path11.join(projectRoot, config2.testOutputRoot, ".qa-agent-manifest.json");
   const versions = {
-    qaAgent: QA_AGENT_VERSION,
+    qaAgent: QA_AGENT_VERSION2,
     planSchemaVersion: plan.schemaVersion,
     planGeneratedAt: plan.generatedAt,
     generatedPlanHash: fs10.existsSync(manifest) ? JSON.parse(fs10.readFileSync(manifest, "utf8")).planHash : null,
@@ -23800,7 +23804,7 @@ function loadContext(projectArg, io) {
   const projectRoot = projectArg ? path14.resolve(io.cwd, projectArg) : resolveProjectRoot({ env: io.env, cwd: io.cwd });
   const pluginRoot = resolvePluginRoot({
     env: io.env,
-    fallbackStart: path14.dirname(fileURLToPath2(import.meta.url))
+    fallbackStart: path14.dirname(fileURLToPath3(import.meta.url))
   });
   const loaded = loadProjectConfig(projectRoot);
   if (!loaded)
@@ -23999,7 +24003,7 @@ ${USAGE}`);
     return EXIT.FAILED;
   }
 }
-if (process.argv[1] && path14.resolve(process.argv[1]) === fileURLToPath2(import.meta.url)) {
+if (process.argv[1] && path14.resolve(process.argv[1]) === fileURLToPath3(import.meta.url)) {
   process.exitCode = await main(process.argv.slice(2), {
     out: (s) => process.stdout.write(`${s}
 `),

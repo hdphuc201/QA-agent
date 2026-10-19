@@ -6,7 +6,7 @@ import { spawn, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { findUp, PLUGIN_MANIFEST } from '../config/paths.ts';
+import { pluginVersion } from '../config/paths.ts';
 import type { ProjectConfig } from '../config/project-config.schema.ts';
 import { assertWritable, writeProjectFile } from '../config/write-guard.ts';
 import { PW_CONFIG } from '../generator/generate.ts';
@@ -85,17 +85,7 @@ export function collectMetadata(
   };
 }
 
-// The plugin manifest above this module (works from src/ and from the bundled bin/).
-const pluginDir = findUp(path.dirname(fileURLToPath(import.meta.url)), (d) =>
-  fs.existsSync(path.join(d, PLUGIN_MANIFEST)),
-);
-const QA_AGENT_VERSION = pluginDir
-  ? (
-      JSON.parse(fs.readFileSync(path.join(pluginDir, PLUGIN_MANIFEST), 'utf8')) as {
-        version: string;
-      }
-    ).version
-  : 'unknown';
+const QA_AGENT_VERSION = pluginVersion(path.dirname(fileURLToPath(import.meta.url)));
 
 /**
  * Freeze the stage outputs a run used (`inputs/`) plus their versions, so a run can be

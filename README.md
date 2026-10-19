@@ -37,16 +37,20 @@ Step by step: [`docs/WALKTHROUGH.md`](docs/WALKTHROUGH.md).
 ## Use it from Claude Code
 
 ```powershell
+claude plugin marketplace add hdphuc201/QA-agent
+claude plugin install qa-agent@qa-agent
 cd <your target project>
-claude --plugin-dir D:\path\to\QA-agent
+claude
 ```
+
+Step by step for two different projects: [`docs/TUTORIAL.md`](docs/TUTORIAL.md). To work on QA Agent itself, start Claude with `claude --plugin-dir <this clone>` instead.
 
 Then: `/qa-agent:discover`, `/qa-agent:plan`, `/qa-agent:generate`, `/qa-agent:run`, `/qa-agent:report`, or everything at once with `/qa-agent:full-test [--offline] [--resume]`. The skills only run when you invoke them. `/qa-agent:report` can ask the read-only `failure-analyzer` agent for a second opinion on failures; that opinion is shown next to the rule-based one and never changes a result.
 
 Without Claude, use the same stages directly:
 
 ```powershell
-node --experimental-strip-types D:\path\to\QA-agent\src\cli.ts full-test --project .
+node <plugin dir>\bin\qa-agent.mjs full-test --project .   # self-contained bundle, no npm install
 ```
 
 ## Use it on your project

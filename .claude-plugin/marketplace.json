@@ -11,7 +11,7 @@
       "name": "qa-agent",
       "source": "./",
       "description": "Hybrid QA for web apps: explore with Playwright MCP, plan from requirements, generate repeatable Playwright Test specs, run them with roles and sessions, and report with evidence and failure analysis.",
-      "version": "0.1.0"
+      "version": "1.0.0"
     }
   ]
 }

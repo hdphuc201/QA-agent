@@ -53,6 +53,16 @@ export function findUp(start: string, match: (dir: string) => boolean): string |
  * Plugin root: `CLAUDE_PLUGIN_ROOT` when set (Claude Code exports it to plugin processes),
  * otherwise the nearest ancestor of `fallbackStart` that holds `.claude-plugin/plugin.json`.
  */
+/** Version from the plugin manifest above `start` (works from src/ and from the bundled bin/). */
+export function pluginVersion(start: string): string {
+  const dir = findUp(start, (d) => isFile(path.join(d, PLUGIN_MANIFEST)));
+  if (!dir) return 'unknown';
+  const m = JSON.parse(fs.readFileSync(path.join(dir, PLUGIN_MANIFEST), 'utf8')) as {
+    version?: string;
+  };
+  return m.version ?? 'unknown';
+}
+
 export function resolvePluginRoot(options: { env?: Env; fallbackStart: string }): string {
   const fromEnv = options.env?.CLAUDE_PLUGIN_ROOT;
   if (fromEnv) {

@@ -4,6 +4,10 @@
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { pluginVersion } from '../config/paths.ts';
+
+const QA_AGENT_VERSION = pluginVersion(path.dirname(fileURLToPath(import.meta.url)));
 
 export const MCP_PROTOCOL_VERSION = '2025-06-18';
 
@@ -99,7 +103,7 @@ export class McpClient {
       {
         protocolVersion: MCP_PROTOCOL_VERSION,
         capabilities: {},
-        clientInfo: { name: 'qa-agent', version: '0.1.0' },
+        clientInfo: { name: 'qa-agent', version: QA_AGENT_VERSION },
       },
       Math.max(options.timeoutMs, 180_000),
     );
