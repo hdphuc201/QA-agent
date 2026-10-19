@@ -11,6 +11,8 @@ const isRecord = (v: unknown): v is Record<string, unknown> =>
   typeof v === 'object' && v !== null && !Array.isArray(v);
 
 const EXPECTED_SKILLS = ['discover', 'full-test', 'generate', 'plan', 'report', 'run'];
+// Skills whose engine exists (phase that implemented them). All others must stay honest skeletons.
+const IMPLEMENTED: Record<string, string> = { discover: 'P2' };
 // Fields accepted by the locally verified Claude Code CLI (2.1.71). `displayName` is rejected there.
 const MANIFEST_FIELDS = new Set([
   'name',
@@ -118,16 +120,29 @@ describe('skills', () => {
   });
 
   for (const name of EXPECTED_SKILLS) {
-    test(`${name}/SKILL.md frontmatter and skeleton contract`, () => {
+    test(`${name}/SKILL.md frontmatter and status contract`, () => {
       const { fields, body } = frontmatter(path.join(root, 'skills', name, 'SKILL.md'));
       for (const key of Object.keys(fields))
         assert.ok(SKILL_FIELDS.has(key), `${name}: unsupported field ${key}`);
       assert.ok(typeof fields.description === 'string' && fields.description.length >= 40);
       assert.ok(fields.description.length <= 1024, `${name}: description too long`);
-      assert.match(fields.description, /skeleton/i, `${name}: must not claim to be implemented`);
-      // Skeletons must not be auto-invoked by the model until they are implemented.
+      const implementedIn = IMPLEMENTED[name];
+      if (implementedIn) {
+        assert.doesNotMatch(fields.description, /skeleton/i);
+        assert.match(
+          body,
+          new RegExp(`QA-AGENT-SKILL: ${name} \\| status=implemented \\| phase=${implementedIn}`),
+        );
+        assert.match(body, /src\/cli\.ts" \w+/, `${name}: must call the deterministic engine`);
+      } else {
+        assert.match(fields.description, /skeleton/i, `${name}: must not claim to be implemented`);
+        assert.match(
+          body,
+          new RegExp(`QA-AGENT-SKILL: ${name} \\| status=skeleton \\| phase=P\\d`),
+        );
+      }
+      // Skills run only when the user invokes them (they start browsers / write files).
       assert.equal(fields['disable-model-invocation'], true);
-      assert.match(body, new RegExp(`QA-AGENT-SKILL: ${name} \\| status=skeleton \\| phase=P\\d`));
       assert.match(body, /\$ARGUMENTS/);
       const tools = fields['allowed-tools'];
       if (tools !== undefined) {

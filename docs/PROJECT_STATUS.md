@@ -2,12 +2,12 @@
 
 # QA Agent — Project Status
 
-- State revision: 28
-- Last update: 2026-10-19T07:59:52.297Z
-- Active phase: P1 — CLAUDE CODE PLUGIN FOUNDATION
-- Task progress: 13/62 completed (21.0%) — share of roadmap tasks, not test coverage
+- State revision: 41
+- Last update: 2026-10-19T09:11:01.918Z
+- Active phase: P2 — TARGET CONFIG, DISCOVERY & SAFE BROWSER EXPLORATION
+- Task progress: 19/62 completed (30.6%) — share of roadmap tasks, not test coverage
 - In progress: 0 · Blocked: 0
-- Latest gate decision: P1 passed at 2026-10-19T07:59:52.280Z — docs/PHASE_REVIEWS/P1.md; in-Claude smoke evidence/P1/claude-plugin-smoke.json; direct MCP evidence/P1/smoke-mcp.log
+- Latest gate decision: P2 passed at 2026-10-19T09:11:01.889Z — docs/PHASE_REVIEWS/P2.md; evidence/P2/test.log; evidence/P2/live-stability.log
 
 ## Phases
 
@@ -15,7 +15,7 @@
 |---|---|---|---|---|
 | P0 | BOOTSTRAP & AUTOMATED PROGRESS | completed | passed | 7/7 |
 | P1 | CLAUDE CODE PLUGIN FOUNDATION | completed | passed | 6/6 |
-| P2 | TARGET CONFIG, DISCOVERY & SAFE BROWSER EXPLORATION | not_started | pending | 0/6 |
+| P2 | TARGET CONFIG, DISCOVERY & SAFE BROWSER EXPLORATION | completed | passed | 6/6 |
 | P3 | REQUIREMENTS & TEST PLANNING ENGINE | not_started | pending | 0/6 |
 | P4 | PLAYWRIGHT CODE GENERATION ENGINE | not_started | pending | 0/6 |
 | P5 | AUTH, MULTI-TAB, MULTI-ROLE & TEST ORCHESTRATION | not_started | pending | 0/6 |
@@ -61,12 +61,12 @@ _None_
 
 | Task | Status | Title | Evidence |
 |---|---|---|---|
-| P2-T01 | not_started | Thiết kế `project-config.schema.ts`: `projectId`, framework (optional), baseURL, allowedOrigins, docsPaths, sourcePaths, testOutputRoot, readOnlyPaths, roles references, worker budgets. | — |
-| P2-T02 | not_started | Xây cấu phần đọc source/docs an toàn, exclude secrets, binaries, node_modules, test artifacts; giới hạn phạm vi và kích thước. | — |
-| P2-T03 | not_started | Trích xuất/đề xuất project map: routes, forms, interactive UI, role hints, API references; gắn nguồn và confidence cho từng observation. | — |
-| P2-T04 | not_started | Thực hiện live browser exploration thông qua MCP trong allowedOrigin, ghi selectors/observations, hạn chế mutation, timeout/retry hợp lý. | — |
-| P2-T05 | not_started | Xuất `project-map.json`, `observations.json`; phân biệt `observed`, `source-derived`, `hypothesized`. | — |
-| P2-T06 | not_started | Unit/integration tests với sample app, permission guard, URL allowlist; review P2. | — |
+| P2-T01 | completed | Thiết kế `project-config.schema.ts`: `projectId`, framework (optional), baseURL, allowedOrigins, docsPaths, sourcePaths, testOutputRoot, readOnlyPaths, roles references, worker budgets. | src/config/project-config.schema.ts (Zod 4.6.5, JSON Schema export): projectId, framework, environment, baseURL, allowedOrigins, docsPaths, sourcePaths, testOutputRoot, readOnlyPaths, roles(accountKey), workers, exploration<br>tests/unit/project-config.test.ts: exit=0, 8/8 pass (defaults, origin/baseURL rule, path traversal, credential keys, duplicates, budgets); npm install zod: exit=0 evidence/P2/npm-install-zod.log |
+| P2-T02 | completed | Xây cấu phần đọc source/docs an toàn, exclude secrets, binaries, node_modules, test artifacts; giới hạn phạm vi và kích thước. | src/discovery/source-reader.ts: excludes secret files, binaries, node_modules/build/test-artifact dirs, outside-root paths; size/count/total limits; redacts secret values<br>tests/unit/source-reader.test.ts: exit=0, 5 pass, 1 skipped (symlink on Windows, logged in WORKLOG) |
+| P2-T03 | completed | Trích xuất/đề xuất project map: routes, forms, interactive UI, role hints, API references; gắn nguồn và confidence cho từng observation. | src/discovery/project-map.ts: routes (express, node:http, regex, file-system, doc API refs), forms+fields, links/buttons, role hints with file:line sources, provenance and confidence<br>tests/unit/project-map.test.ts: exit=0, 4/4 pass on examples/sample-app/server.mjs plus synthetic Express and Next.js files |
+| P2-T04 | completed | Thực hiện live browser exploration thông qua MCP trong allowedOrigin, ghi selectors/observations, hạn chế mutation, timeout/retry hợp lý. | src/discovery/explorer.ts + mcp-client.ts + snapshot.ts + url-guard.ts: live MCP exploration with tool policy, allowlist (pre- and post-redirect), unsafe-GET filter, timeout+retry, maxPages, login recipe, password masking<br>tests/unit/explorer.test.ts: exit=0, 9/9 pass; live probe vs sample app via Playwright MCP: exit=0, requester signed in, 4 pages, example.com blocked, no password in output: evidence/P2/live-explore-probe.log |
+| P2-T05 | completed | Xuất `project-map.json`, `observations.json`; phân biệt `observed`, `source-derived`, `hypothesized`. | src/discovery/discover.ts: project-map.json (routes/forms/ui/roles with provenance observed\|source-derived\|hypothesized, sources, observedIn links) and observations.json, validated by Zod before a guarded write (src/config/write-guard.ts)<br>tests/unit/discover.test.ts: exit=0, 3/3 pass; npm run qa -- discover --offline on a sample-app copy: exit=0 |
+| P2-T06 | completed | Unit/integration tests với sample app, permission guard, URL allowlist; review P2. | tests/integration/discover-live.test.ts (live Playwright MCP + sample app): exit=0 3/3 runs, evidence/P2/live-stability.log; npm test exit=0 89 tests 88 pass 1 skipped<br>tests/unit/sample-app.test.ts permission/allowlist tests; review docs/PHASE_REVIEWS/P2.md |
 
 ### P3 — REQUIREMENTS & TEST PLANNING ENGINE
 

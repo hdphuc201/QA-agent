@@ -28,3 +28,7 @@ planning/.progress.lock
 Thumbs.db
 *.log
 !evidence/**/*.log
+
+# Generated QA Agent outputs inside the bundled examples (configs stay tracked)
+examples/**/.qa-agent/*
+!examples/**/.qa-agent/config.json

@@ -1,0 +1,10 @@
+$ secret scan over changed/untracked files
+tests/integration/discover-live.test.ts:102:      body: new URLSearchParams({ username: 'bob', password: 'bob-demo' }),
+tests/unit/explorer.test.ts:174:      credentials: { username: 'alice', password: 's3cret-pass' },
+tests/unit/explorer.test.ts:251:      credentials: { username: 'alice', password: 'wrong-pass' },
+tests/unit/sample-app.test.ts:99:        body: new URLSearchParams({ username: 'victor', password: 'victor-demo' }),
+# exit=0 (1 = none outside the redaction test fixtures)
+$ personal data scan
+# exit=1 (1 = none)
+$ demo passwords outside fixture/tests
+# exit=1 (1 = none)

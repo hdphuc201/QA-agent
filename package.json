@@ -16,6 +16,7 @@
     "test": "node --test --experimental-strip-types --disable-warning=ExperimentalWarning \"tests/**/*.test.ts\"",
     "smoke:mcp": "node scripts/smoke/mcp-smoke.mjs",
     "smoke:claude": "node scripts/smoke/claude-plugin-smoke.mjs",
+    "qa": "node --experimental-strip-types --disable-warning=ExperimentalWarning src/cli.ts",
     "progress": "node scripts/progress.mjs"
   },
   "devDependencies": {
@@ -26,5 +27,8 @@
     "prettier": "3.9.9",
     "typescript": "6.0.3",
     "typescript-eslint": "8.71.0"
+  },
+  "dependencies": {
+    "zod": "4.6.5"
   }
 }

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "projectId": "sample-approvals",
+  "framework": "node-http",
+  "environment": "local",
+  "baseURL": "http://127.0.0.1:4100/",
+  "allowedOrigins": ["http://127.0.0.1:4100"],
+  "docsPaths": ["docs"],
+  "sourcePaths": ["server.mjs"],
+  "testOutputRoot": "e2e/generated",
+  "readOnlyPaths": ["docs", "server.mjs"],
+  "roles": [
+    { "name": "requester", "accountKey": "demo.requester" },
+    { "name": "approver", "accountKey": "demo.approver" },
+    { "name": "viewer", "accountKey": "demo.viewer" }
+  ],
+  "workers": { "max": 2, "writeHeavy": 1 },
+  "exploration": {
+    "maxPages": 10,
+    "timeoutMs": 30000,
+    "retries": 1,
+    "authRole": "requester",
+    "auth": {
+      "loginPath": "/login",
+      "usernameLabel": "Username",
+      "passwordLabel": "Password",
+      "submitButton": "Sign in"
+    }
+  }
+}

@@ -20,5 +20,11 @@
     "erasableSyntaxOnly": true,
     "allowImportingTsExtensions": true
   },
-  "include": ["src/**/*.ts", "scripts/**/*.mjs", "tests/**/*.ts", "*.config.mjs"]
+  "include": [
+    "src/**/*.ts",
+    "scripts/**/*.mjs",
+    "examples/**/*.mjs",
+    "tests/**/*.ts",
+    "*.config.mjs"
+  ]
 }

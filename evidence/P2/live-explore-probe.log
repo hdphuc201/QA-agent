@@ -1,0 +1,156 @@
+$ live exploration probe: sample app on 127.0.0.1:<ephemeral>, Playwright MCP from .mcp.json, requester sign-in, seeds /requests/new + https://example.com/
+{
+ "auth": {
+  "role": "requester",
+  "status": "signed-in",
+  "detail": "landed on /"
+ },
+ "blocked": [
+  {
+   "kind": "blocked",
+   "url": "https://example.com/",
+   "reason": "origin https://example.com is not in allowedOrigins",
+   "as": "anonymous"
+  },
+  {
+   "kind": "blocked",
+   "url": "https://example.com/",
+   "reason": "origin https://example.com is not in allowedOrigins",
+   "as": "requester"
+  }
+ ],
+ "toolCalls": [
+  {
+   "tool": "browser_navigate",
+   "target": "http://127.0.0.1:54223/"
+  },
+  {
+   "tool": "browser_snapshot",
+   "target": "http://127.0.0.1:54223/login"
+  },
+  {
+   "tool": "browser_navigate",
+   "target": "http://127.0.0.1:54223/requests/new"
+  },
+  {
+   "tool": "browser_snapshot",
+   "target": "http://127.0.0.1:54223/login"
+  },
+  {
+   "tool": "browser_navigate",
+   "target": "http://127.0.0.1:54223/login"
+  },
+  {
+   "tool": "browser_snapshot",
+   "target": "http://127.0.0.1:54223/login"
+  },
+  {
+   "tool": "browser_fill_form",
+   "target": "/login"
+  },
+  {
+   "tool": "browser_click",
+   "target": "Sign in"
+  },
+  {
+   "tool": "browser_navigate",
+   "target": "http://127.0.0.1:54223/"
+  },
+  {
+   "tool": "browser_snapshot",
+   "target": "http://127.0.0.1:54223/"
+  },
+  {
+   "tool": "browser_navigate",
+   "target": "http://127.0.0.1:54223/requests/new"
+  },
+  {
+   "tool": "browser_snapshot",
+   "target": "http://127.0.0.1:54223/requests/new"
+  },
+  {
+   "tool": "browser_navigate",
+   "target": "http://127.0.0.1:54223/requests/REQ-1"
+  },
+  {
+   "tool": "browser_snapshot",
+   "target": "http://127.0.0.1:54223/requests/REQ-1"
+  }
+ ],
+ "pages": [
+  {
+   "id": "obs-001",
+   "as": "anonymous",
+   "path": "/login",
+   "title": "Sign in · Sample Approvals",
+   "els": [
+    "navigation:Main",
+    "link:Requests->/",
+    "heading:Sign in",
+    "textbox:Username",
+    "textbox:Password",
+    "button:Sign in"
+   ]
+  },
+  {
+   "id": "obs-002",
+   "as": "requester",
+   "path": "/",
+   "title": "Requests · Sample Approvals",
+   "els": [
+    "navigation:Main",
+    "link:Requests->/",
+    "link:New request->/requests/new",
+    "button:Sign out",
+    "heading:Requests",
+    "columnheader:Title",
+    "columnheader:Amount",
+    "columnheader:Requested by",
+    "columnheader:Status",
+    "cell:",
+    "link:Seeded laptop->/requests/REQ-1",
+    "cell:1200",
+    "cell:alice",
+    "cell:Pending"
+   ]
+  },
+  {
+   "id": "obs-003",
+   "as": "requester",
+   "path": "/requests/new",
+   "title": "New request · Sample Approvals",
+   "els": [
+    "navigation:Main",
+    "link:Requests->/",
+    "link:New request->/requests/new",
+    "button:Sign out",
+    "heading:New request",
+    "textbox:Title",
+    "textbox:Amount",
+    "button:Create request"
+   ]
+  },
+  {
+   "id": "obs-004",
+   "as": "requester",
+   "path": "/requests/REQ-1",
+   "title": "REQ-1 · Sample Approvals",
+   "els": [
+    "navigation:Main",
+    "link:Requests->/",
+    "link:New request->/requests/new",
+    "button:Sign out",
+    "heading:Seeded laptop",
+    "term:=ID",
+    "definition:=REQ-1",
+    "term:=Amount",
+    "definition:=1200",
+    "term:=Requested by",
+    "definition:=alice",
+    "term:=Status",
+    "definition:=Pending"
+   ]
+  }
+ ]
+}
+# exit=0
