@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, test } from 'node:test';
@@ -227,5 +228,16 @@ describe('agents', () => {
       assert.ok(body.includes(c), c);
     }
     assert.match(body, /never propose changing an expected result/);
+  });
+});
+
+describe('distribution', () => {
+  test('every tracked path is short enough for a Windows clone under ~/.claude/plugins (P9)', () => {
+    // A marketplace install clones the repository; Git on Windows fails above 260 characters
+    // for the full path unless core.longpaths is set. Keep a wide margin for the home folder.
+    const r = spawnSync('git', ['ls-files', '-z'], { cwd: root, encoding: 'utf8' });
+    assert.equal(r.status, 0, r.stderr);
+    const tooLong = r.stdout.split('\0').filter((f) => f.length > 120);
+    assert.deepEqual(tooLong, []);
   });
 });

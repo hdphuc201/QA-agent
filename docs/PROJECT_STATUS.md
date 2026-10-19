@@ -2,11 +2,11 @@
 
 # QA Agent — Project Status
 
-- State revision: 126
-- Last update: 2026-10-19T17:27:49.634Z
+- State revision: 131
+- Last update: 2026-10-19T18:24:19.282Z
 - Active phase: P9 — CI/CD, PACKAGING & v1.0
-- Task progress: 58/62 completed (93.5%) — share of roadmap tasks, not test coverage
-- In progress: 1 · Blocked: 0
+- Task progress: 61/62 completed (98.4%) — share of roadmap tasks, not test coverage
+- In progress: 0 · Blocked: 0
 - Latest gate decision: P8 passed at 2026-10-19T17:16:14.691Z — docs/PHASE_REVIEWS/P8.md; node scripts/quality-gate.mjs P8 exit=0 (evidence/P8/test.log); execution-layer policies, 2 target apps, benchmark baseline evidence/P8/benchmark.md, no secret leak via artifacts (tests/integration/security-live.test.ts)
 
 ## Phases
@@ -22,11 +22,11 @@
 | P6 | END-TO-END HYBRID VERTICAL SLICE (MVP CORE) | completed | passed | 6/6 |
 | P7 | EVIDENCE, REPORTING & MVP RELEASE CANDIDATE | completed | passed | 6/6 |
 | P8 | HARDENING, SECURITY & CROSS-PROJECT TESTING | completed | passed | 7/7 |
-| P9 | CI/CD, PACKAGING & v1.0 | in_progress | pending | 2/6 |
+| P9 | CI/CD, PACKAGING & v1.0 | in_progress | pending | 5/6 |
 
 ## In progress
 
-- P9-T03 — Package/version plugin; test install từ directory/marketplace theo docs hiện hành; release notes/CHANGELOG. (since 2026-10-19T17:27:49.628Z)
+_None_
 
 ## Blocked
 
@@ -141,7 +141,7 @@ _None_
 |---|---|---|---|
 | P9-T01 | completed | Setup GitHub Actions hoặc CI tương đương theo nền tảng được phép: lint/typecheck/unit/integration/plugin validate. | .github/workflows/ci.yml: GitHub Actions run 39293246586 conclusion success — checks ubuntu-latest + windows-latest (typecheck, lint, format, build, unit+contract 153 of 153, claude plugin validate 2.1.71, progress check), evidence/P9/ci-run-1.log |
 | P9-T02 | completed | Chạy Playwright regression có cache/browser install phù hợp CI, artifact retention, failure summaries. | integration job of run 39293246586 success: Playwright browser cache (actions/cache keyed on package-lock), npx playwright install --with-deps chromium firefox webkit, MCP warm-up, integration 16 of 16 serial (both apps, security, cross-browser), vertical slice ok; JUnit artifacts with 14-day retention + failure summary via scripts/ci/junit-summary.mjs in the job summary; evidence/P9/ci-run-1.log |
-| P9-T03 | in_progress | Package/version plugin; test install từ directory/marketplace theo docs hiện hành; release notes/CHANGELOG. | — |
-| P9-T04 | not_started | Viết tutorial cài đặt vào 2 target projects, example config và CLI usage. | — |
-| P9-T05 | not_started | Release dry-run, compatibility matrix, licensing/security checklist. **Không publish thật nếu chưa được người dùng đồng ý.** | — |
+| P9-T03 | completed | Package/version plugin; test install từ directory/marketplace theo docs hiện hành; release notes/CHANGELOG. | bin/qa-agent.mjs bundle (scripts/bundle.mjs, CI bundle:check) + .claude-plugin/marketplace.json + version 1.0.0 + CHANGELOG.md; scripts/smoke/install-smoke.mjs PASS on 9f3f50b: clean git clone, claude plugin marketplace add + install into isolated CLAUDE_CONFIG_DIR, installed copy without node_modules, installed engine full-test 17 of 17 in a fresh target with only @playwright/test, uninstall exit=0 — evidence/P9/install-smoke.json; packaging decisions docs/ADR/0008-packaging.md |
+| P9-T04 | completed | Viết tutorial cài đặt vào 2 target projects, example config và CLI usage. | docs/TUTORIAL.md: install from the GitHub marketplace, project A (approvals) and project B (helpdesk) with configs, credentials, Claude and CLI usage, cross-browser, own project, troubleshooting; project B flow reproduced by the install smoke (evidence/P9/install-smoke.json), project A flow by the vertical slice in CI (evidence/P9/ci-run-1.log); README links it |
+| P9-T05 | completed | Release dry-run, compatibility matrix, licensing/security checklist. **Không publish thật nếu chưa được người dùng đồng ý.** | scripts/release-dry-run.mjs exit=0 DRY-RUN OK for 1.0.0: clean tree, versions agree, bundle fresh, plugin validate, secret/personal-path scan of 434 tracked files, permissive licenses, archive sha256 recorded, nothing tagged or published — evidence/P9/release-dry-run.json; compatibility matrix + licensing/security checklists in docs/RELEASE.md (project license = owner decision) |
 | P9-T06 | not_started | Final readiness review và `v1.0` gate. | — |

@@ -1,0 +1,30 @@
+$ claude plugin marketplace add hdphuc201/QA-agent -> exit=1
+Adding marketplace...
+Cloning via SSH: git@github.com:hdphuc201/QA-agent.git
+Refreshing marketplace cache (timeout: 120s)…
+Cloning repository (timeout: 120s): git@github.com:hdphuc201/QA-agent.git
+SSH clone failed, retrying with HTTPS: https://github.com/hdphuc201/QA-agent.git
+Refreshing marketplace cache (timeout: 120s)…
+Cloning repository (timeout: 120s): https://github.com/hdphuc201/QA-agent.git
+✘ Failed to add marketplace: Failed to clone marketplace repository: Cloning into '<HOME>\AppData\Local\Temp\qa install smoke jtdPGQ\claude-config\plugins\marketplaces\hdphuc201-QA-agent'...
+fatal: cannot create directory at 'evidence/P7/slice-intentional-bug-report/run/test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium': Filename too long
+warning: Clone succeeded, but checkout failed.
+You can inspect what was checked out with 'git status'
+and retry with 'git restore --source=HEAD :/'
+$ claude plugin install qa-agent@qa-agent -> exit=1
+Installing plugin "qa-agent@qa-agent"...
+✘ Failed to install plugin "qa-agent@qa-agent": Plugin "qa-agent" not found in marketplace "qa-agent"
+$ claude plugin list -> exit=0
+No plugins installed. Use `claude plugin install` to install a plugin.
+installed layout: {"noNodeModules":true,"noLocalArtifacts":true,"bundle":false,"skills":false,"agent":false,"hook":false,"runtime":false}
+$ npm install --no-audit --no-fund --save-exact @playwright/test@1.63.0 -> exit=0
+$ C:\Program Files\nodejs\node.exe "<HOME>\\AppData\\Local\\Temp\\qa install smoke jtdPGQ\\claude-config\\plugins\\cache\\qa-agent\\qa-agent\\bin\\qa-agent.mjs" full-test --offline --project "<HOME>\\AppData\\Local\\Temp\\qa install smoke jtdPGQ\\target" -> exit=1
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1401:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)
+    at node:internal/main/run_main_module:36:49 {
+$ claude plugin uninstall qa-agent@qa-agent -> exit=1

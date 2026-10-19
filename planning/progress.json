@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "project": "qa-agent",
   "activePhase": "P9",
-  "updatedAt": "2026-10-19T17:27:49.634Z",
-  "revision": 126,
+  "updatedAt": "2026-10-19T18:24:19.282Z",
+  "revision": 131,
   "phases": {
     "P0": {
       "title": "BOOTSTRAP & AUTOMATED PROGRESS",
@@ -1049,27 +1049,42 @@
         },
         "P9-T03": {
           "title": "Package/version plugin; test install từ directory/marketplace theo docs hiện hành; release notes/CHANGELOG.",
-          "status": "in_progress",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T18:24:18.088Z",
+              "text": "bin/qa-agent.mjs bundle (scripts/bundle.mjs, CI bundle:check) + .claude-plugin/marketplace.json + version 1.0.0 + CHANGELOG.md; scripts/smoke/install-smoke.mjs PASS on 9f3f50b: clean git clone, claude plugin marketplace add + install into isolated CLAUDE_CONFIG_DIR, installed copy without node_modules, installed engine full-test 17 of 17 in a fresh target with only @playwright/test, uninstall exit=0 — evidence/P9/install-smoke.json; packaging decisions docs/ADR/0008-packaging.md"
+            }
+          ],
           "blockers": [],
           "startedAt": "2026-10-19T17:27:49.628Z",
-          "completedAt": null
+          "completedAt": "2026-10-19T18:24:18.088Z"
         },
         "P9-T04": {
           "title": "Viết tutorial cài đặt vào 2 target projects, example config và CLI usage.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T18:24:18.662Z",
+              "text": "docs/TUTORIAL.md: install from the GitHub marketplace, project A (approvals) and project B (helpdesk) with configs, credentials, Claude and CLI usage, cross-browser, own project, troubleshooting; project B flow reproduced by the install smoke (evidence/P9/install-smoke.json), project A flow by the vertical slice in CI (evidence/P9/ci-run-1.log); README links it"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T18:24:18.366Z",
+          "completedAt": "2026-10-19T18:24:18.662Z"
         },
         "P9-T05": {
           "title": "Release dry-run, compatibility matrix, licensing/security checklist. **Không publish thật nếu chưa được người dùng đồng ý.**",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T18:24:19.275Z",
+              "text": "scripts/release-dry-run.mjs exit=0 DRY-RUN OK for 1.0.0: clean tree, versions agree, bundle fresh, plugin validate, secret/personal-path scan of 434 tracked files, permissive licenses, archive sha256 recorded, nothing tagged or published — evidence/P9/release-dry-run.json; compatibility matrix + licensing/security checklists in docs/RELEASE.md (project license = owner decision)"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T18:24:18.970Z",
+          "completedAt": "2026-10-19T18:24:19.275Z"
         },
         "P9-T06": {
           "title": "Final readiness review và `v1.0` gate.",
