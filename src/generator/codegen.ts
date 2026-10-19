@@ -2,6 +2,7 @@
 // (no CSS). Assertions mirror the case's structured assertions one to one; nothing is added,
 // relaxed or dropped here.
 
+import { analyzeIsolation } from '../orchestrator/isolation.ts';
 import type { Assertion, Step, TestCase, ValueT } from '../planning/schema.ts';
 
 export class GenerationError extends Error {
@@ -133,7 +134,13 @@ export function caseToTest(c: TestCase): string {
       e.asserts.some((a) => a.as === r && !['apiStatus', 'apiCountUnchanged'].includes(a.kind)),
     );
   const lines: string[] = [];
-  const tags = [`@${c.priority}`, `@${c.category}`, ...c.requirementRefs.map((r) => `@${r}`)];
+  const serial = analyzeIsolation(c).isolation === 'serial';
+  const tags = [
+    `@${c.priority}`,
+    `@${c.category}`,
+    ...(serial ? ['@serial'] : []),
+    ...c.requirementRefs.map((r) => `@${r}`),
+  ];
   const annotations = [
     `{ type: 'qa-case', description: ${q(c.id)} }`,
     ...c.requirementRefs.map((r) => `{ type: 'requirement', description: ${q(r)} }`),
@@ -151,7 +158,13 @@ export function caseToTest(c: TestCase): string {
   const all = JSON.stringify([c.setup, c.steps, c.expectations]);
   if (all.includes('subject')) lines.push(`let subject: Subject = { path: '', id: '' };`);
   for (const r of roles(c))
-    if (usesPage(r)) lines.push(`const ${pageVar(r)} = await actors.page(${q(r)});`);
+    if (usesPage(r)) {
+      // A role whose sign-in is under test (explicit login, valid or not) never reuses a cached session.
+      const fresh = c.steps.some((s) => s.do === 'login' && s.as === r && !s.implicit);
+      lines.push(
+        `const ${pageVar(r)} = await actors.page(${q(r)}${fresh ? ', { fresh: true }' : ''});`,
+      );
+    }
 
   // Baselines for "no X is created": taken after sign-in, before the case's actions.
   const counts = new Map<string, string>();

@@ -119,7 +119,7 @@ function withImplicitLogins(steps: Step[], alreadyIn: Set<string>): Step[] {
   const done = new Set(alreadyIn);
   for (const s of steps) {
     if (s.as !== 'anonymous' && !explicit.has(s.as) && !done.has(s.as)) {
-      out.push({ do: 'login', as: s.as, invalidPassword: false });
+      out.push({ do: 'login', as: s.as, invalidPassword: false, implicit: true });
       done.add(s.as);
     }
     out.push(s);
@@ -434,7 +434,7 @@ export function buildPlan(input: PlanInput): TestPlan {
       (r) => r !== 'anonymous' && !signedIn.has(r) && !explicit.has(r),
     );
     d.steps = [
-      ...needLogin.map((as): Step => ({ do: 'login', as, invalidPassword: false })),
+      ...needLogin.map((as): Step => ({ do: 'login', as, invalidPassword: false, implicit: true })),
       ...d.steps,
     ];
     for (const s of allSteps(d))

@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "project": "qa-agent",
-  "activePhase": "P4",
-  "updatedAt": "2026-10-19T11:27:24.023Z",
-  "revision": 67,
+  "activePhase": "P5",
+  "updatedAt": "2026-10-19T12:04:08.585Z",
+  "revision": 80,
   "phases": {
     "P0": {
       "title": "BOOTSTRAP & AUTOMATED PROGRESS",
@@ -602,59 +602,99 @@
     },
     "P5": {
       "title": "AUTH, MULTI-TAB, MULTI-ROLE & TEST ORCHESTRATION",
-      "status": "not_started",
-      "gate": "pending",
-      "gateEvidence": [],
-      "startedAt": null,
-      "completedAt": null,
+      "status": "completed",
+      "gate": "passed",
+      "gateEvidence": [
+        {
+          "at": "2026-10-19T12:04:08.520Z",
+          "decision": "passed",
+          "text": "docs/PHASE_REVIEWS/P5.md; evidence/P5/test.log; evidence/P5/parallel-proof.log"
+        }
+      ],
+      "startedAt": "2026-10-19T11:28:53.336Z",
+      "completedAt": "2026-10-19T12:04:08.520Z",
       "tasks": {
         "P5-T01": {
           "title": "Thiết kế role/account references (không lưu credentials plaintext); auth setup/refresh có kiểm soát.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:00:26.027Z",
+              "text": "src/generator/runtime/qa-agent.fixtures.ts: accountKey references + env credentials, opt-in session cache with verified reuse and re-login on expiry, atomic writes, purge; tests/integration/sessions.test.ts S3 (expired -> signed-in): exit=0"
+            },
+            {
+              "at": "2026-10-19T12:00:26.027Z",
+              "text": "per-test session events (AUTH-001 signs in fresh, others reuse): evidence/P5/session-run.log"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T11:28:53.336Z",
+          "completedAt": "2026-10-19T12:00:26.027Z"
         },
         "P5-T02": {
           "title": "Session Manager: per-role BrowserContext, per-context tabs, cleanup trong `finally`/fixtures.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:00:26.718Z",
+              "text": "Actors: per-role BrowserContext, per-context tabs, anonymous context, cleanup in finally; tests/integration/sessions.test.ts S1 isolation/tabs, S2/S5 zero leaked contexts: exit=0"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:00:26.150Z",
+          "completedAt": "2026-10-19T12:00:26.718Z"
         },
         "P5-T03": {
           "title": "Workflow scheduler: steps/dependency graph, đồng bộ observable states, timeouts, retries hợp lý.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:00:35.266Z",
+              "text": "src/orchestrator/scheduler.ts dependency levels + isolation, src/orchestrator/run.ts two-phase run with run records; Playwright auto-waiting and expect.poll, explicit timeouts, retries 0; tests/unit/scheduler.test.ts: exit=0"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:00:26.277Z",
+          "completedAt": "2026-10-19T12:00:35.266Z"
         },
         "P5-T04": {
           "title": "Worker budget + data isolation: mặc định workers=1 cho write-heavy demo, tăng 2 khi chứng minh độc lập.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:00:35.453Z",
+              "text": "default workers=writeHeavy (1); scheduler raises to 2 only for isolated cases, REQ-002 (shared list count) serial; 3 runs with 2 workers all passed: evidence/P5/parallel-proof.log"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:00:26.410Z",
+          "completedAt": "2026-10-19T12:00:35.453Z"
         },
         "P5-T05": {
           "title": "Test role A tạo dữ liệu → role B duyệt → role A thấy kết quả; test forbidden action và session isolation.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:00:35.648Z",
+              "text": "requester creates, approver approves, requester sees Approved (APP-001); forbidden UI and API for requester and viewer (APP-003); session isolation (S1) via qa-agent run: tests/integration/sessions.test.ts exit=0; evidence/P5/parallel-proof.log"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:00:26.511Z",
+          "completedAt": "2026-10-19T12:00:35.648Z"
         },
         "P5-T06": {
           "title": "Test teardown/resource leaks, cancelled runs, unexpected browser errors; review P5.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:00:35.876Z",
+              "text": "tests/integration/sessions.test.ts: cancelled run (global timeout) and hard kill followed by a clean run, sessions purged; closed page or context fails loudly and is cleaned up (S4, S5): exit=0"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:00:26.621Z",
+          "completedAt": "2026-10-19T12:00:35.876Z"
         }
       }
     },

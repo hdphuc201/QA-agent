@@ -62,6 +62,19 @@ export const ProjectConfigSchema = z
         writeHeavy: z.int().min(1).max(8).default(1),
       })
       .default({ max: 1, writeHeavy: 1 }),
+    /**
+     * Signed-in session reuse per role (Playwright storageState under qa-artifacts/auth/).
+     * A cached session is used only after `verifyPath` loads without landing on the login page;
+     * otherwise the role signs in again (controlled refresh). Files are purged after the run.
+     */
+    session: z
+      .strictObject({
+        cache: z.boolean().default(false),
+        maxAgeMinutes: z.int().min(1).max(240).default(15),
+        verifyPath: z.string().startsWith('/').default('/'),
+        purgeAfterRun: z.boolean().default(true),
+      })
+      .default({ cache: false, maxAgeMinutes: 15, verifyPath: '/', purgeAfterRun: true }),
     /** Test data lifecycle: POST <resetPath> before and/or after a run (never on production). */
     testData: z
       .strictObject({

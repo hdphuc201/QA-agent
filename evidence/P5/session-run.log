@@ -1,0 +1,25 @@
+$ node scripts/smoke/run-sample-suite.mjs  (session cache on)
+
+  19 passed (25.9s)
+# playwright exit=0
+DEMO-REQ-VIEW-001-002 | passed | viewer: signed-in
+DEMO-REQ-VIEW-001-003 | passed | viewer: reused
+DEMO-REQ-APP-001-001 | passed | requester: signed-in, approver: signed-in
+DEMO-REQ-APP-002-001 | passed | requester: reused, approver: reused
+DEMO-REQ-APP-002-002 | passed | requester: reused, approver: reused
+DEMO-REQ-APP-003-001 | passed | requester: reused
+DEMO-REQ-APP-003-002 | passed | requester: reused
+DEMO-REQ-APP-003-003 | passed | requester: reused, viewer: reused
+DEMO-REQ-APP-003-004 | passed | requester: reused, viewer: reused
+DEMO-REQ-AUTH-001-001 | passed | requester: signed-in
+DEMO-REQ-AUTH-002-001 | passed | 
+DEMO-REQ-AUTH-003-001 | passed | 
+DEMO-REQ-AUTH-003-002 | passed | 
+DEMO-REQ-REQ-001-001 | passed | requester: reused
+DEMO-REQ-REQ-002-001 | passed | requester: reused
+DEMO-REQ-REQ-003-001 | passed | requester: reused
+DEMO-REQ-REQ-003-002 | passed | requester: reused
+DEMO-REQ-REQ-003-003 | passed | requester: reused
+DEMO-REQ-REQ-003-004 | passed | requester: reused
+stats: {"startTime":"2026-10-19T11:36:11.776Z","duration":25947.008,"expected":19,"skipped":0,"unexpected":0,"flaky":0}
+ls: cannot access 'examples/sample-app/qa-artifacts/auth': No such file or directory

@@ -12,7 +12,12 @@ const isRecord = (v: unknown): v is Record<string, unknown> =>
 
 const EXPECTED_SKILLS = ['discover', 'full-test', 'generate', 'plan', 'report', 'run'];
 // Skills whose engine exists (phase that implemented them). All others must stay honest skeletons.
-const IMPLEMENTED: Record<string, string> = { discover: 'P2', plan: 'P3', generate: 'P4' };
+const IMPLEMENTED: Record<string, string> = {
+  discover: 'P2',
+  plan: 'P3',
+  generate: 'P4',
+  run: 'P5',
+};
 // Fields accepted by the locally verified Claude Code CLI (2.1.71). `displayName` is rejected there.
 const MANIFEST_FIELDS = new Set([
   'name',

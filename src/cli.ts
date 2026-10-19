@@ -13,6 +13,7 @@ import { runDiscover } from './discovery/discover.ts';
 import { startPlaywrightTools } from './discovery/explorer.ts';
 import { runGenerate } from './generator/generate.ts';
 import { validateGenerated } from './generator/validate.ts';
+import { runSuite } from './orchestrator/run.ts';
 import { loadPlan, runPlan } from './planning/plan-stage.ts';
 
 export const EXIT = { OK: 0, FAILED: 1, USAGE: 2, CONFIG: 3 } as const;
@@ -31,7 +32,9 @@ Commands:
                            write .qa-agent/discovery/{project-map,observations}.json
   plan                     requirements docs + project map -> .qa-agent/plan/test-plan.{json,md}, test-cases.csv
   generate [--validate]    READY cases -> <testOutputRoot>/*.spec.ts (+ fixtures, Playwright config, case map);
-                           --validate type-checks the output and lists it with Playwright`;
+                           --validate type-checks the output and lists it with Playwright
+  run                      run the generated suite (isolated cases in parallel, shared-state cases serially);
+                           credentials from QA_AGENT_ACCOUNT_<KEY>_USERNAME/_PASSWORD; records qa-artifacts/runs/<id>/`;
 
 export interface Context {
   projectRoot: string;
@@ -116,6 +119,27 @@ export async function main(argv: string[], io: Io): Promise<number> {
           ].join('\n'),
         );
         return EXIT.OK;
+      }
+      case 'run': {
+        const ctx = loadContext(parsed.values.project, io);
+        const record = await runSuite({
+          projectRoot: ctx.projectRoot,
+          config: ctx.config,
+          plan: loadPlan(ctx.projectRoot),
+          env: { ...io.env },
+          out: (s) => io.out(s.replace(/\n$/, '')),
+        });
+        io.out(
+          [
+            `run ${record.runId}: exit=${record.exitCode}`,
+            ...record.phases.map(
+              (p) =>
+                `  ${p.name}: ${p.cases} case(s), ${p.workers} worker(s), exit=${p.exitCode}, ${p.resultsFile}`,
+            ),
+            `  record: qa-artifacts/runs/${record.runId}/run.json`,
+          ].join('\n'),
+        );
+        return record.exitCode === 0 ? EXIT.OK : EXIT.FAILED;
       }
       case 'generate': {
         const ctx = loadContext(parsed.values.project, io);

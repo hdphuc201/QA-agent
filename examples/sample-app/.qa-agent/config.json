@@ -27,6 +27,12 @@
     "max": 2,
     "writeHeavy": 1
   },
+  "session": {
+    "cache": true,
+    "maxAgeMinutes": 15,
+    "verifyPath": "/",
+    "purgeAfterRun": true
+  },
   "testData": {
     "resetPath": "/api/test/reset",
     "resetOn": "before"

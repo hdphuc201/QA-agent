@@ -58,7 +58,8 @@ export function validateGenerated(options: {
           module: 'ESNext',
           moduleResolution: 'Bundler',
           skipLibCheck: true,
-          types: [],
+          // Playwright's own typings import node modules, so Playwright projects carry @types/node.
+          types: ['node'],
         },
         include: [path.relative(workDir, path.join(outAbs, '**/*.ts')).split(path.sep).join('/')],
       },
@@ -82,7 +83,7 @@ export function validateGenerated(options: {
   } else {
     const r = spawnSync(
       process.execPath,
-      [cli, 'test', '--list', '-c', path.join(outAbs, PW_CONFIG)],
+      [cli, 'test', '--list', '--reporter=list', '-c', path.join(outAbs, PW_CONFIG)],
       {
         encoding: 'utf8',
         cwd: projectRoot,

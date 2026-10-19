@@ -49,7 +49,13 @@ export const Value = z.union([
 ]);
 
 export const StepSchema = z.discriminatedUnion('do', [
-  z.object({ do: z.literal('login'), as: z.string(), invalidPassword: z.boolean().default(false) }),
+  z.object({
+    do: z.literal('login'),
+    as: z.string(),
+    invalidPassword: z.boolean().default(false),
+    /** Inserted by the planner so a role can act; false when the requirement tests signing in. */
+    implicit: z.boolean().default(false),
+  }),
   z.object({ do: z.literal('goto'), as: z.string(), path: z.string() }),
   z.object({ do: z.literal('fill'), as: z.string(), label: z.string(), value: Value }),
   z.object({

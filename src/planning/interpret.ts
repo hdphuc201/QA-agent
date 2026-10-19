@@ -101,9 +101,9 @@ function actionSteps(ctx: InterpretContext, as: string, action: string): Step[] 
   const a = action.replace(/^(?:the|an?)\s+(?:anonymous\s+)?[a-z]+(?:\s+or\s+[a-z]+)*\s+/i, '');
   let m: RegExpExecArray | null;
   if (/^signs in with a valid username and password$/i.test(a))
-    return [{ do: 'login', as, invalidPassword: false }];
+    return [{ do: 'login', as, invalidPassword: false, implicit: false }];
   if (/^signs in with a wrong password$/i.test(a))
-    return [{ do: 'login', as, invalidPassword: true }];
+    return [{ do: 'login', as, invalidPassword: true, implicit: false }];
   if ((m = /^opens `([^`]+)`$/i.exec(a))?.[1]) return [{ do: 'goto', as, path: m[1] }];
   if (/^(?:opens (?:the|that) \w+|tries to \w+ it)$/i.test(a))
     return [{ do: 'goto', as, path: '{{subject.path}}' }];

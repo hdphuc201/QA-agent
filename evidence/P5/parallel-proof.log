@@ -1,0 +1,27 @@
+$ run 1: node scripts/smoke/run-sample-suite.mjs --engine
+Running 18 tests using 2 workers
+  18 passed (28.0s)
+Running 1 test using 1 worker
+  1 passed (4.3s)
+run run-20261019T115753-vu42: exit=0
+  parallel: 18 case(s), 2 worker(s), exit=0, qa-artifacts/runs/run-20261019T115753-vu42/results-parallel.json
+  serial: 1 case(s), 1 worker(s), exit=0, qa-artifacts/runs/run-20261019T115753-vu42/results-serial.json
+# qa-agent run exit=0
+$ run 2: node scripts/smoke/run-sample-suite.mjs --engine
+Running 18 tests using 2 workers
+  18 passed (24.5s)
+Running 1 test using 1 worker
+  1 passed (5.5s)
+run run-20261019T115830-b2u5: exit=0
+  parallel: 18 case(s), 2 worker(s), exit=0, qa-artifacts/runs/run-20261019T115830-b2u5/results-parallel.json
+  serial: 1 case(s), 1 worker(s), exit=0, qa-artifacts/runs/run-20261019T115830-b2u5/results-serial.json
+# qa-agent run exit=0
+$ run 3: node scripts/smoke/run-sample-suite.mjs --engine
+Running 18 tests using 2 workers
+  18 passed (23.5s)
+Running 1 test using 1 worker
+  1 passed (5.2s)
+run run-20261019T115905-18gs: exit=0
+  parallel: 18 case(s), 2 worker(s), exit=0, qa-artifacts/runs/run-20261019T115905-18gs/results-parallel.json
+  serial: 1 case(s), 1 worker(s), exit=0, qa-artifacts/runs/run-20261019T115905-18gs/results-serial.json
+# qa-agent run exit=0

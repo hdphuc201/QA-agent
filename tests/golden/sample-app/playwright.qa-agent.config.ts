@@ -16,6 +16,9 @@ export default defineConfig({
   timeout: 60_000,
   forbidOnly: true,
   globalSetup: './qa-agent.global-setup.ts',
+  globalTeardown: './qa-agent.global-teardown.ts',
+  // Flakes must stay visible: no automatic retries unless QA_AGENT_RETRIES is set.
+  expect: { timeout: 10_000 },
   outputDir: '../../qa-artifacts/playwright/test-results',
   reporter: [
     ['list'],
@@ -26,6 +29,8 @@ export default defineConfig({
     baseURL: env.QA_AGENT_BASE_URL ?? 'http://127.0.0.1:4100/',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
+    actionTimeout: 10_000,
+    navigationTimeout: 30_000,
   },
   projects: [
     {

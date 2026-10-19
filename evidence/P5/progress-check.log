@@ -1,0 +1,5 @@
+$ node scripts/progress.mjs check
+# started 2026-10-19T12:03:28.598Z node v22.15.0 on win32
+check OK
+
+# exit=0

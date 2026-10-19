@@ -80,3 +80,16 @@ Imported entries keep their original timestamp and are tagged `imported`.
 - 2026-10-19T11:07:09.810Z | P4 | P4-T06 | start | in_progress
 - 2026-10-19T11:27:23.786Z | P4 | P4-T06 | complete | completed | evidence: src/generator/generate.ts manifest idempotency: second generate written 0 unchanged 8 (evidence/P4/cli-generate-again.log); edited/custom files preserved, stale removed; tests/integration/generate.test.ts exit=0 ; quality gate exit=0 (132 tests, 131 pass, 1 skipped): evidence/P4/test.log; review docs/PHASE_REVIEWS/P4.md
 - 2026-10-19T11:27:24.005Z | P4 | - | gate | passed | docs/PHASE_REVIEWS/P4.md; evidence/P4/test.log; evidence/P4/trial-run.log
+- 2026-10-19T11:28:53.336Z | P5 | P5-T01 | start | in_progress
+- 2026-10-19T12:00:26.027Z | P5 | P5-T01 | complete | completed | evidence: src/generator/runtime/qa-agent.fixtures.ts: accountKey references + env credentials, opt-in session cache with verified reuse and re-login on expiry, atomic writes, purge; tests/integration/sessions.test.ts S3 (expired -> signed-in): exit=0 ; per-test session events (AUTH-001 signs in fresh, others reuse): evidence/P5/session-run.log
+- 2026-10-19T12:00:26.150Z | P5 | P5-T02 | start | in_progress
+- 2026-10-19T12:00:26.277Z | P5 | P5-T03 | start | in_progress
+- 2026-10-19T12:00:26.410Z | P5 | P5-T04 | start | in_progress
+- 2026-10-19T12:00:26.511Z | P5 | P5-T05 | start | in_progress
+- 2026-10-19T12:00:26.621Z | P5 | P5-T06 | start | in_progress
+- 2026-10-19T12:00:26.718Z | P5 | P5-T02 | complete | completed | evidence: Actors: per-role BrowserContext, per-context tabs, anonymous context, cleanup in finally; tests/integration/sessions.test.ts S1 isolation/tabs, S2/S5 zero leaked contexts: exit=0
+- 2026-10-19T12:00:35.266Z | P5 | P5-T03 | complete | completed | evidence: src/orchestrator/scheduler.ts dependency levels + isolation, src/orchestrator/run.ts two-phase run with run records; Playwright auto-waiting and expect.poll, explicit timeouts, retries 0; tests/unit/scheduler.test.ts: exit=0
+- 2026-10-19T12:00:35.453Z | P5 | P5-T04 | complete | completed | evidence: default workers=writeHeavy (1); scheduler raises to 2 only for isolated cases, REQ-002 (shared list count) serial; 3 runs with 2 workers all passed: evidence/P5/parallel-proof.log
+- 2026-10-19T12:00:35.648Z | P5 | P5-T05 | complete | completed | evidence: requester creates, approver approves, requester sees Approved (APP-001); forbidden UI and API for requester and viewer (APP-003); session isolation (S1) via qa-agent run: tests/integration/sessions.test.ts exit=0; evidence/P5/parallel-proof.log
+- 2026-10-19T12:00:35.876Z | P5 | P5-T06 | complete | completed | evidence: tests/integration/sessions.test.ts: cancelled run (global timeout) and hard kill followed by a clean run, sessions purged; closed page or context fails loudly and is cleaned up (S4, S5): exit=0
+- 2026-10-19T12:04:08.520Z | P5 | - | gate | passed | docs/PHASE_REVIEWS/P5.md; evidence/P5/test.log; evidence/P5/parallel-proof.log

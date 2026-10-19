@@ -1,18 +1,23 @@
 ---
-description: "QA Agent test execution (skeleton). Will run generated Playwright Test suites with isolated role contexts and worker budgets. Not implemented yet."
-argument-hint: "[suite]"
+description: "QA Agent test execution. Runs the generated Playwright suite of the target project with isolated role contexts: data-isolated cases in parallel within the worker budget, shared-state cases serially, and records the run under qa-artifacts/runs/. Use when the user asks to run or execute the generated tests."
+argument-hint: "[--project <dir>]"
 disable-model-invocation: true
 ---
 
-# QA Agent — run (skeleton)
+# QA Agent — run
 
-Status: **skeleton** — implementation is planned for phase P5 of `QA_AGENT_MASTER_ROADMAP.md`.
+Status: **implemented (P5)**. Arguments: $ARGUMENTS
 
-Planned behaviour: Run `npx playwright test` for generated specs with per-role browser contexts, safe worker budgets and evidence capture; never against production without explicit approval.
+1. Preconditions: `/qa-agent:generate` has produced `<testOutputRoot>/` (with `case-map.json`), the app is running at the configured `baseURL`, and the target project has `@playwright/test` and a browser.
+2. Safety: run only against the configured `local` / `staging` environment. Never point `QA_AGENT_BASE_URL` at production or at an origin outside `allowedOrigins` (the runtime refuses it anyway). The run may call the configured `testData.resetPath`.
+3. Credentials: the user provides `QA_AGENT_ACCOUNT_<ACCOUNT_KEY>_USERNAME` / `_PASSWORD` in their environment for each role. Never ask for passwords in chat, never write them to files, never echo them. A missing variable makes the affected tests fail with `QA_AGENT_BLOCKED: …`; report those as BLOCKED, not as app bugs.
+4. Run the engine with the Bash tool (plugin root `${CLAUDE_PLUGIN_ROOT}`; if not substituted, use the directory containing this plugin's `.claude-plugin/plugin.json`):
 
-## When invoked now
+   ```bash
+   node --experimental-strip-types --disable-warning=ExperimentalWarning "${CLAUDE_PLUGIN_ROOT}/src/cli.ts" run --project "<project root>"
+   ```
 
-1. Tell the user this skill is a skeleton and that phase P5 implements it.
-2. Do not explore, plan, generate, run or report anything on its behalf, and never present invented results as QA output.
-3. Echo the arguments received: $ARGUMENTS
-4. End with the line `QA-AGENT-SKILL: run | status=skeleton | phase=P5`.
+5. Report exactly what Playwright reported per phase (`parallel` / `serial`): passed, failed, skipped, flaky, plus the run ID and the paths `qa-artifacts/runs/<runId>/run.json`, `results-*.json`, `schedule.json`. PASS/FAIL is Playwright's verdict, not yours. Detailed reporting and failure analysis belong to `/qa-agent:report`.
+6. Do not re-run failing tests until they pass, edit specs, or raise retries to hide failures. Flaky results must be reported as flaky.
+
+End with the line `QA-AGENT-SKILL: run | status=implemented | phase=P5`.

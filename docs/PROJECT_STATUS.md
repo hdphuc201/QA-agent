@@ -2,12 +2,12 @@
 
 # QA Agent — Project Status
 
-- State revision: 67
-- Last update: 2026-10-19T11:27:24.023Z
-- Active phase: P4 — PLAYWRIGHT CODE GENERATION ENGINE
-- Task progress: 31/62 completed (50.0%) — share of roadmap tasks, not test coverage
+- State revision: 80
+- Last update: 2026-10-19T12:04:08.585Z
+- Active phase: P5 — AUTH, MULTI-TAB, MULTI-ROLE & TEST ORCHESTRATION
+- Task progress: 37/62 completed (59.7%) — share of roadmap tasks, not test coverage
 - In progress: 0 · Blocked: 0
-- Latest gate decision: P4 passed at 2026-10-19T11:27:24.005Z — docs/PHASE_REVIEWS/P4.md; evidence/P4/test.log; evidence/P4/trial-run.log
+- Latest gate decision: P5 passed at 2026-10-19T12:04:08.520Z — docs/PHASE_REVIEWS/P5.md; evidence/P5/test.log; evidence/P5/parallel-proof.log
 
 ## Phases
 
@@ -18,7 +18,7 @@
 | P2 | TARGET CONFIG, DISCOVERY & SAFE BROWSER EXPLORATION | completed | passed | 6/6 |
 | P3 | REQUIREMENTS & TEST PLANNING ENGINE | completed | passed | 6/6 |
 | P4 | PLAYWRIGHT CODE GENERATION ENGINE | completed | passed | 6/6 |
-| P5 | AUTH, MULTI-TAB, MULTI-ROLE & TEST ORCHESTRATION | not_started | pending | 0/6 |
+| P5 | AUTH, MULTI-TAB, MULTI-ROLE & TEST ORCHESTRATION | completed | passed | 6/6 |
 | P6 | END-TO-END HYBRID VERTICAL SLICE (MVP CORE) | not_started | pending | 0/6 |
 | P7 | EVIDENCE, REPORTING & MVP RELEASE CANDIDATE | not_started | pending | 0/6 |
 | P8 | HARDENING, SECURITY & CROSS-PROJECT TESTING | not_started | pending | 0/7 |
@@ -94,12 +94,12 @@ _None_
 
 | Task | Status | Title | Evidence |
 |---|---|---|---|
-| P5-T01 | not_started | Thiết kế role/account references (không lưu credentials plaintext); auth setup/refresh có kiểm soát. | — |
-| P5-T02 | not_started | Session Manager: per-role BrowserContext, per-context tabs, cleanup trong `finally`/fixtures. | — |
-| P5-T03 | not_started | Workflow scheduler: steps/dependency graph, đồng bộ observable states, timeouts, retries hợp lý. | — |
-| P5-T04 | not_started | Worker budget + data isolation: mặc định workers=1 cho write-heavy demo, tăng 2 khi chứng minh độc lập. | — |
-| P5-T05 | not_started | Test role A tạo dữ liệu → role B duyệt → role A thấy kết quả; test forbidden action và session isolation. | — |
-| P5-T06 | not_started | Test teardown/resource leaks, cancelled runs, unexpected browser errors; review P5. | — |
+| P5-T01 | completed | Thiết kế role/account references (không lưu credentials plaintext); auth setup/refresh có kiểm soát. | src/generator/runtime/qa-agent.fixtures.ts: accountKey references + env credentials, opt-in session cache with verified reuse and re-login on expiry, atomic writes, purge; tests/integration/sessions.test.ts S3 (expired -> signed-in): exit=0<br>per-test session events (AUTH-001 signs in fresh, others reuse): evidence/P5/session-run.log |
+| P5-T02 | completed | Session Manager: per-role BrowserContext, per-context tabs, cleanup trong `finally`/fixtures. | Actors: per-role BrowserContext, per-context tabs, anonymous context, cleanup in finally; tests/integration/sessions.test.ts S1 isolation/tabs, S2/S5 zero leaked contexts: exit=0 |
+| P5-T03 | completed | Workflow scheduler: steps/dependency graph, đồng bộ observable states, timeouts, retries hợp lý. | src/orchestrator/scheduler.ts dependency levels + isolation, src/orchestrator/run.ts two-phase run with run records; Playwright auto-waiting and expect.poll, explicit timeouts, retries 0; tests/unit/scheduler.test.ts: exit=0 |
+| P5-T04 | completed | Worker budget + data isolation: mặc định workers=1 cho write-heavy demo, tăng 2 khi chứng minh độc lập. | default workers=writeHeavy (1); scheduler raises to 2 only for isolated cases, REQ-002 (shared list count) serial; 3 runs with 2 workers all passed: evidence/P5/parallel-proof.log |
+| P5-T05 | completed | Test role A tạo dữ liệu → role B duyệt → role A thấy kết quả; test forbidden action và session isolation. | requester creates, approver approves, requester sees Approved (APP-001); forbidden UI and API for requester and viewer (APP-003); session isolation (S1) via qa-agent run: tests/integration/sessions.test.ts exit=0; evidence/P5/parallel-proof.log |
+| P5-T06 | completed | Test teardown/resource leaks, cancelled runs, unexpected browser errors; review P5. | tests/integration/sessions.test.ts: cancelled run (global timeout) and hard kill followed by a clean run, sessions purged; closed page or context fails loudly and is cleaned up (S4, S5): exit=0 |
 
 ### P6 — END-TO-END HYBRID VERTICAL SLICE (MVP CORE)
 

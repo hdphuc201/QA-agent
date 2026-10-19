@@ -517,7 +517,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -647,7 +648,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -748,7 +750,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -783,7 +786,8 @@
         {
           "do": "login",
           "as": "viewer",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -887,7 +891,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -922,7 +927,8 @@
         {
           "do": "login",
           "as": "viewer",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         }
       ],
       "expectations": [
@@ -1120,7 +1126,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -1155,7 +1162,8 @@
         {
           "do": "login",
           "as": "approver",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -1268,7 +1276,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": false
         }
       ],
       "expectations": [
@@ -1360,7 +1369,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -1504,7 +1514,8 @@
         {
           "do": "login",
           "as": "viewer",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         }
       ],
       "expectations": [
@@ -1570,7 +1581,8 @@
         {
           "do": "login",
           "as": "viewer",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         }
       ],
       "expectations": [
@@ -1640,7 +1652,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -1675,7 +1688,8 @@
         {
           "do": "login",
           "as": "approver",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -1774,7 +1788,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -1809,7 +1824,8 @@
         {
           "do": "login",
           "as": "approver",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         }
       ],
       "expectations": [
@@ -1887,7 +1903,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": true
+          "invalidPassword": true,
+          "implicit": false
         }
       ],
       "expectations": [
@@ -1972,7 +1989,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -2085,7 +2103,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -2182,7 +2201,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -2279,7 +2299,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -2374,7 +2395,8 @@
         {
           "do": "login",
           "as": "requester",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         },
         {
           "do": "goto",
@@ -2469,7 +2491,8 @@
         {
           "do": "login",
           "as": "viewer",
-          "invalidPassword": false
+          "invalidPassword": false,
+          "implicit": true
         }
       ],
       "expectations": [

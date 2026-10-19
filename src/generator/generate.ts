@@ -18,13 +18,48 @@ export const PW_CONFIG = 'playwright.qa-agent.config.ts';
 export const GLOBAL_SETUP = 'qa-agent.global-setup.ts';
 export const GLOBAL_TEARDOWN = 'qa-agent.global-teardown.ts';
 
-export function globalHookSource(kind: 'setup' | 'teardown'): string {
+/** `e2e/generated` → `../..` (from the output root back to the project root). */
+export function upTo(outputRoot: string): string {
+  return path.posix.relative(path.posix.join('/x', outputRoot.replace(/\\/g, '/')), '/x') || '.';
+}
+
+/** What the generated global hooks do for this config. */
+export function lifecycle(config: ProjectConfig): {
+  resetBefore: boolean;
+  resetAfter: boolean;
+  purge: boolean;
+} {
+  const on = config.testData?.resetPath ? config.testData.resetOn : null;
+  return {
+    resetBefore: on === 'before' || on === 'both',
+    resetAfter: on === 'after' || on === 'both',
+    purge: config.session.cache && config.session.purgeAfterRun,
+  };
+}
+
+export function globalSetupSource(opts: { reset: boolean; purge: boolean }): string {
   return [
-    `// ${GENERATED_MARK} — do not edit. Resets test data ${kind === 'setup' ? 'before' : 'after'} the run (testData.resetPath).`,
-    `import { resetTestData } from './qa-agent.fixtures';`,
+    `// ${GENERATED_MARK} — do not edit. Before the run: ${[opts.purge ? 'delete leftover cached sessions (e.g. from a cancelled run)' : '', opts.reset ? 'reset test data' : ''].filter(Boolean).join(', ')}.`,
+    `import type { FullConfig } from '@playwright/test';`,
+    `import { purgeSessions, resetTestData } from './qa-agent.fixtures';`,
     ``,
-    `export default async function global${kind === 'setup' ? 'Setup' : 'Teardown'}(): Promise<void> {`,
-    `  await resetTestData();`,
+    `export default async function globalSetup(config: FullConfig): Promise<void> {`,
+    ...(opts.purge ? [`  purgeSessions(config);`] : [`  void config;`, `  void purgeSessions;`]),
+    ...(opts.reset ? [`  await resetTestData();`] : [`  void resetTestData;`]),
+    `}`,
+    ``,
+  ].join('\n');
+}
+
+export function globalTeardownSource(opts: { reset: boolean; purge: boolean }): string {
+  return [
+    `// ${GENERATED_MARK} — do not edit. After the run: ${[opts.reset ? 'reset test data' : '', opts.purge ? 'delete cached sessions' : ''].filter(Boolean).join(', ')}.`,
+    `import type { FullConfig } from '@playwright/test';`,
+    `import { purgeSessions, resetTestData } from './qa-agent.fixtures';`,
+    ``,
+    `export default async function globalTeardown(config: FullConfig): Promise<void> {`,
+    ...(opts.purge ? [`  purgeSessions(config);`] : [`  void config;`, `  void purgeSessions;`]),
+    ...(opts.reset ? [`  await resetTestData();`] : [`  void resetTestData;`]),
     `}`,
     ``,
   ].join('\n');
@@ -89,6 +124,8 @@ export function fixturesSource(runtimeFile: string, config: ProjectConfig): stri
     `  accounts: ${JSON.stringify(Object.fromEntries(config.roles.map((r) => [r.name, r.accountKey])))} as Record<string, string>,`,
     `  allowedOrigins: ${JSON.stringify(config.allowedOrigins)} as string[],`,
     `  resetPath: ${config.testData?.resetPath ? JSON.stringify(config.testData.resetPath) : 'null'} as string | null,`,
+    `  session: ${JSON.stringify(config.session)},`,
+    `  authDir: ${JSON.stringify(`${upTo(config.testOutputRoot)}/qa-artifacts/auth`)},`,
     '};',
     '/* QA_AGENT_CONFIG:END */',
   ].join('\n');
@@ -102,11 +139,9 @@ export function fixturesSource(runtimeFile: string, config: ProjectConfig): stri
 }
 
 export function playwrightConfigSource(config: ProjectConfig, outputRoot: string): string {
-  const reset = config.testData?.resetPath ? config.testData.resetOn : null;
-  const resetBefore = reset === 'before' || reset === 'both';
-  const resetAfter = reset === 'after' || reset === 'both';
+  const { resetBefore, resetAfter, purge } = lifecycle(config);
   // Paths are relative to the config file (which lives in the output root).
-  const up = toPosix(path.relative(path.resolve('/x', outputRoot), path.resolve('/x'))) || '.';
+  const up = upTo(outputRoot);
   const artifacts = `${up}/qa-artifacts/playwright`;
   return [
     `// ${GENERATED_MARK} — do not edit; regenerate with \`qa-agent generate\`.`,
@@ -124,8 +159,10 @@ export function playwrightConfigSource(config: ProjectConfig, outputRoot: string
     `  retries: Number(env.QA_AGENT_RETRIES ?? 0),`,
     `  timeout: 60_000,`,
     `  forbidOnly: true,`,
-    ...(resetBefore ? [`  globalSetup: './${GLOBAL_SETUP}',`] : []),
-    ...(resetAfter ? [`  globalTeardown: './${GLOBAL_TEARDOWN}',`] : []),
+    ...(resetBefore || purge ? [`  globalSetup: './${GLOBAL_SETUP}',`] : []),
+    ...(resetAfter || purge ? [`  globalTeardown: './${GLOBAL_TEARDOWN}',`] : []),
+    `  // Flakes must stay visible: no automatic retries unless QA_AGENT_RETRIES is set.`,
+    `  expect: { timeout: 10_000 },`,
     `  outputDir: '${artifacts}/test-results',`,
     `  reporter: [`,
     `    ['list'],`,
@@ -136,6 +173,8 @@ export function playwrightConfigSource(config: ProjectConfig, outputRoot: string
     `    baseURL: env.QA_AGENT_BASE_URL ?? ${JSON.stringify(config.baseURL)},`,
     `    trace: 'retain-on-failure',`,
     `    screenshot: 'only-on-failure',`,
+    `    actionTimeout: 10_000,`,
+    `    navigationTimeout: 30_000,`,
     `  },`,
     `  projects: [`,
     `    {`,
@@ -177,9 +216,11 @@ export async function runGenerate(options: {
   }
   raw.set(FIXTURES, fixturesSource(options.runtimeFile, config));
   raw.set(PW_CONFIG, playwrightConfigSource(config, outRel));
-  const reset = config.testData?.resetPath ? config.testData.resetOn : null;
-  if (reset === 'before' || reset === 'both') raw.set(GLOBAL_SETUP, globalHookSource('setup'));
-  if (reset === 'after' || reset === 'both') raw.set(GLOBAL_TEARDOWN, globalHookSource('teardown'));
+  const life = lifecycle(config);
+  if (life.resetBefore || life.purge)
+    raw.set(GLOBAL_SETUP, globalSetupSource({ reset: life.resetBefore, purge: life.purge }));
+  if (life.resetAfter || life.purge)
+    raw.set(GLOBAL_TEARDOWN, globalTeardownSource({ reset: life.resetAfter, purge: life.purge }));
 
   const files = new Map<string, string>();
   let formatted = true;

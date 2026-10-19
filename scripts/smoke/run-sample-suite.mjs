@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Runs the generated Playwright suite of examples/sample-app against a freshly started sample app.
 // Usage: node scripts/smoke/run-sample-suite.mjs [--bug skip-approve-rbac] [--project <dir>]
-//        [--port 4100] [-- <extra playwright args>]
+//        [--port 4100] [--engine] [-- <extra playwright args>]
+//   --engine  go through `qa-agent run` (scheduler: isolated cases in parallel, then serial ones)
 // The demo credentials are fixture values of the local sample app, passed only via environment.
 
 import { spawn } from 'node:child_process';
@@ -14,7 +15,12 @@ import { startSampleApp } from '../../examples/sample-app/server.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const { values, positionals } = parseArgs({
   allowPositionals: true,
-  options: { bug: { type: 'string' }, project: { type: 'string' }, port: { type: 'string' } },
+  options: {
+    bug: { type: 'string' },
+    project: { type: 'string' },
+    port: { type: 'string' },
+    engine: { type: 'boolean' },
+  },
 });
 const project = path.resolve(values.project ?? path.join(root, 'examples/sample-app'));
 const port = Number(values.port ?? 4100);
@@ -27,7 +33,6 @@ process.stdout.write(
   `sample app ${app.url}${values.bug ? ` with intentional defect "${values.bug}"` : ''}\n`,
 );
 
-const cli = createRequire(path.join(project, 'package.json')).resolve('@playwright/test/cli');
 const env = {
   ...process.env,
   FORCE_COLOR: '0',
@@ -39,18 +44,24 @@ const env = {
   QA_AGENT_ACCOUNT_DEMO_VIEWER_USERNAME: 'victor',
   QA_AGENT_ACCOUNT_DEMO_VIEWER_PASSWORD: 'victor-demo',
 };
-const child = spawn(
-  process.execPath,
-  [
-    cli,
-    'test',
-    '-c',
-    path.join(project, 'e2e/generated/playwright.qa-agent.config.ts'),
-    ...positionals,
-  ],
-  { cwd: project, env, stdio: 'inherit' },
-);
+const args = values.engine
+  ? [
+      '--experimental-strip-types',
+      '--disable-warning=ExperimentalWarning',
+      path.join(root, 'src/cli.ts'),
+      'run',
+      '--project',
+      project,
+    ]
+  : [
+      createRequire(path.join(project, 'package.json')).resolve('@playwright/test/cli'),
+      'test',
+      '-c',
+      path.join(project, 'e2e/generated/playwright.qa-agent.config.ts'),
+      ...positionals,
+    ];
+const child = spawn(process.execPath, args, { cwd: project, env, stdio: 'inherit' });
 const code = await new Promise((resolve) => child.on('close', resolve));
 await app.close();
-process.stdout.write(`# playwright exit=${code}\n`);
+process.stdout.write(`# ${values.engine ? 'qa-agent run' : 'playwright'} exit=${code}\n`);
 process.exitCode = typeof code === 'number' ? code : 1;

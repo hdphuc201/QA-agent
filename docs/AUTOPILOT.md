@@ -31,10 +31,10 @@ Force-push, other remotes or branches, publish, release tags, deployment; produc
 
 Updated at every phase boundary. On a new session: restore from this section, `planning/progress.json`, `git log` and `git status`, not from chat memory.
 
-- Last completed phase: P4 (gate passed; commit "feat: Playwright code generation engine (P4)", pushed to origin/main)
-- Current phase / task: P5 / P5-T01 (not started)
+- Last completed phase: P5 (gate passed; commit "feat: sessions, roles and run orchestration (P5)", pushed to origin/main)
+- Current phase / task: P6 / P6-T01 (not started)
 - Work in progress: none
-- Files changed since last commit: none expected after the P4 commit
-- Last test results: quality gate P4 all passed (132 tests, 131 pass, 1 skipped: symlink on Windows); generated suite trial run 19 passed
+- Files changed since last commit: none expected after the P5 commit
+- Last test results: quality gate P5 all passed (140 tests, 139 pass, 1 skipped: symlink on Windows); qa-agent run 3/3 with 2 workers
 - Open blockers: none. Deferred: in-Claude run of implemented skills (owner terminal) with the full pipeline in P7
-- Next action: start P5-T01 (role/account references, auth storage state with controlled refresh)
+- Next action: start P6-T01 (vertical slice on examples/sample-app)
