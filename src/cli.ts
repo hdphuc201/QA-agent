@@ -14,7 +14,7 @@ import { runDiscover } from './discovery/discover.ts';
 import { startPlaywrightTools } from './discovery/explorer.ts';
 import { runGenerate } from './generator/generate.ts';
 import { validateGenerated } from './generator/validate.ts';
-import { runFullTest } from './orchestrator/full-test.ts';
+import { fullTestSucceeded, runFullTest } from './orchestrator/full-test.ts';
 import { runSuite } from './orchestrator/run.ts';
 import { runReport } from './reporting/report.ts';
 import { loadPlan, runPlan } from './planning/plan-stage.ts';
@@ -193,8 +193,9 @@ export async function main(argv: string[], io: Io): Promise<number> {
           ].join('\n'),
         );
         if (res.failedStage) return EXIT.FAILED;
-        const last = res.state.stages.report?.summary ?? '';
-        return /failed 0, blocked 0/.test(last) ? EXIT.OK : EXIT.FAILED;
+        const verdict = fullTestSucceeded(res.counts);
+        if (!verdict.ok) io.err(`full-test: ${verdict.reason}`);
+        return verdict.ok ? EXIT.OK : EXIT.FAILED;
       }
       case 'generate': {
         const ctx = loadContext(parsed.values.project, io);

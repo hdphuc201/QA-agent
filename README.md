@@ -53,7 +53,7 @@ node --experimental-strip-types D:\path\to\QA-agent\src\cli.ts full-test --proje
 
 1. Add `.qa-agent/config.json` (guide: [`docs/CONFIG_GUIDE.md`](docs/CONFIG_GUIDE.md)).
 2. Write requirements in the controlled format the planner understands ([`docs/REQUIREMENTS_FORMAT.md`](docs/REQUIREMENTS_FORMAT.md)). A requirement without measurable `Expected` lines produces a `NEEDS_REVIEW` case; such cases are never run.
-3. Install `@playwright/test` and `@types/node` in the target project.
+3. Install `@playwright/test` in the target project (plus `typescript` and `@types/node` for the strict type-check of generated tests; without them the check is reported as not run).
 4. Provide credentials per role in your environment, never in files: `QA_AGENT_ACCOUNT_<ACCOUNT_KEY>_USERNAME` and `_PASSWORD` (e.g. `demo.requester` → `QA_AGENT_ACCOUNT_DEMO_REQUESTER_*`).
 5. Run `full-test` against a **local or staging** environment.
 

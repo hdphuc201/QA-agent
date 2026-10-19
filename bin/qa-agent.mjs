@@ -23637,6 +23637,16 @@ function inputsHash(stage, projectRoot, config2, runtimeFile, offline) {
       return sha2([String(Date.now())]);
   }
 }
+function fullTestSucceeded(counts) {
+  if (!counts) return { ok: false, reason: "no report was produced" };
+  if (counts.failed || counts.blocked)
+    return { ok: false, reason: `${counts.failed} failed, ${counts.blocked} blocked` };
+  if (counts.ready === 0) return { ok: false, reason: "the plan has no READY case" };
+  const done = counts.passed + counts.skipped;
+  if (done !== counts.ready)
+    return { ok: false, reason: `only ${done} of ${counts.ready} READY case(s) ran to a verdict` };
+  return { ok: true, reason: `${counts.passed} passed` };
+}
 async function runFullTest(options) {
   const { projectRoot, config: config2, out } = options;
   const runtimeFile = path13.join(options.pluginRoot, "src/generator/runtime/qa-agent.fixtures.ts");
@@ -23659,7 +23669,8 @@ async function runFullTest(options) {
     resumed: [],
     failedStage: null,
     error: null,
-    reportFiles: []
+    reportFiles: [],
+    counts: null
   };
   for (const stage of STAGES) {
     const hash2 = inputsHash(stage, projectRoot, config2, runtimeFile, options.offline === true);
@@ -23733,6 +23744,7 @@ async function runFullTest(options) {
           });
           result.reportFiles = files;
           const c = report.coverage.counts;
+          result.counts = c;
           summary = `passed ${c.passed}/${c.executed}, failed ${c.failed}, blocked ${c.blocked}, not run ${c.notRun}`;
           break;
         }
@@ -23925,8 +23937,9 @@ ${USAGE}`);
           ].join("\n")
         );
         if (res.failedStage) return EXIT.FAILED;
-        const last = res.state.stages.report?.summary ?? "";
-        return /failed 0, blocked 0/.test(last) ? EXIT.OK : EXIT.FAILED;
+        const verdict = fullTestSucceeded(res.counts);
+        if (!verdict.ok) io.err(`full-test: ${verdict.reason}`);
+        return verdict.ok ? EXIT.OK : EXIT.FAILED;
       }
       case "generate": {
         const ctx = loadContext(parsed.values.project, io);

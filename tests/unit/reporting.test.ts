@@ -6,6 +6,7 @@ import { after, describe, test } from 'node:test';
 import { parseProjectConfig } from '../../src/config/project-config.schema.ts';
 import { analyzeFailures } from '../../src/reporting/analyze.ts';
 import { buildCoverage } from '../../src/reporting/coverage.ts';
+import { fullTestSucceeded } from '../../src/orchestrator/full-test.ts';
 import { cleanText, normalizeRun, secretValues } from '../../src/reporting/normalize.ts';
 import {
   buildReport,
@@ -382,5 +383,29 @@ describe('several browsers (P8-T04)', () => {
     assert.match(r?.error?.message ?? '', /boom in firefox/);
     assert.deepEqual(r?.byBrowser, { chromium: 'PASS', firefox: 'FAIL', webkit: 'PASS' });
     assert.equal(r?.attempts, 3);
+  });
+});
+
+describe('full-test verdict', () => {
+  const base = {
+    ready: 17,
+    executed: 17,
+    passed: 17,
+    failed: 0,
+    blocked: 0,
+    skipped: 0,
+    notRun: 0,
+  };
+  test('passes only when every READY case reached a verdict without failures', () => {
+    assert.equal(fullTestSucceeded(base).ok, true);
+    assert.equal(fullTestSucceeded(null).ok, false);
+    assert.equal(fullTestSucceeded({ ...base, passed: 16, failed: 1 }).ok, false);
+    assert.equal(fullTestSucceeded({ ...base, passed: 16, blocked: 1 }).ok, false);
+    assert.equal(fullTestSucceeded({ ...base, ready: 0, executed: 0, passed: 0 }).ok, false);
+  });
+  test('a run where nothing executed is not a success (found by the P9 install smoke)', () => {
+    const r = fullTestSucceeded({ ...base, executed: 0, passed: 0, notRun: 17 });
+    assert.equal(r.ok, false);
+    assert.match(r.reason, /only 0 of 17 READY/);
   });
 });

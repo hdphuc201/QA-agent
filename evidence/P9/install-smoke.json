@@ -1,0 +1,25 @@
+{
+  "startedAt": "2026-10-19T17:56:39.685Z",
+  "source": "git clone HEAD",
+  "commit": "d505442f82b0ce1d28c54d1b50f8e243997f3328",
+  "installed": true,
+  "version": "0.1.0",
+  "layout": {
+    "noNodeModules": true,
+    "noLocalArtifacts": true,
+    "bundle": true,
+    "skills": true,
+    "agent": true,
+    "hook": true,
+    "runtime": true
+  },
+  "targetDeps": "@playwright/test@1.63.0 only",
+  "fullTest": {
+    "exit": 0,
+    "report": "not 17/17",
+    "typecheck": "not run (no TypeScript in target)"
+  },
+  "generatedIn": "tests/qa",
+  "uninstalled": true,
+  "pass": false
+}

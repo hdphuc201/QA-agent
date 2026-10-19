@@ -42,6 +42,16 @@ export interface FullTestResult {
   failedStage: Stage | null;
   error: string | null;
   reportFiles: string[];
+  /** Coverage counts of the report stage (null when it did not run). */
+  counts: {
+    ready: number;
+    executed: number;
+    passed: number;
+    failed: number;
+    blocked: number;
+    skipped: number;
+    notRun: number;
+  } | null;
 }
 
 const sha = (parts: string[]) =>
@@ -90,6 +100,21 @@ function inputsHash(
   }
 }
 
+/** Success = every READY case reached PASS (or a deliberate skip); nothing failed or is blocked. */
+export function fullTestSucceeded(counts: FullTestResult['counts']): {
+  ok: boolean;
+  reason: string;
+} {
+  if (!counts) return { ok: false, reason: 'no report was produced' };
+  if (counts.failed || counts.blocked)
+    return { ok: false, reason: `${counts.failed} failed, ${counts.blocked} blocked` };
+  if (counts.ready === 0) return { ok: false, reason: 'the plan has no READY case' };
+  const done = counts.passed + counts.skipped;
+  if (done !== counts.ready)
+    return { ok: false, reason: `only ${done} of ${counts.ready} READY case(s) ran to a verdict` };
+  return { ok: true, reason: `${counts.passed} passed` };
+}
+
 export async function runFullTest(options: {
   projectRoot: string;
   pluginRoot: string;
@@ -123,6 +148,7 @@ export async function runFullTest(options: {
     failedStage: null,
     error: null,
     reportFiles: [],
+    counts: null,
   };
 
   for (const stage of STAGES) {
@@ -199,6 +225,7 @@ export async function runFullTest(options: {
           });
           result.reportFiles = files;
           const c = report.coverage.counts;
+          result.counts = c;
           summary = `passed ${c.passed}/${c.executed}, failed ${c.failed}, blocked ${c.blocked}, not run ${c.notRun}`;
           break;
         }
