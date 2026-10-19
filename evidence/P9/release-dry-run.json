@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-10-19T18:23:22.438Z",
+  "ref": "HEAD",
+  "commit": "d817757dd81baba42601a0a50a5fea1b874c80fb",
+  "version": "1.0.0",
+  "ok": true,
+  "checks": [
+    {
+      "name": "working tree has no uncommitted changes to tracked files",
+      "ok": true,
+      "detail": "clean"
+    },
+    {
+      "name": "versions agree (package.json, plugin.json, marketplace.json, CHANGELOG)",
+      "ok": true,
+      "detail": "package 1.0.0, plugin 1.0.0, marketplace 1.0.0, CHANGELOG has \"## 1.0.0\""
+    },
+    {
+      "name": "bin/qa-agent.mjs is built from the current src/",
+      "ok": true,
+      "detail": "bin/qa-agent.mjs is up to date"
+    },
+    {
+      "name": "claude plugin validate",
+      "ok": true,
+      "detail": "✔ Validation passed"
+    },
+    {
+      "name": "secret / personal-path scan of 434 tracked files",
+      "ok": true,
+      "detail": "no matches"
+    },
+    {
+      "name": "direct dependency licenses are permissive",
+      "ok": true,
+      "detail": "MIT, MIT, Apache-2.0, MIT, MIT, MIT, MIT, MIT, Apache-2.0, MIT"
+    },
+    {
+      "name": "release archive builds",
+      "ok": true,
+      "detail": "797112 bytes, sha256 3d24b90309fb75696922dc59633534dafa67304669dd15debb77df5c1e89573c"
+    }
+  ],
+  "artifact": {
+    "name": "qa-agent-1.0.0-d817757.tar.gz",
+    "bytes": 797112,
+    "sha256": "3d24b90309fb75696922dc59633534dafa67304669dd15debb77df5c1e89573c",
+    "files": 434
+  },
+  "licenses": {
+    "zod@4.6.5": "MIT",
+    "@eslint/js@10.0.1": "MIT",
+    "@playwright/test@1.63.0": "Apache-2.0",
+    "@types/node@22.20.5": "MIT",
+    "esbuild@0.28.1": "MIT",
+    "eslint@10.12.0": "MIT",
+    "globals@17.13.0": "MIT",
+    "prettier@3.9.9": "MIT",
+    "typescript@6.0.3": "Apache-2.0",
+    "typescript-eslint@8.71.0": "MIT"
+  },
+  "projectLicense": "no LICENSE file (owner decision)",
+  "published": false,
+  "note": "dry-run: nothing was tagged, pushed or published"
+}
