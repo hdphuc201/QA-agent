@@ -61,7 +61,8 @@ check('claude plugin validate', validate.code === 0, validate.out.split('\n').at
 // Secret scan of the tracked tree at the ref (what would be distributed).
 const files = run('git', ['ls-tree', '-r', '--name-only', ref]).out.split('\n').filter(Boolean);
 const SECRET = [
-  /-----BEGIN [A-Z ]*PRIVATE KEY-----/,
+  // A real key has a body; redaction tests use header-only fixtures ("MIIB").
+  /-----BEGIN [A-Z ]*PRIVATE KEY-----\s+[A-Za-z0-9+/=\s]{100,}-----END/,
   /\bghp_[A-Za-z0-9]{36}\b/,
   /\bgithub_pat_[A-Za-z0-9_]{40,}/,
   /\bsk-ant-[A-Za-z0-9-]{20,}/,
