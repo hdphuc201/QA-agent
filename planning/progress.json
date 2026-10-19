@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "project": "qa-agent",
-  "activePhase": "P0",
-  "updatedAt": "2026-10-19T05:05:09.524Z",
-  "revision": 15,
+  "activePhase": "P1",
+  "updatedAt": "2026-10-19T07:59:52.297Z",
+  "revision": 28,
   "phases": {
     "P0": {
       "title": "BOOTSTRAP & AUTOMATED PROGRESS",
@@ -134,59 +134,119 @@
     },
     "P1": {
       "title": "CLAUDE CODE PLUGIN FOUNDATION",
-      "status": "not_started",
-      "gate": "pending",
-      "gateEvidence": [],
-      "startedAt": null,
-      "completedAt": null,
+      "status": "completed",
+      "gate": "passed",
+      "gateEvidence": [
+        {
+          "at": "2026-10-19T07:59:52.280Z",
+          "decision": "passed",
+          "text": "docs/PHASE_REVIEWS/P1.md; in-Claude smoke evidence/P1/claude-plugin-smoke.json; direct MCP evidence/P1/smoke-mcp.log"
+        }
+      ],
+      "startedAt": "2026-10-19T05:48:58.049Z",
+      "completedAt": "2026-10-19T07:59:52.280Z",
       "tasks": {
         "P1-T01": {
           "title": "Đọc docs Claude Code plugin mới nhất, tạo `.claude-plugin/plugin.json` hợp lệ.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T05:52:35.686Z",
+              "text": "claude plugin validate . (Claude Code 2.1.71): exit=0 'Validation passed'; first attempt exit=1 on displayName, see evidence/P1/validate-t01.log"
+            },
+            {
+              "at": "2026-10-19T05:52:35.686Z",
+              "text": ".claude-plugin/plugin.json per https://code.claude.com/docs/en/plugins-reference"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T05:48:58.049Z",
+          "completedAt": "2026-10-19T05:52:35.686Z"
         },
         "P1-T02": {
           "title": "Tạo 6 Skill skeletons `discover`, `plan`, `generate`, `run`, `report`, `full-test` với frontmatter đúng format; scope rõ, chưa khẳng định tác vụ chưa implemented hoạt động.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T05:54:16.367Z",
+              "text": "skills/{discover,plan,generate,run,report,full-test}/SKILL.md created; tests/contract/plugin.test.ts: exit=0, 10/10 pass (frontmatter, skeleton marker, disable-model-invocation, tool allowlist)"
+            },
+            {
+              "at": "2026-10-19T05:54:16.367Z",
+              "text": "claude plugin validate . after adding skills: exit=0, evidence/P1/validate-t02.log; runtime skill discovery is verified in P1-T05"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T05:52:35.891Z",
+          "completedAt": "2026-10-19T05:54:16.367Z"
         },
         "P1-T03": {
           "title": "Tạo `.mcp.json` tích hợp Playwright MCP theo upstream và xác minh tool loading; pin version dependency sau khi chứng minh tương thích.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T05:57:39.890Z",
+              "text": "node scripts/smoke/mcp-smoke.mjs: exit=0 — @playwright/mcp@0.0.83 started from .mcp.json, initialize + tools/list (25 tools) + navigate + snapshot containing the per-run token, example.com blocked; evidence/P1/mcp-smoke-direct.log"
+            },
+            {
+              "at": "2026-10-19T05:57:39.890Z",
+              "text": "version pinned after the smoke; tests/contract/plugin.test.ts: exit=0 (pin, --headless, --isolated, localhost-only origins). Loading inside Claude Code verified in P1-T05"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T05:54:16.485Z",
+          "completedAt": "2026-10-19T05:57:39.890Z"
         },
         "P1-T04": {
           "title": "Viết adapter cho plugin path, project root, config discovery; test đường dẫn Windows có khoảng trắng.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T06:00:05.437Z",
+              "text": "src/config/paths.ts (plugin root, project root, project config discovery); tests/unit/paths.test.ts: exit=0, 11/11 pass incl. temp dirs with spaces and path.win32 cases"
+            },
+            {
+              "at": "2026-10-19T06:00:05.437Z",
+              "text": "npm run build: exit=0 (dist/config/paths.js); mutation: cross-drive containment rule removed -> 1 test failed; redundant toLowerCase removed after mutation showed path.win32.relative is case-insensitive"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T05:57:40.158Z",
+          "completedAt": "2026-10-19T06:00:05.437Z"
         },
         "P1-T05": {
           "title": "Smoke test plugin validate/load, skill discovery, MCP availability, và ghi limitations.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T07:52:24.067Z",
+              "text": "node scripts/smoke/claude-plugin-smoke.mjs (owner terminal, Claude Code 2.1.71, current .mcp.json): exit=0 PASS — validate, 6 qa-agent skills discovered, plugin:qa-agent:playwright connected, navigate/snapshot/close called, per-run token in snapshot result; evidence/P1/claude-plugin-smoke.json"
+            },
+            {
+              "at": "2026-10-19T07:52:24.067Z",
+              "text": "transcript evidence/P1/claude-plugin-smoke.jsonl; direct MCP smoke evidence/P1/mcp-smoke-output-dir.log exit=0; limitations in docs/PLUGIN.md"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T06:00:05.563Z",
+          "completedAt": "2026-10-19T07:52:24.067Z"
         },
         "P1-T06": {
           "title": "Quality gate, docs/README và phase review P1.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T07:59:51.839Z",
+              "text": "quality gate: typecheck/lint/format:check/build/test (47/47)/plugin validate/smoke:mcp/progress check all exit=0; logs in evidence/P1/"
+            },
+            {
+              "at": "2026-10-19T07:59:51.839Z",
+              "text": "docs updated: README.md CLAUDE.md docs/PLUGIN.md docs/ADR/0002-playwright-mcp-config.md; review docs/PHASE_REVIEWS/P1.md"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T07:52:24.411Z",
+          "completedAt": "2026-10-19T07:59:51.839Z"
         }
       }
     },

@@ -1,0 +1,4 @@
+$ node scripts/progress.mjs check
+# started 2026-10-19T07:58:22Z node v22.15.0 on MINGW64_NT-10.0-26200
+check OK
+# exit=0

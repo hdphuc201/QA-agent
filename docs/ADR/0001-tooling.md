@@ -26,3 +26,7 @@ The roadmap (§2.1) asks for TypeScript strict, one unit-test tool (Vitest **or*
 
 - Node 22 flags type stripping as experimental; `npm test` suppresses that warning with `--disable-warning=ExperimentalWarning`. Test files must avoid non-erasable TS syntax (enums, namespaces, parameter properties).
 - Contributors on newer npm can still use Vitest later, but switching requires a new ADR (one test tool only).
+
+## Update — 2026-10-19 (P1-T04)
+
+Decision 7 is superseded: `src/` now exists, so `npm run build` (`tsc -p tsconfig.build.json`, output `dist/`, gitignored) was added. Tests and type-checking import `.ts` sources directly (`allowImportingTsExtensions`); the build rewrites the extensions (`rewriteRelativeImportExtensions`).

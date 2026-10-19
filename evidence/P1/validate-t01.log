@@ -1,0 +1,14 @@
+$ claude plugin validate .
+Validating plugin manifest: D:\Coding\Phuc-Huynh\QA-agent\.claude-plugin\plugin.json
+
+✘ Found 1 error:
+
+  ❯ root: Unrecognized key: "displayName"
+
+✘ Validation failed
+# exit=1
+$ claude plugin validate .   (after removing displayName)
+Validating plugin manifest: D:\Coding\Phuc-Huynh\QA-agent\.claude-plugin\plugin.json
+
+✔ Validation passed
+# exit=0

@@ -11,6 +11,7 @@ test-results/
 playwright-report/
 blob-report/
 qa-artifacts/
+.playwright-mcp/
 
 # Secrets
 .env

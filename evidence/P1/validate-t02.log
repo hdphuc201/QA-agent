@@ -1,0 +1,5 @@
+$ claude plugin validate .
+Validating plugin manifest: D:\Coding\Phuc-Huynh\QA-agent\.claude-plugin\plugin.json
+
+✔ Validation passed
+# exit=0

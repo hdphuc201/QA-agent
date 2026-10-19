@@ -1,0 +1,34 @@
+$ npm run smoke:mcp
+# started 2026-10-19T07:58:03Z node v22.15.0 on MINGW64_NT-10.0-26200
+
+> qa-agent@0.0.0 smoke:mcp
+> node scripts/smoke/mcp-smoke.mjs
+
+server: npx -y @playwright/mcp@0.0.83 --headless --isolated --allowed-origins http://localhost:*;http://127.0.0.1:* --output-dir qa-artifacts/playwright-mcp
+demo page: http://127.0.0.1:49176/ (token qa-smoke-f235d436e1b7)
+initialize: {"name":"Playwright","version":"1.64.0-alpha-1790635538000"} protocol=2025-06-18
+tools/list: 25 tools: browser_click, browser_close, browser_console_messages, browser_drag, browser_drop, browser_emulate_media, browser_evaluate, browser_file_upload, browser_fill_form, browser_find, browser_handle_dialog, browser_hover, browser_navigate, browser_navigate_back, browser_network_request, browser_network_requests, browser_press_key, browser_resize, browser_run_code_unsafe, browser_select_option, browser_snapshot, browser_tabs, browser_take_screenshot, browser_type, browser_wait_for
+browser_snapshot (365 chars):
+### Page
+- Page URL: http://127.0.0.1:49176/
+- Page Title: QA Agent Demo Page
+### Snapshot
+```yaml
+- main [ref=e2]:
+  - heading "QA Agent MCP Smoke" [level=1] [ref=e3]
+  - paragraph [ref=e4]:
+    - text: "Smoke token:"
+    - strong [ref=e5]: qa-smoke-f235d436e1b7
+  - generic [ref=e6]:
+    - text: Name
+    - textbox "Name" [ref=e7]
+  - button "Submit" [ref=e8]
+```
+navigate https://example.com/: isError=true
+### Error
+Error: browserBackend.callTool: net::ERR_BLOCKED_BY_CLIENT at https://example.com/
+Call log:
+[2m  - navigating to "https://example.com/", waiting until "domcontentloaded"[22m
+
+RESULT {"serverInfo":{"name":"Playwright","version":"1.64.0-alpha-1790635538000"},"protocolVersion":"2025-06-18","toolCount":25,"tokenInSnapshot":true,"headingInSnapshot":true,"foreignOriginLoaded":false,"result":"PASS"}
+# exit=0

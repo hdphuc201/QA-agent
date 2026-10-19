@@ -1,0 +1,31 @@
+$ node scripts/progress.mjs check (pre-gate)
+check OK
+# exit=0
+$ node scripts/progress.mjs gate P1 passed
+P1 gate: passed
+# exit=0
+$ node scripts/progress.mjs check (post-gate)
+check OK
+# exit=0
+$ node scripts/progress.mjs render
+render: docs/PROJECT_STATUS.md unchanged
+# exit=0
+$ node scripts/progress.mjs summary
+QA Agent progress — revision 28, updated 2026-10-19T07:59:52.297Z
+Tasks: 13/62 completed (21.0%) — task completion, not test coverage
+Active phase: P1 — CLAUDE CODE PLUGIN FOUNDATION
+Phases:
+  P0  completed    gate=passed   7/7
+  P1  completed    gate=passed   6/6
+  P2  not_started  gate=pending  0/6
+  P3  not_started  gate=pending  0/6
+  P4  not_started  gate=pending  0/6
+  P5  not_started  gate=pending  0/6
+  P6  not_started  gate=pending  0/6
+  P7  not_started  gate=pending  0/6
+  P8  not_started  gate=pending  0/7
+  P9  not_started  gate=pending  0/6
+In progress: none
+Blocked: none
+Latest gate: P1 passed at 2026-10-19T07:59:52.280Z — docs/PHASE_REVIEWS/P1.md; in-Claude smoke evidence/P1/claude-plugin-smoke.json; direct MCP evidence/P1/smoke-mcp.log
+# exit=0

@@ -26,7 +26,8 @@ Source of truth: `QA_AGENT_MASTER_ROADMAP.md` (scope, task IDs, gates) and `plan
 ## Commands
 
 ```text
-npm run typecheck · npm run lint · npm run format:check · npm test
+npm run typecheck · npm run lint · npm run format:check · npm run build · npm test
+claude plugin validate . · npm run smoke:mcp · npm run smoke:claude (normal terminal only; never bypass the nested-session guard)
 node scripts/progress.mjs init | start Px Px-Tyy | complete Px Px-Tyy --evidence "..." | block Px Px-Tyy --reason "..."
 node scripts/progress.mjs gate Px passed --evidence docs/PHASE_REVIEWS/Px.md | render | check | summary
 ```

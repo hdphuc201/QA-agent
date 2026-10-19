@@ -1,0 +1,69 @@
+$ git status --short --untracked-files=all (excluding .serena/)
+ M .gitignore
+ M .prettierignore
+ M .prettierrc.json
+ M CLAUDE.md
+ M README.md
+ M docs/ADR/0001-tooling.md
+ M docs/PROJECT_STATUS.md
+ M docs/WORKLOG.md
+ M package.json
+ M planning/progress.json
+ M tsconfig.json
+?? .claude-plugin/plugin.json
+?? .mcp.json
+?? docs/ADR/0002-playwright-mcp-config.md
+?? docs/PLUGIN.md
+?? evidence/P1/build.log
+?? evidence/P1/claude-plugin-smoke-run2-pre-output-dir.json
+?? evidence/P1/claude-plugin-smoke-run2-pre-output-dir.jsonl
+?? evidence/P1/claude-plugin-smoke-run2-pre-output-dir.log
+?? evidence/P1/claude-plugin-smoke.json
+?? evidence/P1/claude-plugin-smoke.jsonl
+?? evidence/P1/claude-plugin-smoke.log
+?? evidence/P1/format-check.log
+?? evidence/P1/lint.log
+?? evidence/P1/mcp-smoke-direct.log
+?? evidence/P1/mcp-smoke-output-dir.log
+?? evidence/P1/nested-claude-refused.log
+?? evidence/P1/plugin-validate.log
+?? evidence/P1/progress-check.log
+?? evidence/P1/real-state-untouched.log
+?? evidence/P1/security-scan.log
+?? evidence/P1/smoke-mcp.log
+?? evidence/P1/test.log
+?? evidence/P1/typecheck.log
+?? evidence/P1/validate-t01.log
+?? evidence/P1/validate-t02.log
+?? scripts/smoke/claude-plugin-smoke.mjs
+?? scripts/smoke/demo-server.mjs
+?? scripts/smoke/mcp-smoke.mjs
+?? skills/discover/SKILL.md
+?? skills/full-test/SKILL.md
+?? skills/generate/SKILL.md
+?? skills/plan/SKILL.md
+?? skills/report/SKILL.md
+?? skills/run/SKILL.md
+?? src/config/paths.ts
+?? tests/contract/plugin.test.ts
+?? tests/unit/paths.test.ts
+?? tsconfig.build.json
+$ secret regex over changed/untracked files (excluding transcripts, scanned separately)
+evidence/P1/claude-plugin-smoke-run2-pre-output-dir.json:72:  "finalText": "`QA-AGENT-MCP-OBSERVATION: title=QA Agent Demo Page | heading=QA Agent MCP Smoke | token=qa-smoke-07e9e708de30`\n\n`QA-AGENT-SKILL: discover | status=skeleton | phase=P2`",
+evidence/P1/claude-plugin-smoke-run2-pre-output-dir.json:73:  "observationLine": "`QA-AGENT-MCP-OBSERVATION: title=QA Agent Demo Page | heading=QA Agent MCP Smoke | token=qa-smoke-07e9e708de30`",
+evidence/P1/claude-plugin-smoke-run2-pre-output-dir.log:6:demo page http://127.0.0.1:64992/ token=qa-smoke-07e9e708de30
+evidence/P1/claude-plugin-smoke.json:77:  "finalText": "`QA-AGENT-MCP-OBSERVATION: title=QA Agent Demo Page | heading=QA Agent MCP Smoke | token=qa-smoke-437159792909`\n\n---\n\n`QA-AGENT-SKILL: discover | status=skeleton | phase=P2`",
+evidence/P1/claude-plugin-smoke.json:78:  "observationLine": "`QA-AGENT-MCP-OBSERVATION: title=QA Agent Demo Page | heading=QA Agent MCP Smoke | token=qa-smoke-437159792909`",
+evidence/P1/claude-plugin-smoke.log:6:demo page http://127.0.0.1:53180/ token=qa-smoke-437159792909
+grep: input file 'evidence/P1/security-scan.log' is also the output
+# grep exit=2 (1 = no matches)
+$ transcripts: grep sk-ant|bearer|password|@gmail
+evidence/P1/claude-plugin-smoke-run2-pre-output-dir.jsonl:0
+evidence/P1/claude-plugin-smoke.jsonl:0
+$ git check-ignore -v qa-artifacts/x .playwright-mcp/x dist/x evidence/P1/test.log
+.gitignore:13:qa-artifacts/	qa-artifacts/x
+.gitignore:14:.playwright-mcp/	.playwright-mcp/x
+.gitignore:5:dist/	dist/x
+.gitignore:30:!evidence/**/*.log	evidence/P1/test.log
+$ rerun: same regex, excluding security-scan.log itself and the public demo smoke tokens (token=qa-smoke-<hex>)
+# exit=1 (1 = no matches besides public smoke tokens)

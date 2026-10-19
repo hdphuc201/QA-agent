@@ -1,0 +1,7 @@
+$ npm run typecheck
+# started 2026-10-19T07:56:47Z node v22.15.0 on MINGW64_NT-10.0-26200
+
+> qa-agent@0.0.0 typecheck
+> tsc --noEmit -p tsconfig.json
+
+# exit=0

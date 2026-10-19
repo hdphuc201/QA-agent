@@ -2,19 +2,19 @@
 
 # QA Agent — Project Status
 
-- State revision: 15
-- Last update: 2026-10-19T05:05:09.524Z
-- Active phase: P0 — BOOTSTRAP & AUTOMATED PROGRESS
-- Task progress: 7/62 completed (11.3%) — share of roadmap tasks, not test coverage
+- State revision: 28
+- Last update: 2026-10-19T07:59:52.297Z
+- Active phase: P1 — CLAUDE CODE PLUGIN FOUNDATION
+- Task progress: 13/62 completed (21.0%) — share of roadmap tasks, not test coverage
 - In progress: 0 · Blocked: 0
-- Latest gate decision: P0 passed at 2026-10-19T05:05:09.514Z — docs/PHASE_REVIEWS/P0.md; acceptance logs evidence/P0/test.log
+- Latest gate decision: P1 passed at 2026-10-19T07:59:52.280Z — docs/PHASE_REVIEWS/P1.md; in-Claude smoke evidence/P1/claude-plugin-smoke.json; direct MCP evidence/P1/smoke-mcp.log
 
 ## Phases
 
 | Phase | Title | Status | Gate | Tasks done |
 |---|---|---|---|---|
 | P0 | BOOTSTRAP & AUTOMATED PROGRESS | completed | passed | 7/7 |
-| P1 | CLAUDE CODE PLUGIN FOUNDATION | not_started | pending | 0/6 |
+| P1 | CLAUDE CODE PLUGIN FOUNDATION | completed | passed | 6/6 |
 | P2 | TARGET CONFIG, DISCOVERY & SAFE BROWSER EXPLORATION | not_started | pending | 0/6 |
 | P3 | REQUIREMENTS & TEST PLANNING ENGINE | not_started | pending | 0/6 |
 | P4 | PLAYWRIGHT CODE GENERATION ENGINE | not_started | pending | 0/6 |
@@ -50,12 +50,12 @@ _None_
 
 | Task | Status | Title | Evidence |
 |---|---|---|---|
-| P1-T01 | not_started | Đọc docs Claude Code plugin mới nhất, tạo `.claude-plugin/plugin.json` hợp lệ. | — |
-| P1-T02 | not_started | Tạo 6 Skill skeletons `discover`, `plan`, `generate`, `run`, `report`, `full-test` với frontmatter đúng format; scope rõ, chưa khẳng định tác vụ chưa implemented hoạt động. | — |
-| P1-T03 | not_started | Tạo `.mcp.json` tích hợp Playwright MCP theo upstream và xác minh tool loading; pin version dependency sau khi chứng minh tương thích. | — |
-| P1-T04 | not_started | Viết adapter cho plugin path, project root, config discovery; test đường dẫn Windows có khoảng trắng. | — |
-| P1-T05 | not_started | Smoke test plugin validate/load, skill discovery, MCP availability, và ghi limitations. | — |
-| P1-T06 | not_started | Quality gate, docs/README và phase review P1. | — |
+| P1-T01 | completed | Đọc docs Claude Code plugin mới nhất, tạo `.claude-plugin/plugin.json` hợp lệ. | claude plugin validate . (Claude Code 2.1.71): exit=0 'Validation passed'; first attempt exit=1 on displayName, see evidence/P1/validate-t01.log<br>.claude-plugin/plugin.json per https://code.claude.com/docs/en/plugins-reference |
+| P1-T02 | completed | Tạo 6 Skill skeletons `discover`, `plan`, `generate`, `run`, `report`, `full-test` với frontmatter đúng format; scope rõ, chưa khẳng định tác vụ chưa implemented hoạt động. | skills/{discover,plan,generate,run,report,full-test}/SKILL.md created; tests/contract/plugin.test.ts: exit=0, 10/10 pass (frontmatter, skeleton marker, disable-model-invocation, tool allowlist)<br>claude plugin validate . after adding skills: exit=0, evidence/P1/validate-t02.log; runtime skill discovery is verified in P1-T05 |
+| P1-T03 | completed | Tạo `.mcp.json` tích hợp Playwright MCP theo upstream và xác minh tool loading; pin version dependency sau khi chứng minh tương thích. | node scripts/smoke/mcp-smoke.mjs: exit=0 — @playwright/mcp@0.0.83 started from .mcp.json, initialize + tools/list (25 tools) + navigate + snapshot containing the per-run token, example.com blocked; evidence/P1/mcp-smoke-direct.log<br>version pinned after the smoke; tests/contract/plugin.test.ts: exit=0 (pin, --headless, --isolated, localhost-only origins). Loading inside Claude Code verified in P1-T05 |
+| P1-T04 | completed | Viết adapter cho plugin path, project root, config discovery; test đường dẫn Windows có khoảng trắng. | src/config/paths.ts (plugin root, project root, project config discovery); tests/unit/paths.test.ts: exit=0, 11/11 pass incl. temp dirs with spaces and path.win32 cases<br>npm run build: exit=0 (dist/config/paths.js); mutation: cross-drive containment rule removed -> 1 test failed; redundant toLowerCase removed after mutation showed path.win32.relative is case-insensitive |
+| P1-T05 | completed | Smoke test plugin validate/load, skill discovery, MCP availability, và ghi limitations. | node scripts/smoke/claude-plugin-smoke.mjs (owner terminal, Claude Code 2.1.71, current .mcp.json): exit=0 PASS — validate, 6 qa-agent skills discovered, plugin:qa-agent:playwright connected, navigate/snapshot/close called, per-run token in snapshot result; evidence/P1/claude-plugin-smoke.json<br>transcript evidence/P1/claude-plugin-smoke.jsonl; direct MCP smoke evidence/P1/mcp-smoke-output-dir.log exit=0; limitations in docs/PLUGIN.md |
+| P1-T06 | completed | Quality gate, docs/README và phase review P1. | quality gate: typecheck/lint/format:check/build/test (47/47)/plugin validate/smoke:mcp/progress check all exit=0; logs in evidence/P1/<br>docs updated: README.md CLAUDE.md docs/PLUGIN.md docs/ADR/0002-playwright-mcp-config.md; review docs/PHASE_REVIEWS/P1.md |
 
 ### P2 — TARGET CONFIG, DISCOVERY & SAFE BROWSER EXPLORATION
 

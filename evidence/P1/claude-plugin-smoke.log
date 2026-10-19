@@ -1,0 +1,8 @@
+$ claude --version -> exit=0: 2.1.71 (Claude Code)
+$ claude plugin validate <root> -> exit=0
+Validating plugin manifest: D:\Coding\Phuc-Huynh\QA-agent\.claude-plugin\plugin.json
+
+√ Validation passed
+demo page http://127.0.0.1:53180/ token=qa-smoke-437159792909
+$ (cwd: empty temp dir) claude -p --plugin-dir D:\Coding\Phuc-Huynh\QA-agent --output-format stream-json --verbose --no-session-persistence --max-budget-usd 1 --allowedTools mcp__plugin_qa-agent_playwright__browser_navigate mcp__plugin_qa-agent_playwright__browser_snapshot mcp__plugin_qa-agent_playwright__browser_close -- "/qa-agent:discover --smoke http://127.0.0.1:53180/"
+warning: temp cwd not removed (EBUSY: resource busy or locked, rmdir '<HOME>\AppData\Local\Temp\qa plugin smoke anFsOW'): <HOME>\AppData\Local\Temp\qa plugin smoke anFsOW

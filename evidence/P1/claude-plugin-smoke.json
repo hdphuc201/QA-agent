@@ -1,0 +1,92 @@
+{
+  "startedAt": "2026-10-19T07:47:31.017Z",
+  "platform": "win32 10.0.26200",
+  "node": "v22.15.0",
+  "claudeVersion": "2.1.71 (Claude Code)",
+  "validateExit": 0,
+  "demoUrl": "http://127.0.0.1:53180/",
+  "token": "qa-smoke-437159792909",
+  "claudeExit": 0,
+  "cwdEntries": [
+    ".code-review-graph",
+    "qa-artifacts"
+  ],
+  "mcpArtifactsInAllowlist": true,
+  "tempCwdRemoved": false,
+  "pluginInInit": true,
+  "plugins": [
+    {
+      "name": "qa-agent",
+      "path": "D:\\Coding\\Phuc-Huynh\\QA-agent"
+    },
+    {
+      "name": "<1 unrelated plugin(s) redacted>"
+    }
+  ],
+  "skillsDiscovered": [
+    "discover",
+    "plan",
+    "generate",
+    "run",
+    "report",
+    "full-test"
+  ],
+  "mcpServer": {
+    "name": "plugin:qa-agent:playwright",
+    "status": "connected"
+  },
+  "mcpConnected": true,
+  "playwrightToolsInInit": [
+    "mcp__plugin_qa-agent_playwright__browser_close",
+    "mcp__plugin_qa-agent_playwright__browser_resize",
+    "mcp__plugin_qa-agent_playwright__browser_console_messages",
+    "mcp__plugin_qa-agent_playwright__browser_handle_dialog",
+    "mcp__plugin_qa-agent_playwright__browser_emulate_media",
+    "mcp__plugin_qa-agent_playwright__browser_evaluate",
+    "mcp__plugin_qa-agent_playwright__browser_file_upload",
+    "mcp__plugin_qa-agent_playwright__browser_drop",
+    "mcp__plugin_qa-agent_playwright__browser_find",
+    "mcp__plugin_qa-agent_playwright__browser_fill_form",
+    "mcp__plugin_qa-agent_playwright__browser_press_key",
+    "mcp__plugin_qa-agent_playwright__browser_type",
+    "mcp__plugin_qa-agent_playwright__browser_navigate",
+    "mcp__plugin_qa-agent_playwright__browser_navigate_back",
+    "mcp__plugin_qa-agent_playwright__browser_network_requests",
+    "mcp__plugin_qa-agent_playwright__browser_network_request",
+    "mcp__plugin_qa-agent_playwright__browser_run_code_unsafe",
+    "mcp__plugin_qa-agent_playwright__browser_take_screenshot",
+    "mcp__plugin_qa-agent_playwright__browser_snapshot",
+    "mcp__plugin_qa-agent_playwright__browser_click",
+    "mcp__plugin_qa-agent_playwright__browser_drag",
+    "mcp__plugin_qa-agent_playwright__browser_hover",
+    "mcp__plugin_qa-agent_playwright__browser_select_option",
+    "mcp__plugin_qa-agent_playwright__browser_tabs",
+    "mcp__plugin_qa-agent_playwright__browser_wait_for"
+  ],
+  "otherQaToolNames": [],
+  "toolUses": [
+    "ToolSearch",
+    "mcp__plugin_qa-agent_playwright__browser_navigate",
+    "mcp__plugin_qa-agent_playwright__browser_snapshot",
+    "mcp__plugin_qa-agent_playwright__browser_close"
+  ],
+  "tokenInToolResult": true,
+  "resultSubtype": "success",
+  "costUsd": 0.11237525000000001,
+  "finalText": "`QA-AGENT-MCP-OBSERVATION: title=QA Agent Demo Page | heading=QA Agent MCP Smoke | token=qa-smoke-437159792909`\n\n---\n\n`QA-AGENT-SKILL: discover | status=skeleton | phase=P2`",
+  "observationLine": "`QA-AGENT-MCP-OBSERVATION: title=QA Agent Demo Page | heading=QA Agent MCP Smoke | token=qa-smoke-437159792909`",
+  "tokenInFinalAnswer": true,
+  "required": {
+    "validatePassed": true,
+    "claudeExited0": true,
+    "allSkillsDiscovered": true,
+    "mcpConnected": true,
+    "navigateCalled": true,
+    "snapshotCalled": true,
+    "tokenInToolResult": true,
+    "tokenInFinalAnswer": true,
+    "noPlaywrightMcpDirInCwd": true
+  },
+  "result": "PASS",
+  "finishedAt": "2026-10-19T07:49:01.371Z"
+}

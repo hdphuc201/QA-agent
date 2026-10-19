@@ -2,13 +2,14 @@
 
 A Claude Code plugin for hybrid QA (planned): Claude + Playwright MCP explore a web app, Playwright Test runs repeatable generated specs, and AI analyses the results.
 
-**Current state: P0 (bootstrap & progress tracking).** The plugin, skills, MCP integration and test engine do not exist yet — they are built in phases P1–P9 of [`QA_AGENT_MASTER_ROADMAP.md`](QA_AGENT_MASTER_ROADMAP.md). Live progress: [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md).
+**Current state: P1 (plugin foundation).** The plugin loads in Claude Code, its six skills are discoverable but are **skeletons**, and Playwright MCP is connected (localhost only). Discovery, planning, generation, execution and reporting are built in P2–P7 of [`QA_AGENT_MASTER_ROADMAP.md`](QA_AGENT_MASTER_ROADMAP.md). Live progress: [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md). Plugin usage and known limitations: [`docs/PLUGIN.md`](docs/PLUGIN.md).
 
 ## Requirements
 
 - Node.js ≥ 22.12 (verified on v22.15.0) and npm (verified on 11.3.0)
 - Git
-- Claude Code CLI (needed from P1; verified 2.1.71)
+- Claude Code CLI (verified 2.1.71)
+- Google Chrome or another Playwright-supported browser for Playwright MCP (verified with installed Chrome)
 
 ## Setup
 
@@ -17,9 +18,22 @@ npm install
 npm run typecheck
 npm run lint
 npm run format:check
+npm run build
 npm test
 node scripts/progress.mjs check
+claude plugin validate .
+npm run smoke:mcp       # Playwright MCP over JSON-RPC, no AI
 ```
+
+## Use the plugin
+
+```powershell
+cd <target project>
+claude --plugin-dir D:path	oQA-agent
+# then: /qa-agent:discover --smoke http://localhost:3000/
+```
+
+`npm run smoke:claude` runs the same check non-interactively inside Claude Code and saves the transcript to `evidence/P1/` (costs ~0.11 USD; run it in a normal terminal, not inside a Claude Code session).
 
 ## Progress tracking
 
@@ -49,15 +63,20 @@ Rules enforced by the CLI:
 
 Exit codes: `0` ok, `1` validation/check failure, `2` usage error, `3` state/IO error.
 
-## Repository layout (P0)
+## Repository layout
 
 | Path                         | Purpose                                                         |
 | ---------------------------- | --------------------------------------------------------------- |
 | `QA_AGENT_MASTER_ROADMAP.md` | Scope, phases, task IDs, gates (stable)                         |
 | `CLAUDE.md`                  | Rules every Claude Code session follows                         |
+| `.claude-plugin/plugin.json` | Plugin manifest                                                 |
+| `skills/`                    | Six skills (skeletons in P1)                                    |
+| `.mcp.json`                  | Playwright MCP server (pinned)                                  |
+| `src/`                       | TypeScript engine (P1: path/config adapter)                     |
+| `scripts/smoke/`             | Demo page and MCP/plugin smoke checks                           |
 | `planning/progress.json`     | Progress state (CLI-managed)                                    |
 | `scripts/progress.mjs`       | Progress CLI                                                    |
-| `tests/unit/`                | Unit tests (Node test runner)                                   |
+| `tests/`                     | Unit and contract tests (Node test runner)                      |
 | `docs/`                      | Status (generated), worklog, ADRs, phase reviews, bootstrap log |
 | `evidence/`                  | Command logs used as acceptance evidence                        |
 

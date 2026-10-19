@@ -11,3 +11,5 @@ docs/WORKLOG.md
 docs/BOOTSTRAP_LOG.md
 docs/PHASE_REVIEWS/
 evidence/
+dist/
+qa-artifacts/

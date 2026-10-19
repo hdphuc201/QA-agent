@@ -17,7 +17,8 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-    "erasableSyntaxOnly": true
+    "erasableSyntaxOnly": true,
+    "allowImportingTsExtensions": true
   },
-  "include": ["scripts/**/*.mjs", "tests/**/*.ts", "*.config.mjs"]
+  "include": ["src/**/*.ts", "scripts/**/*.mjs", "tests/**/*.ts", "*.config.mjs"]
 }

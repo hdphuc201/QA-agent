@@ -1,0 +1,9 @@
+{
+  "name": "qa-agent",
+  "version": "0.1.0",
+  "description": "Hybrid QA for web apps: explore with Playwright MCP, generate repeatable Playwright Test specs, analyse results. Skills are skeletons until later phases implement them.",
+  "author": {
+    "name": "QA Agent project"
+  },
+  "keywords": ["qa", "testing", "playwright", "e2e", "mcp"]
+}

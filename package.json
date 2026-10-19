@@ -12,7 +12,10 @@
     "lint": "eslint .",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
+    "build": "tsc -p tsconfig.build.json",
     "test": "node --test --experimental-strip-types --disable-warning=ExperimentalWarning \"tests/**/*.test.ts\"",
+    "smoke:mcp": "node scripts/smoke/mcp-smoke.mjs",
+    "smoke:claude": "node scripts/smoke/claude-plugin-smoke.mjs",
     "progress": "node scripts/progress.mjs"
   },
   "devDependencies": {
