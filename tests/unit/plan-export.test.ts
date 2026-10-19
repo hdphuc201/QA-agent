@@ -3,14 +3,13 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { after, describe, test } from 'node:test';
-import { fileURLToPath } from 'node:url';
 import { loadProjectConfig } from '../../src/config/project-config.schema.ts';
 import { runDiscover } from '../../src/discovery/discover.ts';
 import { planToCsv, planToMarkdown } from '../../src/planning/export.ts';
 import { loadPlan, runPlan } from '../../src/planning/plan-stage.ts';
 import { TestPlanSchema } from '../../src/planning/schema.ts';
+import { copySampleApp } from '../helpers/sample-app.ts';
 
-const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const temps: string[] = [];
 after(() => temps.forEach((t) => fs.rmSync(t, { recursive: true, force: true })));
 
@@ -20,7 +19,7 @@ function sampleCopy(): {
 } {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'qa plan export '));
   temps.push(root);
-  fs.cpSync(path.join(repoRoot, 'examples/sample-app'), root, { recursive: true });
+  copySampleApp(root);
   const loaded = loadProjectConfig(root);
   assert.ok(loaded);
   return { root, config: loaded.config };

@@ -1,0 +1,28 @@
+$ node scripts/smoke/run-sample-suite.mjs -- --reporter=list   (trial execution of generated specs; formal runs in P5/P6)
+sample app http://127.0.0.1:4100
+
+Running 19 tests using 1 worker
+
+  ok  1 [chromium] › e2e\generated\access-control.spec.ts:17:3 › Access control › DEMO-REQ-VIEW-001-002 Viewer is read-only — the viewer has no "New request" link @P1 @rbac @DEMO-REQ-VIEW-001 (815ms)
+  ok  2 [chromium] › e2e\generated\access-control.spec.ts:39:3 › Access control › DEMO-REQ-VIEW-001-003 Viewer is read-only — `POST /api/requests` returns HTTP 403 for the viewer @P1 @rbac @DEMO-REQ-VIEW-001 (611ms)
+  ok  3 [chromium] › e2e\generated\approval.spec.ts:17:3 › Approval › DEMO-REQ-APP-001-001 Approver approves a pending request @P0 @state-transition @DEMO-REQ-APP-001 (2.4s)
+  ok  4 [chromium] › e2e\generated\approval.spec.ts:56:3 › Approval › DEMO-REQ-APP-002-001 Approver rejects with a reason @P1 @state-transition @DEMO-REQ-APP-002 (3.6s)
+  ok  5 [chromium] › e2e\generated\approval.spec.ts:96:3 › Approval › DEMO-REQ-APP-002-002 Approver rejects with a reason — API rejects invalid input @P1 @negative @DEMO-REQ-APP-002 (3.3s)
+  ok  6 [chromium] › e2e\generated\approval.spec.ts:135:3 › Approval › DEMO-REQ-APP-003-001 Only approvers can decide — as requester @P0 @rbac @DEMO-REQ-APP-003 (2.2s)
+  ok  7 [chromium] › e2e\generated\approval.spec.ts:172:3 › Approval › DEMO-REQ-APP-003-002 Only approvers can decide — as requester — API denies access @P0 @rbac @DEMO-REQ-APP-003 (1.6s)
+  ok  8 [chromium] › e2e\generated\approval.spec.ts:205:3 › Approval › DEMO-REQ-APP-003-003 Only approvers can decide — as viewer @P0 @rbac @DEMO-REQ-APP-003 (3.1s)
+  ok  9 [chromium] › e2e\generated\approval.spec.ts:244:3 › Approval › DEMO-REQ-APP-003-004 Only approvers can decide — as viewer — API denies access @P0 @rbac @DEMO-REQ-APP-003 (2.8s)
+  ok 10 [chromium] › e2e\generated\authentication.spec.ts:17:3 › Authentication › DEMO-REQ-AUTH-001-001 Sign in with valid credentials @P0 @happy @DEMO-REQ-AUTH-001 (1.1s)
+  ok 11 [chromium] › e2e\generated\authentication.spec.ts:46:3 › Authentication › DEMO-REQ-AUTH-002-001 Reject invalid credentials @P1 @negative @DEMO-REQ-AUTH-002 (1.0s)
+  ok 12 [chromium] › e2e\generated\authentication.spec.ts:72:3 › Authentication › DEMO-REQ-AUTH-003-001 Protect pages from anonymous users @P0 @rbac @DEMO-REQ-AUTH-003 (635ms)
+  ok 13 [chromium] › e2e\generated\authentication.spec.ts:92:3 › Authentication › DEMO-REQ-AUTH-003-002 Protect pages from anonymous users — API denies access @P0 @rbac @DEMO-REQ-AUTH-003 (91ms)
+  ok 14 [chromium] › e2e\generated\requests.spec.ts:17:3 › Requests › DEMO-REQ-REQ-001-001 Create a purchase request @P0 @happy @DEMO-REQ-REQ-001 (1.6s)
+  ok 15 [chromium] › e2e\generated\requests.spec.ts:52:3 › Requests › DEMO-REQ-REQ-002-001 Title is required @P1 @negative @DEMO-REQ-REQ-002 (1.3s)
+  ok 16 [chromium] › e2e\generated\requests.spec.ts:89:3 › Requests › DEMO-REQ-REQ-003-001 Amount limits — amount 1 (accepted) @P1 @boundary @DEMO-REQ-REQ-003 (1.3s)
+  ok 17 [chromium] › e2e\generated\requests.spec.ts:117:3 › Requests › DEMO-REQ-REQ-003-002 Amount limits — amount 10000 (accepted) @P1 @boundary @DEMO-REQ-REQ-003 (1.3s)
+  ok 18 [chromium] › e2e\generated\requests.spec.ts:145:3 › Requests › DEMO-REQ-REQ-003-003 Amount limits — amount 0 (rejected) @P1 @boundary @DEMO-REQ-REQ-003 (1.3s)
+  ok 19 [chromium] › e2e\generated\requests.spec.ts:177:3 › Requests › DEMO-REQ-REQ-003-004 Amount limits — amount 10001 (rejected) @P1 @boundary @DEMO-REQ-REQ-003 (1.2s)
+
+  19 passed (33.7s)
+# playwright exit=0
+# exit=0

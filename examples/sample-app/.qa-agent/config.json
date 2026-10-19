@@ -10,11 +10,27 @@
   "testOutputRoot": "e2e/generated",
   "readOnlyPaths": ["docs", "server.mjs"],
   "roles": [
-    { "name": "requester", "accountKey": "demo.requester" },
-    { "name": "approver", "accountKey": "demo.approver" },
-    { "name": "viewer", "accountKey": "demo.viewer" }
+    {
+      "name": "requester",
+      "accountKey": "demo.requester"
+    },
+    {
+      "name": "approver",
+      "accountKey": "demo.approver"
+    },
+    {
+      "name": "viewer",
+      "accountKey": "demo.viewer"
+    }
   ],
-  "workers": { "max": 2, "writeHeavy": 1 },
+  "workers": {
+    "max": 2,
+    "writeHeavy": 1
+  },
+  "testData": {
+    "resetPath": "/api/test/reset",
+    "resetOn": "before"
+  },
   "exploration": {
     "maxPages": 10,
     "timeoutMs": 30000,

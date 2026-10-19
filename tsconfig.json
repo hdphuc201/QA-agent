@@ -26,5 +26,6 @@
     "examples/**/*.mjs",
     "tests/**/*.ts",
     "*.config.mjs"
-  ]
+  ],
+  "exclude": ["tests/golden"]
 }

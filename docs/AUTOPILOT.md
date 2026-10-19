@@ -10,7 +10,7 @@
 3. Read every task and the gate of the phase in `QA_AGENT_MASTER_ROADMAP.md`.
 4. For each task: `start` → implement + tests + docs → run checks → `complete --evidence` (or `block --reason`).
 5. Phase gate: typecheck, lint, format:check, build, full `npm test` (regression of earlier phases), phase acceptance commands; logs in `evidence/<phase>/`; `docs/PHASE_REVIEWS/<phase>.md`; `progress check`; `gate <phase> passed`.
-6. Secret/personal-data scan of staged files, then a local commit `feat: ... (<phase>)`.
+6. Secret/personal-data scan of staged files, then a commit `feat: ... (<phase>)` and `git push origin main` (owner request, 2026-10-19).
 7. Update the resume checkpoint below, then continue with the next phase immediately.
 
 ## Stop conditions (record with `block --reason` before stopping)
@@ -25,16 +25,16 @@ Editing this repository; installing pinned dependencies after checking source an
 
 ## Forbidden without explicit owner approval
 
-Push, publish, release tags, deployment; production or third-party targets; unlicensed credentials; destructive operations outside test data; deleting/overwriting owner files outside this project; enabling paid services or extra usage; bypassing permissions, sandboxes or the nested-session guard.
+Force-push, other remotes or branches, publish, release tags, deployment; production or third-party targets; unlicensed credentials; destructive operations outside test data; deleting/overwriting owner files outside this project; enabling paid services or extra usage; bypassing permissions, sandboxes or the nested-session guard.
 
 ## Resume checkpoint
 
 Updated at every phase boundary. On a new session: restore from this section, `planning/progress.json`, `git log` and `git status`, not from chat memory.
 
-- Last completed phase: P3 (gate passed; commit "feat: requirements and test planning engine (P3)")
-- Current phase / task: P4 / P4-T01 (not started)
+- Last completed phase: P4 (gate passed; commit "feat: Playwright code generation engine (P4)", pushed to origin/main)
+- Current phase / task: P5 / P5-T01 (not started)
 - Work in progress: none
-- Files changed since last commit: none expected after the P3 commit
-- Last test results: npm test 121 (120 pass, 1 skipped: symlink on Windows), full suite 3/3 stable; typecheck/lint/format/build/validate/smoke:mcp/progress check exit=0
+- Files changed since last commit: none expected after the P4 commit
+- Last test results: quality gate P4 all passed (132 tests, 131 pass, 1 skipped: symlink on Windows); generated suite trial run 19 passed
 - Open blockers: none. Deferred: in-Claude run of implemented skills (owner terminal) with the full pipeline in P7
-- Next action: start P4-T01 (spec generator from READY cases)
+- Next action: start P5-T01 (role/account references, auth storage state with controlled refresh)

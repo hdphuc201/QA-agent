@@ -1,0 +1,7 @@
+$ npm run -s qa -- generate --project examples/sample-app --validate
+# started 2026-10-19T11:11:31Z node v22.15.0 on MINGW64_NT-10.0-26200
+generate: 19 READY case(s) -> e2e/generated (skipped 2 not READY)
+  written: 0, unchanged: 8, removed: 0
+  typecheck: ok
+  playwright --list: 19 test(s) (expected 19)
+# exit=0

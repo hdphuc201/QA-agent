@@ -19,3 +19,7 @@ Roadmap §0.4, §5 and §11 say each phase runs on its own prompt and Claude sto
 
 - Phases are still reviewed one at a time through `docs/PHASE_REVIEWS/Px.md` and per-phase commits, so the owner can audit or revert each phase.
 - A long session risks context loss; the resume checkpoint in `docs/AUTOPILOT.md` plus `planning/progress.json` make each phase boundary a safe restart point.
+
+## Addendum — 2026-10-19
+
+The owner asked for every completed phase to be pushed and configured `origin` = `https://github.com/hdphuc201/QA-agent.git`. P0–P3 commits were pushed to `origin/main` (the remote was empty, so nothing was overwritten). From P4 on, each phase commit is pushed right after its gate passes and the staged files pass the secret/personal-data scan. Force-push, other branches, tags, releases and deployments still need explicit approval.

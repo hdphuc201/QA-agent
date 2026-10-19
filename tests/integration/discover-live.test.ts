@@ -12,6 +12,7 @@ import { main } from '../../src/cli.ts';
 import { ProjectMapFileSchema } from '../../src/discovery/discover.ts';
 import { explore, startPlaywrightTools } from '../../src/discovery/explorer.ts';
 import { parseProjectConfig } from '../../src/config/project-config.schema.ts';
+import { copySampleApp } from '../helpers/sample-app.ts';
 
 const skip = process.env.QA_AGENT_SKIP_LIVE === '1';
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -22,7 +23,7 @@ before(async () => {
   if (skip) return;
   app = await startSampleApp({ env: { SAMPLE_APP_TEST_MODE: '1' } });
   project = fs.mkdtempSync(path.join(os.tmpdir(), 'qa live discover '));
-  fs.cpSync(path.join(repoRoot, 'examples/sample-app'), project, { recursive: true });
+  copySampleApp(project);
   const cfgFile = path.join(project, '.qa-agent/config.json');
   const cfg = JSON.parse(fs.readFileSync(cfgFile, 'utf8'));
   cfg.baseURL = `${app.url}/`;

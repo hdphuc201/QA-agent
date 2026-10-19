@@ -2,12 +2,12 @@
 
 # QA Agent — Project Status
 
-- State revision: 54
-- Last update: 2026-10-19T10:04:17.538Z
-- Active phase: P3 — REQUIREMENTS & TEST PLANNING ENGINE
-- Task progress: 25/62 completed (40.3%) — share of roadmap tasks, not test coverage
+- State revision: 67
+- Last update: 2026-10-19T11:27:24.023Z
+- Active phase: P4 — PLAYWRIGHT CODE GENERATION ENGINE
+- Task progress: 31/62 completed (50.0%) — share of roadmap tasks, not test coverage
 - In progress: 0 · Blocked: 0
-- Latest gate decision: P3 passed at 2026-10-19T10:04:17.525Z — docs/PHASE_REVIEWS/P3.md; evidence/P3/test.log; evidence/P3/sample-test-plan.md
+- Latest gate decision: P4 passed at 2026-10-19T11:27:24.005Z — docs/PHASE_REVIEWS/P4.md; evidence/P4/test.log; evidence/P4/trial-run.log
 
 ## Phases
 
@@ -17,7 +17,7 @@
 | P1 | CLAUDE CODE PLUGIN FOUNDATION | completed | passed | 6/6 |
 | P2 | TARGET CONFIG, DISCOVERY & SAFE BROWSER EXPLORATION | completed | passed | 6/6 |
 | P3 | REQUIREMENTS & TEST PLANNING ENGINE | completed | passed | 6/6 |
-| P4 | PLAYWRIGHT CODE GENERATION ENGINE | not_started | pending | 0/6 |
+| P4 | PLAYWRIGHT CODE GENERATION ENGINE | completed | passed | 6/6 |
 | P5 | AUTH, MULTI-TAB, MULTI-ROLE & TEST ORCHESTRATION | not_started | pending | 0/6 |
 | P6 | END-TO-END HYBRID VERTICAL SLICE (MVP CORE) | not_started | pending | 0/6 |
 | P7 | EVIDENCE, REPORTING & MVP RELEASE CANDIDATE | not_started | pending | 0/6 |
@@ -83,12 +83,12 @@ _None_
 
 | Task | Status | Title | Evidence |
 |---|---|---|---|
-| P4-T01 | not_started | Generator nhận test cases `READY` đã validate, tạo `.spec.ts` theo template có deterministic naming và ID mapping. | — |
-| P4-T02 | not_started | Sinh locators ưu tiên `getByRole`, `getByLabel`, `getByTestId`; tuyệt đối tránh CSS brittle nếu có locator ổn định. | — |
-| P4-T03 | not_started | Hỗ trợ assertions có ý nghĩa nghiệp vụ: UI states, response status, persistence, RBAC; không chỉ assert URL hay page visible. | — |
-| P4-T04 | not_started | Test fixtures/page helpers tái sử dụng; data setup/teardown, stable unique IDs cho fixtures. | — |
-| P4-T05 | not_started | Validate generated code bằng formatter, TypeScript compile, Playwright test discovery `--list` và unit tests snapshot/golden files. | — |
-| P4-T06 | not_started | Generator idempotent (lặp lại không phá custom tests), vùng output rõ, review P4. | — |
+| P4-T01 | completed | Generator nhận test cases `READY` đã validate, tạo `.spec.ts` theo template có deterministic naming và ID mapping. | src/generator/codegen.ts + generate.ts: READY cases only, one spec per feature (deterministic file names), case-map.json ID mapping, tags and annotations with case/requirement IDs<br>tests/unit/codegen.test.ts: exit=0, 7/7 pass; qa-agent generate --validate on examples/sample-app: exit=0, 19 cases |
+| P4-T02 | completed | Sinh locators ưu tiên `getByRole`, `getByLabel`, `getByTestId`; tuyệt đối tránh CSS brittle nếu có locator ổn định. | src/generator/codegen.ts locators: getByRole/getByLabel/getByText exact only; tests/unit/codegen.test.ts asserts no CSS/XPath/locator() in any generated case: exit=0 |
+| P4-T03 | completed | Hỗ trợ assertions có ý nghĩa nghiệp vụ: UI states, response status, persistence, RBAC; không chỉ assert URL hay page visible. | assertions map 1:1 from plan: URL path, heading, text (row-scoped near the created title), alert, absent element (RBAC UI), API status via role context (401/403/400), API count unchanged (persistence); tests/unit/codegen.test.ts: exit=0<br>trial execution against the sample app: 19 passed, evidence/P4/trial-run.log |
+| P4-T04 | completed | Test fixtures/page helpers tái sử dụng; data setup/teardown, stable unique IDs cho fixtures. | src/generator/runtime/qa-agent.fixtures.ts: per-role BrowserContext fixture with teardown, login via recipe, env credentials (QaBlockedError), unique traceable data, subject capture, apiCount; testData.resetPath -> generated globalSetup/Teardown, refused for production and non-allowlisted base URL<br>npm run typecheck: exit=0 (runtime is type-checked in repo); evidence/P4/trial-run.log |
+| P4-T05 | completed | Validate generated code bằng formatter, TypeScript compile, Playwright test discovery `--list` và unit tests snapshot/golden files. | src/generator/validate.ts: strict tsc of generated files + playwright --list with the target project's @playwright/test; generator formats with fixed Prettier options<br>tests/integration/generate.test.ts: exit=0, 4/4 pass (compile, 19 listed, golden files tests/golden/sample-app/approval.spec.ts etc., prettier check, BLOCKED without @playwright/test) |
+| P4-T06 | completed | Generator idempotent (lặp lại không phá custom tests), vùng output rõ, review P4. | src/generator/generate.ts manifest idempotency: second generate written 0 unchanged 8 (evidence/P4/cli-generate-again.log); edited/custom files preserved, stale removed; tests/integration/generate.test.ts exit=0<br>quality gate exit=0 (132 tests, 131 pass, 1 skipped): evidence/P4/test.log; review docs/PHASE_REVIEWS/P4.md |
 
 ### P5 — AUTH, MULTI-TAB, MULTI-ROLE & TEST ORCHESTRATION
 

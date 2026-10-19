@@ -1,18 +1,25 @@
 ---
-description: "QA Agent spec generation (skeleton). Will generate Playwright Test .spec.ts files from READY test cases. Not implemented yet."
-argument-hint: "[test-plan-path]"
+description: "QA Agent spec generation. Generates Playwright Test .spec.ts files, shared fixtures and a Playwright config from the READY cases of .qa-agent/plan/test-plan.json into the project's testOutputRoot, then type-checks and lists them. Use when the user asks to generate or update automated tests."
+argument-hint: "[--no-validate]"
 disable-model-invocation: true
 ---
 
-# QA Agent — generate (skeleton)
+# QA Agent — generate
 
-Status: **skeleton** — implementation is planned for phase P4 of `QA_AGENT_MASTER_ROADMAP.md`.
+Status: **implemented (P4)**. Arguments: $ARGUMENTS
 
-Planned behaviour: Generate deterministic `.spec.ts` files and fixtures from `READY` test cases only, using role/label/test-id locators, writing only inside the output allowlist.
+1. Requires `.qa-agent/plan/test-plan.json` (`/qa-agent:plan`). Only `READY` cases are generated; report the skipped `NEEDS_REVIEW` / `BLOCKED` ones by ID.
+2. The target project needs `@playwright/test` installed. If validation reports `BLOCKED: the target project has no @playwright/test installed`, tell the user to install it (`npm i -D @playwright/test`) — do not install it yourself without consent.
+3. Run the deterministic generator with the Bash tool (plugin root `${CLAUDE_PLUGIN_ROOT}`; if not substituted, use the directory that contains this plugin's `.claude-plugin/plugin.json`). Add `--validate` unless `$ARGUMENTS` contains `--no-validate`:
 
-## When invoked now
+   ```bash
+   node --experimental-strip-types --disable-warning=ExperimentalWarning "${CLAUDE_PLUGIN_ROOT}/src/cli.ts" generate --validate --project "<project root>"
+   ```
 
-1. Tell the user this skill is a skeleton and that phase P4 implements it.
-2. Do not explore, plan, generate, run or report anything on its behalf, and never present invented results as QA output.
-3. Echo the arguments received: $ARGUMENTS
-4. End with the line `QA-AGENT-SKILL: generate | status=skeleton | phase=P4`.
+4. Report the written / unchanged / removed files, the type-check result and how many tests `playwright --list` found versus READY cases.
+5. Conflicts: a generated file the user edited (or a non-QA-Agent file with the same name) is never overwritten; the new version is written next to it as `*.qa-agent-new`. Show these and let the user merge them. Never resolve a conflict by editing the generated assertions.
+6. Never hand-edit generated specs to make them pass. If a test is wrong, the requirement or the plan must change, and then the user regenerates.
+
+The suite runs with `npx playwright test -c <testOutputRoot>/playwright.qa-agent.config.ts` (see `/qa-agent:run`).
+
+End with the line `QA-AGENT-SKILL: generate | status=implemented | phase=P4`.

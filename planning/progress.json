@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "project": "qa-agent",
-  "activePhase": "P3",
-  "updatedAt": "2026-10-19T10:04:17.538Z",
-  "revision": 54,
+  "activePhase": "P4",
+  "updatedAt": "2026-10-19T11:27:24.023Z",
+  "revision": 67,
   "phases": {
     "P0": {
       "title": "BOOTSTRAP & AUTOMATED PROGRESS",
@@ -488,59 +488,115 @@
     },
     "P4": {
       "title": "PLAYWRIGHT CODE GENERATION ENGINE",
-      "status": "not_started",
-      "gate": "pending",
-      "gateEvidence": [],
-      "startedAt": null,
-      "completedAt": null,
+      "status": "completed",
+      "gate": "passed",
+      "gateEvidence": [
+        {
+          "at": "2026-10-19T11:27:24.005Z",
+          "decision": "passed",
+          "text": "docs/PHASE_REVIEWS/P4.md; evidence/P4/test.log; evidence/P4/trial-run.log"
+        }
+      ],
+      "startedAt": "2026-10-19T10:05:14.714Z",
+      "completedAt": "2026-10-19T11:27:24.005Z",
       "tasks": {
         "P4-T01": {
           "title": "Generator nhận test cases `READY` đã validate, tạo `.spec.ts` theo template có deterministic naming và ID mapping.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T10:58:59.648Z",
+              "text": "src/generator/codegen.ts + generate.ts: READY cases only, one spec per feature (deterministic file names), case-map.json ID mapping, tags and annotations with case/requirement IDs"
+            },
+            {
+              "at": "2026-10-19T10:58:59.648Z",
+              "text": "tests/unit/codegen.test.ts: exit=0, 7/7 pass; qa-agent generate --validate on examples/sample-app: exit=0, 19 cases"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T10:05:14.714Z",
+          "completedAt": "2026-10-19T10:58:59.648Z"
         },
         "P4-T02": {
           "title": "Sinh locators ưu tiên `getByRole`, `getByLabel`, `getByTestId`; tuyệt đối tránh CSS brittle nếu có locator ổn định.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T10:58:59.842Z",
+              "text": "src/generator/codegen.ts locators: getByRole/getByLabel/getByText exact only; tests/unit/codegen.test.ts asserts no CSS/XPath/locator() in any generated case: exit=0"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T10:58:59.750Z",
+          "completedAt": "2026-10-19T10:58:59.842Z"
         },
         "P4-T03": {
           "title": "Hỗ trợ assertions có ý nghĩa nghiệp vụ: UI states, response status, persistence, RBAC; không chỉ assert URL hay page visible.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T10:59:00.072Z",
+              "text": "assertions map 1:1 from plan: URL path, heading, text (row-scoped near the created title), alert, absent element (RBAC UI), API status via role context (401/403/400), API count unchanged (persistence); tests/unit/codegen.test.ts: exit=0"
+            },
+            {
+              "at": "2026-10-19T10:59:00.072Z",
+              "text": "trial execution against the sample app: 19 passed, evidence/P4/trial-run.log"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T10:58:59.958Z",
+          "completedAt": "2026-10-19T10:59:00.072Z"
         },
         "P4-T04": {
           "title": "Test fixtures/page helpers tái sử dụng; data setup/teardown, stable unique IDs cho fixtures.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T10:59:00.311Z",
+              "text": "src/generator/runtime/qa-agent.fixtures.ts: per-role BrowserContext fixture with teardown, login via recipe, env credentials (QaBlockedError), unique traceable data, subject capture, apiCount; testData.resetPath -> generated globalSetup/Teardown, refused for production and non-allowlisted base URL"
+            },
+            {
+              "at": "2026-10-19T10:59:00.311Z",
+              "text": "npm run typecheck: exit=0 (runtime is type-checked in repo); evidence/P4/trial-run.log"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T10:59:00.197Z",
+          "completedAt": "2026-10-19T10:59:00.311Z"
         },
         "P4-T05": {
           "title": "Validate generated code bằng formatter, TypeScript compile, Playwright test discovery `--list` và unit tests snapshot/golden files.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T11:07:09.192Z",
+              "text": "src/generator/validate.ts: strict tsc of generated files + playwright --list with the target project's @playwright/test; generator formats with fixed Prettier options"
+            },
+            {
+              "at": "2026-10-19T11:07:09.192Z",
+              "text": "tests/integration/generate.test.ts: exit=0, 4/4 pass (compile, 19 listed, golden files tests/golden/sample-app/approval.spec.ts etc., prettier check, BLOCKED without @playwright/test)"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T10:59:00.442Z",
+          "completedAt": "2026-10-19T11:07:09.192Z"
         },
         "P4-T06": {
           "title": "Generator idempotent (lặp lại không phá custom tests), vùng output rõ, review P4.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T11:27:23.786Z",
+              "text": "src/generator/generate.ts manifest idempotency: second generate written 0 unchanged 8 (evidence/P4/cli-generate-again.log); edited/custom files preserved, stale removed; tests/integration/generate.test.ts exit=0"
+            },
+            {
+              "at": "2026-10-19T11:27:23.786Z",
+              "text": "quality gate exit=0 (132 tests, 131 pass, 1 skipped): evidence/P4/test.log; review docs/PHASE_REVIEWS/P4.md"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T11:07:09.810Z",
+          "completedAt": "2026-10-19T11:27:23.786Z"
         }
       }
     },

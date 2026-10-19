@@ -32,3 +32,4 @@ Thumbs.db
 # Generated QA Agent outputs inside the bundled examples (configs stay tracked)
 examples/**/.qa-agent/*
 !examples/**/.qa-agent/config.json
+examples/**/e2e/generated/

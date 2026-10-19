@@ -23,7 +23,7 @@ Source of truth: `QA_AGENT_MASTER_ROADMAP.md` (scope, task IDs, gates) and `plan
 - No secrets in Git or reports. No production/destructive tests without explicit approval.
 - Use TypeScript strict; prefer small, tested modules; no unnecessary dependencies.
 - Keep `QA_AGENT_MASTER_ROADMAP.md` stable; propose scope change as ADR, not by silently removing requirements.
-- Local `git commit` is allowed after a passed gate and a secret/personal-data scan (auto-continue). No push, deployment, or package publish without explicit user permission.
+- Local `git commit` is allowed after a passed gate and a secret/personal-data scan (auto-continue). After each passed phase gate, push the phase commit to `origin main` (owner request); no force-push, deployment, release tag or package publish without explicit user permission.
 - Evidence from Claude sessions must go through `scripts/smoke/redact.mjs` before it is committed.
 
 ## Commands

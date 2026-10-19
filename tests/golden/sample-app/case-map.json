@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "planHash": "d5d51c3bfce8",
+  "cases": [
+    {
+      "id": "DEMO-REQ-APP-001-001",
+      "file": "e2e/generated/approval.spec.ts",
+      "title": "DEMO-REQ-APP-001-001 Approver approves a pending request"
+    },
+    {
+      "id": "DEMO-REQ-APP-002-001",
+      "file": "e2e/generated/approval.spec.ts",
+      "title": "DEMO-REQ-APP-002-001 Approver rejects with a reason"
+    },
+    {
+      "id": "DEMO-REQ-APP-002-002",
+      "file": "e2e/generated/approval.spec.ts",
+      "title": "DEMO-REQ-APP-002-002 Approver rejects with a reason — API rejects invalid input"
+    },
+    {
+      "id": "DEMO-REQ-APP-003-001",
+      "file": "e2e/generated/approval.spec.ts",
+      "title": "DEMO-REQ-APP-003-001 Only approvers can decide — as requester"
+    },
+    {
+      "id": "DEMO-REQ-APP-003-002",
+      "file": "e2e/generated/approval.spec.ts",
+      "title": "DEMO-REQ-APP-003-002 Only approvers can decide — as requester — API denies access"
+    },
+    {
+      "id": "DEMO-REQ-APP-003-003",
+      "file": "e2e/generated/approval.spec.ts",
+      "title": "DEMO-REQ-APP-003-003 Only approvers can decide — as viewer"
+    },
+    {
+      "id": "DEMO-REQ-APP-003-004",
+      "file": "e2e/generated/approval.spec.ts",
+      "title": "DEMO-REQ-APP-003-004 Only approvers can decide — as viewer — API denies access"
+    },
+    {
+      "id": "DEMO-REQ-AUTH-001-001",
+      "file": "e2e/generated/authentication.spec.ts",
+      "title": "DEMO-REQ-AUTH-001-001 Sign in with valid credentials"
+    },
+    {
+      "id": "DEMO-REQ-AUTH-002-001",
+      "file": "e2e/generated/authentication.spec.ts",
+      "title": "DEMO-REQ-AUTH-002-001 Reject invalid credentials"
+    },
+    {
+      "id": "DEMO-REQ-AUTH-003-001",
+      "file": "e2e/generated/authentication.spec.ts",
+      "title": "DEMO-REQ-AUTH-003-001 Protect pages from anonymous users"
+    },
+    {
+      "id": "DEMO-REQ-AUTH-003-002",
+      "file": "e2e/generated/authentication.spec.ts",
+      "title": "DEMO-REQ-AUTH-003-002 Protect pages from anonymous users — API denies access"
+    },
+    {
+      "id": "DEMO-REQ-REQ-001-001",
+      "file": "e2e/generated/requests.spec.ts",
+      "title": "DEMO-REQ-REQ-001-001 Create a purchase request"
+    },
+    {
+      "id": "DEMO-REQ-REQ-002-001",
+      "file": "e2e/generated/requests.spec.ts",
+      "title": "DEMO-REQ-REQ-002-001 Title is required"
+    },
+    {
+      "id": "DEMO-REQ-REQ-003-001",
+      "file": "e2e/generated/requests.spec.ts",
+      "title": "DEMO-REQ-REQ-003-001 Amount limits — amount 1 (accepted)"
+    },
+    {
+      "id": "DEMO-REQ-REQ-003-002",
+      "file": "e2e/generated/requests.spec.ts",
+      "title": "DEMO-REQ-REQ-003-002 Amount limits — amount 10000 (accepted)"
+    },
+    {
+      "id": "DEMO-REQ-REQ-003-003",
+      "file": "e2e/generated/requests.spec.ts",
+      "title": "DEMO-REQ-REQ-003-003 Amount limits — amount 0 (rejected)"
+    },
+    {
+      "id": "DEMO-REQ-REQ-003-004",
+      "file": "e2e/generated/requests.spec.ts",
+      "title": "DEMO-REQ-REQ-003-004 Amount limits — amount 10001 (rejected)"
+    },
+    {
+      "id": "DEMO-REQ-VIEW-001-002",
+      "file": "e2e/generated/access-control.spec.ts",
+      "title": "DEMO-REQ-VIEW-001-002 Viewer is read-only — the viewer has no \"New request\" link"
+    },
+    {
+      "id": "DEMO-REQ-VIEW-001-003",
+      "file": "e2e/generated/access-control.spec.ts",
+      "title": "DEMO-REQ-VIEW-001-003 Viewer is read-only — `POST /api/requests` returns HTTP 403 for the viewer"
+    }
+  ]
+}

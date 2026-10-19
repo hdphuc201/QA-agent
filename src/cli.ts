@@ -11,7 +11,9 @@ import { loadProjectConfig, type ProjectConfig } from './config/project-config.s
 import { WriteDeniedError } from './config/write-guard.ts';
 import { runDiscover } from './discovery/discover.ts';
 import { startPlaywrightTools } from './discovery/explorer.ts';
-import { runPlan } from './planning/plan-stage.ts';
+import { runGenerate } from './generator/generate.ts';
+import { validateGenerated } from './generator/validate.ts';
+import { loadPlan, runPlan } from './planning/plan-stage.ts';
 
 export const EXIT = { OK: 0, FAILED: 1, USAGE: 2, CONFIG: 3 } as const;
 
@@ -27,7 +29,9 @@ const USAGE = `Usage: qa-agent <command> [--project <dir>] [options]
 Commands:
   discover [--offline]     read config/docs/source, explore the app with Playwright MCP,
                            write .qa-agent/discovery/{project-map,observations}.json
-  plan                     requirements docs + project map -> .qa-agent/plan/test-plan.{json,md}, test-cases.csv`;
+  plan                     requirements docs + project map -> .qa-agent/plan/test-plan.{json,md}, test-cases.csv
+  generate [--validate]    READY cases -> <testOutputRoot>/*.spec.ts (+ fixtures, Playwright config, case map);
+                           --validate type-checks the output and lists it with Playwright`;
 
 export interface Context {
   projectRoot: string;
@@ -61,6 +65,7 @@ export async function main(argv: string[], io: Io): Promise<number> {
       options: {
         project: { type: 'string' },
         offline: { type: 'boolean' },
+        validate: { type: 'boolean' },
         help: { type: 'boolean', short: 'h' },
       },
     });
@@ -111,6 +116,41 @@ export async function main(argv: string[], io: Io): Promise<number> {
           ].join('\n'),
         );
         return EXIT.OK;
+      }
+      case 'generate': {
+        const ctx = loadContext(parsed.values.project, io);
+        const res = await runGenerate({
+          projectRoot: ctx.projectRoot,
+          config: ctx.config,
+          plan: loadPlan(ctx.projectRoot),
+          runtimeFile: path.join(ctx.pluginRoot, 'src/generator/runtime/qa-agent.fixtures.ts'),
+        });
+        const lines = [
+          `generate: ${res.cases.length} READY case(s) -> ${res.outputRoot} (skipped ${res.skipped.length} not READY)`,
+          `  written: ${res.written.length}, unchanged: ${res.unchanged.length}, removed: ${res.removed.length}`,
+          ...res.conflicts.map(
+            (c) => `  CONFLICT ${c.file}: ${c.reason}; new version in ${c.proposed}`,
+          ),
+          ...res.keptStale.map((f) => `  kept stale (edited) file ${f}`),
+          ...(res.formatted ? [] : ['  note: prettier not found; output is unformatted']),
+        ];
+        let ok = res.conflicts.length === 0;
+        if (parsed.values.validate) {
+          const v = validateGenerated({
+            projectRoot: ctx.projectRoot,
+            outputRoot: res.outputRoot,
+            pluginRoot: ctx.pluginRoot,
+            expected: res.cases.length,
+          });
+          lines.push(
+            `  typecheck: ${v.typecheck.ok ? 'ok' : 'FAILED'}`,
+            `  playwright --list: ${v.listed} test(s) (expected ${res.cases.length})`,
+          );
+          if (!v.typecheck.ok) lines.push(v.typecheck.output);
+          ok &&= v.ok;
+        }
+        io.out(lines.join('\n'));
+        return ok ? EXIT.OK : EXIT.FAILED;
       }
       default:
         io.err(`Unknown command "${command}"\n\n${USAGE}`);

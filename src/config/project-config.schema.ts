@@ -62,6 +62,13 @@ export const ProjectConfigSchema = z
         writeHeavy: z.int().min(1).max(8).default(1),
       })
       .default({ max: 1, writeHeavy: 1 }),
+    /** Test data lifecycle: POST <resetPath> before and/or after a run (never on production). */
+    testData: z
+      .strictObject({
+        resetPath: z.string().startsWith('/').optional(),
+        resetOn: z.enum(['before', 'after', 'both']).default('before'),
+      })
+      .optional(),
     exploration: z
       .strictObject({
         maxPages: z.int().min(1).max(200).default(20),
@@ -90,6 +97,27 @@ export const ProjectConfigSchema = z
         code: 'custom',
         path: ['workers', 'writeHeavy'],
         message: 'must be <= workers.max',
+      });
+    }
+    // Generated tests must never land in (or around) application source or protected docs.
+    const norm = (p: string) => path.posix.normalize(p.replace(/\\/g, '/')).replace(/\/$/, '');
+    const out = norm(cfg.testOutputRoot);
+    const within = (a: string, b: string) => a === b || a.startsWith(`${b}/`) || b === '.';
+    for (const p of [...cfg.sourcePaths, ...cfg.readOnlyPaths]) {
+      const other = norm(p);
+      if (within(out, other) || within(other, out)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['testOutputRoot'],
+          message: `must not overlap source/read-only path "${p}"`,
+        });
+      }
+    }
+    if (cfg.testData?.resetPath && cfg.environment === 'production') {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['testData', 'resetPath'],
+        message: 'a data reset endpoint is not allowed for a production environment',
       });
     }
     const authRole = cfg.exploration.authRole;

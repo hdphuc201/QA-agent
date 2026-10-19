@@ -3,7 +3,18 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['node_modules/', 'coverage/', 'dist/', '.serena/', '.code-review-graph/'] },
+  {
+    ignores: [
+      'node_modules/',
+      'coverage/',
+      'dist/',
+      '.serena/',
+      '.code-review-graph/',
+      'tests/golden/',
+      '**/e2e/generated/',
+      '**/qa-artifacts/',
+    ],
+  },
   js.configs.recommended,
   ...tseslint.configs.strict,
   {
