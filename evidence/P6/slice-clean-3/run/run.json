@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "runId": "run-20261019T121525-ta3a",
+  "projectId": "sample-approvals",
+  "startedAt": "2026-10-19T12:15:25.201Z",
+  "finishedAt": "2026-10-19T12:15:58.685Z",
+  "baseURL": "http://127.0.0.1:49989/",
+  "schedule": {
+    "schemaVersion": 1,
+    "cases": [
+      {
+        "id": "DEMO-REQ-AUTH-001-001",
+        "level": 0,
+        "dependsOn": [],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-AUTH-002-001",
+        "level": 0,
+        "dependsOn": [],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-AUTH-003-001",
+        "level": 0,
+        "dependsOn": [],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-AUTH-003-002",
+        "level": 0,
+        "dependsOn": [],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-REQ-001-001",
+        "level": 0,
+        "dependsOn": [],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-REQ-002-001",
+        "level": 0,
+        "dependsOn": [],
+        "isolation": "serial",
+        "reasons": [
+          "counts the shared list /api/requests"
+        ]
+      },
+      {
+        "id": "DEMO-REQ-REQ-003-001",
+        "level": 0,
+        "dependsOn": [],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-REQ-003-002",
+        "level": 0,
+        "dependsOn": [],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-REQ-003-003",
+        "level": 0,
+        "dependsOn": [],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-REQ-003-004",
+        "level": 0,
+        "dependsOn": [],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-VIEW-001-002",
+        "level": 0,
+        "dependsOn": [],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-VIEW-001-003",
+        "level": 0,
+        "dependsOn": [],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-APP-001-001",
+        "level": 1,
+        "dependsOn": [
+          "DEMO-REQ-REQ-001-001"
+        ],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-APP-002-001",
+        "level": 1,
+        "dependsOn": [
+          "DEMO-REQ-REQ-001-001"
+        ],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-APP-002-002",
+        "level": 1,
+        "dependsOn": [
+          "DEMO-REQ-REQ-001-001"
+        ],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-APP-003-001",
+        "level": 1,
+        "dependsOn": [
+          "DEMO-REQ-REQ-001-001"
+        ],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-APP-003-002",
+        "level": 1,
+        "dependsOn": [
+          "DEMO-REQ-REQ-001-001"
+        ],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-APP-003-003",
+        "level": 1,
+        "dependsOn": [
+          "DEMO-REQ-REQ-001-001"
+        ],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-APP-003-004",
+        "level": 1,
+        "dependsOn": [
+          "DEMO-REQ-REQ-001-001"
+        ],
+        "isolation": "isolated",
+        "reasons": []
+      },
+      {
+        "id": "DEMO-REQ-APP-004-001",
+        "level": 1,
+        "dependsOn": [
+          "DEMO-REQ-REQ-001-001"
+        ],
+        "isolation": "isolated",
+        "reasons": []
+      }
+    ],
+    "levels": [
+      [
+        "DEMO-REQ-AUTH-001-001",
+        "DEMO-REQ-AUTH-002-001",
+        "DEMO-REQ-AUTH-003-001",
+        "DEMO-REQ-AUTH-003-002",
+        "DEMO-REQ-REQ-001-001",
+        "DEMO-REQ-REQ-002-001",
+        "DEMO-REQ-REQ-003-001",
+        "DEMO-REQ-REQ-003-002",
+        "DEMO-REQ-REQ-003-003",
+        "DEMO-REQ-REQ-003-004",
+        "DEMO-REQ-VIEW-001-002",
+        "DEMO-REQ-VIEW-001-003"
+      ],
+      [
+        "DEMO-REQ-APP-001-001",
+        "DEMO-REQ-APP-002-001",
+        "DEMO-REQ-APP-002-002",
+        "DEMO-REQ-APP-003-001",
+        "DEMO-REQ-APP-003-002",
+        "DEMO-REQ-APP-003-003",
+        "DEMO-REQ-APP-003-004",
+        "DEMO-REQ-APP-004-001"
+      ]
+    ],
+    "parallel": [
+      "DEMO-REQ-AUTH-001-001",
+      "DEMO-REQ-AUTH-002-001",
+      "DEMO-REQ-AUTH-003-001",
+      "DEMO-REQ-AUTH-003-002",
+      "DEMO-REQ-REQ-001-001",
+      "DEMO-REQ-REQ-003-001",
+      "DEMO-REQ-REQ-003-002",
+      "DEMO-REQ-REQ-003-003",
+      "DEMO-REQ-REQ-003-004",
+      "DEMO-REQ-VIEW-001-002",
+      "DEMO-REQ-VIEW-001-003",
+      "DEMO-REQ-APP-001-001",
+      "DEMO-REQ-APP-002-001",
+      "DEMO-REQ-APP-002-002",
+      "DEMO-REQ-APP-003-001",
+      "DEMO-REQ-APP-003-002",
+      "DEMO-REQ-APP-003-003",
+      "DEMO-REQ-APP-003-004",
+      "DEMO-REQ-APP-004-001"
+    ],
+    "serial": [
+      "DEMO-REQ-REQ-002-001"
+    ],
+    "workers": {
+      "parallel": 2,
+      "serial": 1
+    },
+    "rationale": [
+      "19 isolated case(s) may run in parallel with 2 worker(s) (workers.max=2, capped at 2)",
+      "1 case(s) touch shared state and run afterwards with 1 worker",
+      "DEMO-REQ-REQ-002-001: counts the shared list /api/requests"
+    ]
+  },
+  "phases": [
+    {
+      "name": "parallel",
+      "workers": 2,
+      "grep": "--grep-invert=@serial",
+      "cases": 19,
+      "exitCode": 0,
+      "resultsFile": "qa-artifacts/runs/run-20261019T121525-ta3a/results-parallel.json",
+      "durationMs": 26810
+    },
+    {
+      "name": "serial",
+      "workers": 1,
+      "grep": "--grep=@serial",
+      "cases": 1,
+      "exitCode": 0,
+      "resultsFile": "qa-artifacts/runs/run-20261019T121525-ta3a/results-serial.json",
+      "durationMs": 6666
+    }
+  ],
+  "exitCode": 0
+}

@@ -13,6 +13,7 @@ export default tseslint.config(
       'tests/golden/',
       '**/e2e/generated/',
       '**/qa-artifacts/',
+      'evidence/',
     ],
   },
   js.configs.recommended,

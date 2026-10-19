@@ -48,7 +48,7 @@ describe('P4 gate: code generation', () => {
   test('generated specs compile, are discovered by Playwright and match the golden files', async () => {
     const { root, config } = project();
     const res = await gen(root, config);
-    assert.equal(res.cases.length, 19);
+    assert.equal(res.cases.length, 20);
     assert.deepEqual(res.skipped, [
       { id: 'DEMO-REQ-VIEW-001-001', status: 'NEEDS_REVIEW' },
       { id: 'DEMO-REQ-REQ-004-001', status: 'NEEDS_REVIEW' },
@@ -59,10 +59,10 @@ describe('P4 gate: code generation', () => {
       projectRoot: root,
       outputRoot: config.testOutputRoot,
       pluginRoot: repoRoot,
-      expected: 19,
+      expected: 20,
     });
     assert.equal(v.typecheck.ok, true, v.typecheck.output);
-    assert.equal(v.listed, 19, v.listOutput);
+    assert.equal(v.listed, 20, v.listOutput);
     assert.deepEqual(v.problems, []);
 
     const files = fs
@@ -130,9 +130,9 @@ describe('P4 gate: code generation', () => {
       projectRoot: root,
       outputRoot: config.testOutputRoot,
       pluginRoot: repoRoot,
-      expected: 19,
+      expected: 20,
     });
-    assert.equal(v.listed, 19, 'custom tests are not counted as generated ones');
+    assert.equal(v.listed, 20, 'custom tests are not counted as generated ones');
 
     // A plan without Authentication cases: its unmodified spec is removed; the edited one is kept.
     const reduced = {
@@ -179,7 +179,7 @@ describe('P4 gate: code generation', () => {
       projectRoot: root,
       outputRoot: config.testOutputRoot,
       pluginRoot: repoRoot,
-      expected: 19,
+      expected: 20,
     });
     assert.equal(v.ok, false);
     assert.ok(v.problems.includes('BLOCKED: the target project has no @playwright/test installed'));

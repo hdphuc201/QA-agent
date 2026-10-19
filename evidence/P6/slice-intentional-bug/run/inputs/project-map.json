@@ -1,0 +1,714 @@
+{
+  "schemaVersion": 1,
+  "projectId": "sample-approvals",
+  "generatedAt": "2026-10-19T12:12:34.606Z",
+  "baseURL": "http://127.0.0.1:50167/",
+  "sources": {
+    "read": [
+      {
+        "path": "docs/requirements.md",
+        "kind": "doc",
+        "size": 4945,
+        "redactions": 0
+      },
+      {
+        "path": "server.mjs",
+        "kind": "source",
+        "size": 16667,
+        "redactions": 0
+      }
+    ],
+    "skipped": []
+  },
+  "routes": [
+    {
+      "id": "route-001",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 324
+        }
+      ],
+      "observedIn": [
+        "obs-003"
+      ],
+      "method": "GET",
+      "path": "/",
+      "api": false
+    },
+    {
+      "id": "route-002",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 294
+        }
+      ],
+      "observedIn": [],
+      "method": "GET",
+      "path": "/api/me",
+      "api": true
+    },
+    {
+      "id": "route-003",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "docs/requirements.md",
+          "line": 44
+        },
+        {
+          "file": "server.mjs",
+          "line": 296
+        }
+      ],
+      "observedIn": [],
+      "method": "GET",
+      "path": "/api/requests",
+      "api": true
+    },
+    {
+      "id": "route-004",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "docs/requirements.md",
+          "line": 126
+        },
+        {
+          "file": "server.mjs",
+          "line": 302
+        }
+      ],
+      "observedIn": [],
+      "method": "POST",
+      "path": "/api/requests",
+      "api": true
+    },
+    {
+      "id": "route-005",
+      "provenance": "source-derived",
+      "confidence": 0.5,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 306
+        }
+      ],
+      "observedIn": [],
+      "method": "ANY",
+      "path": "/api/requests/:param",
+      "api": true
+    },
+    {
+      "id": "route-006",
+      "provenance": "source-derived",
+      "confidence": 0.6,
+      "sources": [
+        {
+          "file": "docs/requirements.md",
+          "line": 116
+        },
+        {
+          "file": "server.mjs",
+          "line": 313
+        }
+      ],
+      "observedIn": [],
+      "method": "POST",
+      "path": "/api/requests/:param/approve",
+      "api": true
+    },
+    {
+      "id": "route-007",
+      "provenance": "source-derived",
+      "confidence": 0.6,
+      "sources": [
+        {
+          "file": "docs/requirements.md",
+          "line": 106
+        },
+        {
+          "file": "server.mjs",
+          "line": 313
+        }
+      ],
+      "observedIn": [],
+      "method": "POST",
+      "path": "/api/requests/:param/reject",
+      "api": true
+    },
+    {
+      "id": "route-008",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 260
+        },
+        {
+          "file": "server.mjs",
+          "line": 6
+        }
+      ],
+      "observedIn": [],
+      "method": "POST",
+      "path": "/api/test/reset",
+      "api": true
+    },
+    {
+      "id": "route-009",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 259
+        }
+      ],
+      "observedIn": [
+        "obs-002",
+        "obs-004"
+      ],
+      "method": "GET",
+      "path": "/health",
+      "api": false
+    },
+    {
+      "id": "route-010",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 267
+        }
+      ],
+      "observedIn": [
+        "obs-001",
+        "obs-005"
+      ],
+      "method": "GET",
+      "path": "/login",
+      "api": false
+    },
+    {
+      "id": "route-011",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 269
+        }
+      ],
+      "observedIn": [],
+      "method": "POST",
+      "path": "/login",
+      "api": false
+    },
+    {
+      "id": "route-012",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 283
+        }
+      ],
+      "observedIn": [],
+      "method": "POST",
+      "path": "/logout",
+      "api": false
+    },
+    {
+      "id": "route-013",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 356
+        }
+      ],
+      "observedIn": [],
+      "method": "POST",
+      "path": "/requests",
+      "api": false
+    },
+    {
+      "id": "route-014",
+      "provenance": "source-derived",
+      "confidence": 0.5,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 379
+        }
+      ],
+      "observedIn": [
+        "obs-006",
+        "obs-007"
+      ],
+      "method": "ANY",
+      "path": "/requests/:param",
+      "api": false
+    },
+    {
+      "id": "route-015",
+      "provenance": "source-derived",
+      "confidence": 0.5,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 386
+        }
+      ],
+      "observedIn": [],
+      "method": "ANY",
+      "path": "/requests/:param/approve",
+      "api": false
+    },
+    {
+      "id": "route-016",
+      "provenance": "source-derived",
+      "confidence": 0.5,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 386
+        }
+      ],
+      "observedIn": [],
+      "method": "ANY",
+      "path": "/requests/:param/reject",
+      "api": false
+    },
+    {
+      "id": "route-017",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 343
+        }
+      ],
+      "observedIn": [
+        "obs-006"
+      ],
+      "method": "GET",
+      "path": "/requests/new",
+      "api": false
+    }
+  ],
+  "forms": [
+    {
+      "id": "form-001",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 121
+        }
+      ],
+      "observedIn": [
+        "obs-003",
+        "obs-006",
+        "obs-007"
+      ],
+      "action": "/logout",
+      "method": "POST",
+      "fields": [],
+      "submit": [
+        "Sign out"
+      ]
+    },
+    {
+      "id": "form-002",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 168
+        }
+      ],
+      "observedIn": [
+        "obs-001",
+        "obs-005"
+      ],
+      "action": "/login",
+      "method": "POST",
+      "fields": [
+        {
+          "label": "Username",
+          "name": "username",
+          "type": "text"
+        },
+        {
+          "label": "Password",
+          "name": "password",
+          "type": "password"
+        }
+      ],
+      "submit": [
+        "Sign in"
+      ]
+    },
+    {
+      "id": "form-003",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 180
+        }
+      ],
+      "observedIn": [
+        "obs-006"
+      ],
+      "action": "/requests",
+      "method": "POST",
+      "fields": [
+        {
+          "label": "Title",
+          "name": "title",
+          "type": "text"
+        },
+        {
+          "label": "Amount",
+          "name": "amount",
+          "type": "text"
+        }
+      ],
+      "submit": [
+        "Create request"
+      ]
+    },
+    {
+      "id": "form-004",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 203
+        }
+      ],
+      "observedIn": [],
+      "action": "/requests/:param/approve",
+      "method": "POST",
+      "fields": [],
+      "submit": [
+        "Approve"
+      ]
+    },
+    {
+      "id": "form-005",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 204
+        }
+      ],
+      "observedIn": [],
+      "action": "/requests/:param/reject",
+      "method": "POST",
+      "fields": [
+        {
+          "label": "Reason",
+          "name": "reason",
+          "type": "text"
+        }
+      ],
+      "submit": [
+        "Reject"
+      ]
+    }
+  ],
+  "ui": [
+    {
+      "id": "ui-001",
+      "provenance": "source-derived",
+      "confidence": 0.7,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 115
+        }
+      ],
+      "observedIn": [
+        "obs-001-e2",
+        "obs-003-e2",
+        "obs-005-e2",
+        "obs-006-e2",
+        "obs-007-e2"
+      ],
+      "role": "link",
+      "name": "Requests",
+      "href": "/"
+    },
+    {
+      "id": "ui-002",
+      "provenance": "source-derived",
+      "confidence": 0.7,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 116
+        }
+      ],
+      "observedIn": [
+        "obs-003-e3",
+        "obs-006-e3",
+        "obs-007-e3"
+      ],
+      "role": "link",
+      "name": "New request",
+      "href": "/requests/new"
+    },
+    {
+      "id": "ui-003",
+      "provenance": "source-derived",
+      "confidence": 0.7,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 121
+        }
+      ],
+      "observedIn": [
+        "obs-003-e4",
+        "obs-006-e4",
+        "obs-007-e4"
+      ],
+      "role": "button",
+      "name": "Sign out"
+    },
+    {
+      "id": "ui-004",
+      "provenance": "source-derived",
+      "confidence": 0.7,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 171
+        }
+      ],
+      "observedIn": [
+        "obs-001-e6",
+        "obs-005-e6"
+      ],
+      "role": "button",
+      "name": "Sign in"
+    },
+    {
+      "id": "ui-005",
+      "provenance": "source-derived",
+      "confidence": 0.7,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 183
+        }
+      ],
+      "observedIn": [
+        "obs-006-e8"
+      ],
+      "role": "button",
+      "name": "Create request"
+    },
+    {
+      "id": "ui-006",
+      "provenance": "source-derived",
+      "confidence": 0.7,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 203
+        }
+      ],
+      "observedIn": [],
+      "role": "button",
+      "name": "Approve"
+    },
+    {
+      "id": "ui-007",
+      "provenance": "source-derived",
+      "confidence": 0.7,
+      "sources": [
+        {
+          "file": "server.mjs",
+          "line": 206
+        }
+      ],
+      "observedIn": [],
+      "role": "button",
+      "name": "Reject"
+    }
+  ],
+  "roles": [
+    {
+      "id": "role-001",
+      "provenance": "source-derived",
+      "confidence": 0.7,
+      "sources": [
+        {
+          "file": "docs/requirements.md",
+          "line": 41
+        }
+      ],
+      "observedIn": [
+        "obs-001",
+        "obs-002"
+      ],
+      "name": "anonymous",
+      "configured": false
+    },
+    {
+      "id": "role-002",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "docs/requirements.md",
+          "line": 12
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 92
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 102
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 132
+        },
+        {
+          "file": "server.mjs",
+          "line": 107
+        },
+        {
+          "file": "server.mjs",
+          "line": 202
+        }
+      ],
+      "observedIn": [],
+      "name": "approver",
+      "configured": true
+    },
+    {
+      "id": "role-003",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "docs/requirements.md",
+          "line": 11
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 21
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 31
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 52
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 62
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 71
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 83
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 92
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 102
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 112
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 132
+        },
+        {
+          "file": "server.mjs",
+          "line": 116
+        }
+      ],
+      "observedIn": [
+        "obs-003",
+        "obs-004",
+        "obs-005",
+        "obs-006",
+        "obs-007"
+      ],
+      "name": "requester",
+      "configured": true
+    },
+    {
+      "id": "role-004",
+      "provenance": "source-derived",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "file": "docs/requirements.md",
+          "line": 13
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 112
+        },
+        {
+          "file": "docs/requirements.md",
+          "line": 123
+        }
+      ],
+      "observedIn": [],
+      "name": "viewer",
+      "configured": true
+    }
+  ],
+  "exploration": {
+    "live": true,
+    "pages": 7,
+    "auth": {
+      "role": "requester",
+      "status": "signed-in",
+      "detail": "landed on /"
+    },
+    "blocked": [],
+    "toolCalls": 20,
+    "note": "Observed behaviour is not required behaviour: expected results come from requirements only (roadmap §7.2)."
+  }
+}

@@ -1,0 +1,3042 @@
+{
+  "schemaVersion": 1,
+  "projectId": "sample-approvals",
+  "generatedAt": "2026-10-19T12:09:12.949Z",
+  "inputs": {
+    "requirementsFiles": [
+      "docs/requirements.md"
+    ],
+    "projectMap": ".qa-agent/discovery/project-map.json"
+  },
+  "requirements": [
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-AUTH-001",
+      "title": "Sign in with valid credentials",
+      "feature": "Authentication",
+      "priority": "P0",
+      "actors": [
+        "requester"
+      ],
+      "given": [
+        "the user is on `/login`"
+      ],
+      "when": [
+        "the user signs in with a valid username and password"
+      ],
+      "expected": [
+        {
+          "text": "the requests page `/` is shown with the heading \"Requests\"",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 24
+          }
+        },
+        {
+          "text": "the header shows \"Signed in as Alice (requester)\"",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 25
+          }
+        }
+      ],
+      "rules": [],
+      "boundaries": [],
+      "notes": [],
+      "source": {
+        "file": "docs/requirements.md",
+        "line": 17
+      },
+      "mapRefs": [
+        "route-001",
+        "route-010",
+        "route-011",
+        "ui-001"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-AUTH-002",
+      "title": "Reject invalid credentials",
+      "feature": "Authentication",
+      "priority": "P1",
+      "actors": [
+        "requester"
+      ],
+      "given": [
+        "the user is on `/login`"
+      ],
+      "when": [
+        "the user signs in with a wrong password"
+      ],
+      "expected": [
+        {
+          "text": "the alert \"Invalid username or password\" is shown",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 34
+          }
+        },
+        {
+          "text": "the user stays on `/login`",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 35
+          }
+        }
+      ],
+      "rules": [],
+      "boundaries": [],
+      "notes": [],
+      "source": {
+        "file": "docs/requirements.md",
+        "line": 27
+      },
+      "mapRefs": [
+        "route-010",
+        "route-011"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-AUTH-003",
+      "title": "Protect pages from anonymous users",
+      "feature": "Authentication",
+      "priority": "P0",
+      "actors": [
+        "anonymous"
+      ],
+      "given": [],
+      "when": [
+        "an anonymous user opens `/`"
+      ],
+      "expected": [
+        {
+          "text": "the user is redirected to `/login`",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 43
+          }
+        },
+        {
+          "text": "`GET /api/requests` without a session returns HTTP 401",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 44
+          }
+        }
+      ],
+      "rules": [],
+      "boundaries": [],
+      "notes": [],
+      "source": {
+        "file": "docs/requirements.md",
+        "line": 37
+      },
+      "mapRefs": [
+        "route-001",
+        "route-003",
+        "route-010",
+        "route-011"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-REQ-001",
+      "title": "Create a purchase request",
+      "feature": "Requests",
+      "priority": "P0",
+      "actors": [
+        "requester"
+      ],
+      "given": [
+        "the requester is signed in"
+      ],
+      "when": [
+        "the requester submits \"New request\" with a title and an amount of 250"
+      ],
+      "expected": [
+        {
+          "text": "the request detail page shows the title and the status \"Pending\"",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 55
+          }
+        },
+        {
+          "text": "the request appears on the requests page `/` with the status \"Pending\"",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 56
+          }
+        }
+      ],
+      "rules": [],
+      "boundaries": [],
+      "notes": [],
+      "source": {
+        "file": "docs/requirements.md",
+        "line": 48
+      },
+      "mapRefs": [
+        "route-001",
+        "ui-002"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-REQ-002",
+      "title": "Title is required",
+      "feature": "Requests",
+      "priority": "P1",
+      "actors": [
+        "requester"
+      ],
+      "given": [],
+      "when": [
+        "the requester submits \"New request\" with an empty title and an amount of 250"
+      ],
+      "expected": [
+        {
+          "text": "the alert \"Title is required\" is shown",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 64
+          }
+        },
+        {
+          "text": "no request is created",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 65
+          }
+        }
+      ],
+      "rules": [],
+      "boundaries": [],
+      "notes": [],
+      "source": {
+        "file": "docs/requirements.md",
+        "line": 58
+      },
+      "mapRefs": [
+        "ui-002"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-REQ-003",
+      "title": "Amount limits",
+      "feature": "Requests",
+      "priority": "P1",
+      "actors": [
+        "requester"
+      ],
+      "given": [],
+      "when": [
+        "the requester submits \"New request\" with a title and the amount under test"
+      ],
+      "expected": [
+        {
+          "text": "the request detail page shows the status \"Pending\"",
+          "label": "accepted",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 76
+          }
+        },
+        {
+          "text": "the alert \"Amount must be a whole number between 1 and 10000\" is shown",
+          "label": "rejected",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 77
+          }
+        }
+      ],
+      "rules": [
+        "the amount must be a whole number from 1 to 10000 (inclusive)"
+      ],
+      "boundaries": [
+        {
+          "label": "accepted",
+          "field": "amount",
+          "values": [
+            "1",
+            "10000"
+          ]
+        },
+        {
+          "label": "rejected",
+          "field": "amount",
+          "values": [
+            "0",
+            "10001"
+          ]
+        }
+      ],
+      "notes": [],
+      "source": {
+        "file": "docs/requirements.md",
+        "line": 67
+      },
+      "mapRefs": [
+        "ui-002"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-REQ-004",
+      "title": "Requests are easy to find",
+      "feature": "Requests",
+      "priority": "P2",
+      "actors": [
+        "requester"
+      ],
+      "given": [],
+      "when": [],
+      "expected": [],
+      "rules": [],
+      "boundaries": [],
+      "notes": [
+        "Note: stakeholders want requests to be \"easy to find\"; no measurable expected result has been agreed yet."
+      ],
+      "source": {
+        "file": "docs/requirements.md",
+        "line": 79
+      },
+      "mapRefs": []
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-APP-001",
+      "title": "Approver approves a pending request",
+      "feature": "Approval",
+      "priority": "P0",
+      "actors": [
+        "requester",
+        "approver"
+      ],
+      "given": [
+        "a pending request created by the requester"
+      ],
+      "when": [
+        "the approver opens the request and clicks \"Approve\""
+      ],
+      "expected": [
+        {
+          "text": "the request status is \"Approved\"",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 95
+          }
+        },
+        {
+          "text": "the requester sees the status \"Approved\" for that request",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 96
+          }
+        }
+      ],
+      "rules": [],
+      "boundaries": [],
+      "notes": [],
+      "source": {
+        "file": "docs/requirements.md",
+        "line": 88
+      },
+      "mapRefs": [
+        "ui-006"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-APP-002",
+      "title": "Approver rejects with a reason",
+      "feature": "Approval",
+      "priority": "P1",
+      "actors": [
+        "requester",
+        "approver"
+      ],
+      "given": [
+        "a pending request created by the requester"
+      ],
+      "when": [
+        "the approver enters a reason and clicks \"Reject\""
+      ],
+      "expected": [
+        {
+          "text": "the request status is \"Rejected\" and the reason is shown",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 105
+          }
+        },
+        {
+          "text": "rejecting without a reason returns HTTP 400 from `POST /api/requests/<id>/reject`",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 106
+          }
+        }
+      ],
+      "rules": [],
+      "boundaries": [],
+      "notes": [],
+      "source": {
+        "file": "docs/requirements.md",
+        "line": 98
+      },
+      "mapRefs": [
+        "route-007",
+        "ui-007"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-APP-003",
+      "title": "Only approvers can decide",
+      "feature": "Approval",
+      "priority": "P0",
+      "actors": [
+        "requester",
+        "viewer"
+      ],
+      "given": [
+        "a pending request"
+      ],
+      "when": [
+        "a requester or viewer tries to approve it"
+      ],
+      "expected": [
+        {
+          "text": "no \"Approve\" button is shown to them",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 115
+          }
+        },
+        {
+          "text": "`POST /api/requests/<id>/approve` returns HTTP 403 for them",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 116
+          }
+        },
+        {
+          "text": "the request stays \"Pending\"",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 117
+          }
+        }
+      ],
+      "rules": [],
+      "boundaries": [],
+      "notes": [],
+      "source": {
+        "file": "docs/requirements.md",
+        "line": 108
+      },
+      "mapRefs": [
+        "route-006",
+        "ui-006"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-VIEW-001",
+      "title": "Viewer is read-only",
+      "feature": "Access control",
+      "priority": "P1",
+      "actors": [
+        "viewer"
+      ],
+      "given": [],
+      "when": [],
+      "expected": [
+        {
+          "text": "the viewer sees all requests on `/`",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 124
+          }
+        },
+        {
+          "text": "the viewer has no \"New request\" link",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 125
+          }
+        },
+        {
+          "text": "`POST /api/requests` returns HTTP 403 for the viewer",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 126
+          }
+        }
+      ],
+      "rules": [],
+      "boundaries": [],
+      "notes": [],
+      "source": {
+        "file": "docs/requirements.md",
+        "line": 119
+      },
+      "mapRefs": [
+        "route-001",
+        "route-004",
+        "ui-002"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-APP-004",
+      "title": "Decision is visible in another tab",
+      "feature": "Approval",
+      "priority": "P2",
+      "actors": [
+        "requester",
+        "approver"
+      ],
+      "given": [
+        "a pending request created by the requester"
+      ],
+      "when": [
+        "the approver opens the request and clicks \"Approve\""
+      ],
+      "expected": [
+        {
+          "text": "the requester sees the status \"Approved\" for that request in a second tab",
+          "label": null,
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 135
+          }
+        }
+      ],
+      "rules": [],
+      "boundaries": [],
+      "notes": [],
+      "source": {
+        "file": "docs/requirements.md",
+        "line": 128
+      },
+      "mapRefs": [
+        "ui-006"
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "SCN-DEMO-REQ-AUTH-001",
+      "requirementId": "DEMO-REQ-AUTH-001",
+      "title": "Sign in with valid credentials",
+      "caseIds": [
+        "DEMO-REQ-AUTH-001-001"
+      ]
+    },
+    {
+      "id": "SCN-DEMO-REQ-AUTH-002",
+      "requirementId": "DEMO-REQ-AUTH-002",
+      "title": "Reject invalid credentials",
+      "caseIds": [
+        "DEMO-REQ-AUTH-002-001"
+      ]
+    },
+    {
+      "id": "SCN-DEMO-REQ-AUTH-003",
+      "requirementId": "DEMO-REQ-AUTH-003",
+      "title": "Protect pages from anonymous users",
+      "caseIds": [
+        "DEMO-REQ-AUTH-003-001",
+        "DEMO-REQ-AUTH-003-002"
+      ]
+    },
+    {
+      "id": "SCN-DEMO-REQ-REQ-001",
+      "requirementId": "DEMO-REQ-REQ-001",
+      "title": "Create a purchase request",
+      "caseIds": [
+        "DEMO-REQ-REQ-001-001"
+      ]
+    },
+    {
+      "id": "SCN-DEMO-REQ-REQ-002",
+      "requirementId": "DEMO-REQ-REQ-002",
+      "title": "Title is required",
+      "caseIds": [
+        "DEMO-REQ-REQ-002-001"
+      ]
+    },
+    {
+      "id": "SCN-DEMO-REQ-REQ-003",
+      "requirementId": "DEMO-REQ-REQ-003",
+      "title": "Amount limits",
+      "caseIds": [
+        "DEMO-REQ-REQ-003-001",
+        "DEMO-REQ-REQ-003-002",
+        "DEMO-REQ-REQ-003-003",
+        "DEMO-REQ-REQ-003-004"
+      ]
+    },
+    {
+      "id": "SCN-DEMO-REQ-REQ-004",
+      "requirementId": "DEMO-REQ-REQ-004",
+      "title": "Requests are easy to find",
+      "caseIds": [
+        "DEMO-REQ-REQ-004-001"
+      ]
+    },
+    {
+      "id": "SCN-DEMO-REQ-APP-001",
+      "requirementId": "DEMO-REQ-APP-001",
+      "title": "Approver approves a pending request",
+      "caseIds": [
+        "DEMO-REQ-APP-001-001"
+      ]
+    },
+    {
+      "id": "SCN-DEMO-REQ-APP-002",
+      "requirementId": "DEMO-REQ-APP-002",
+      "title": "Approver rejects with a reason",
+      "caseIds": [
+        "DEMO-REQ-APP-002-001",
+        "DEMO-REQ-APP-002-002"
+      ]
+    },
+    {
+      "id": "SCN-DEMO-REQ-APP-003",
+      "requirementId": "DEMO-REQ-APP-003",
+      "title": "Only approvers can decide",
+      "caseIds": [
+        "DEMO-REQ-APP-003-001",
+        "DEMO-REQ-APP-003-002",
+        "DEMO-REQ-APP-003-003",
+        "DEMO-REQ-APP-003-004"
+      ]
+    },
+    {
+      "id": "SCN-DEMO-REQ-VIEW-001",
+      "requirementId": "DEMO-REQ-VIEW-001",
+      "title": "Viewer is read-only",
+      "caseIds": [
+        "DEMO-REQ-VIEW-001-002",
+        "DEMO-REQ-VIEW-001-003",
+        "DEMO-REQ-VIEW-001-001"
+      ]
+    },
+    {
+      "id": "SCN-DEMO-REQ-APP-004",
+      "requirementId": "DEMO-REQ-APP-004",
+      "title": "Decision is visible in another tab",
+      "caseIds": [
+        "DEMO-REQ-APP-004-001"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-APP-003-001",
+      "title": "Only approvers can decide — as requester",
+      "feature": "Approval",
+      "scenarioId": "SCN-DEMO-REQ-APP-003",
+      "category": "rbac",
+      "priority": "P0",
+      "riskScore": 1,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-APP-003"
+      ],
+      "actors": [
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [
+        "a pending request"
+      ],
+      "setup": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "250"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "steps": [
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "{{subject.path}}"
+        }
+      ],
+      "expectations": [
+        {
+          "text": "no \"Approve\" button is shown to them",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 115
+          },
+          "requirementId": "DEMO-REQ-APP-003",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "absent",
+              "as": "requester",
+              "role": "button",
+              "name": "Approve"
+            }
+          ]
+        },
+        {
+          "text": "the request stays \"Pending\"",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 117
+          },
+          "requirementId": "DEMO-REQ-APP-003",
+          "before": [
+            {
+              "do": "goto",
+              "as": "requester",
+              "path": "{{subject.path}}"
+            }
+          ],
+          "asserts": [
+            {
+              "kind": "text",
+              "as": "requester",
+              "value": {
+                "literal": "Pending"
+              }
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique"
+      },
+      "dependencies": [
+        "DEMO-REQ-REQ-001-001"
+      ],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 108
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 115
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 117
+          }
+        ],
+        "mapRefs": [
+          "route-006",
+          "ui-006"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-APP-003-002",
+      "title": "Only approvers can decide — as requester — API denies access",
+      "feature": "Approval",
+      "scenarioId": "SCN-DEMO-REQ-APP-003",
+      "category": "rbac",
+      "priority": "P0",
+      "riskScore": 1,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-APP-003"
+      ],
+      "actors": [
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [
+        "a pending request"
+      ],
+      "setup": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "250"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "steps": [],
+      "expectations": [
+        {
+          "text": "`POST /api/requests/<id>/approve` returns HTTP 403 for them",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 116
+          },
+          "requirementId": "DEMO-REQ-APP-003",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "apiStatus",
+              "as": "requester",
+              "method": "POST",
+              "path": "/api/requests/{{subject.id}}/approve",
+              "status": 403
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique"
+      },
+      "dependencies": [
+        "DEMO-REQ-REQ-001-001"
+      ],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 108
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 116
+          }
+        ],
+        "mapRefs": [
+          "route-006",
+          "ui-006"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-APP-003-003",
+      "title": "Only approvers can decide — as viewer",
+      "feature": "Approval",
+      "scenarioId": "SCN-DEMO-REQ-APP-003",
+      "category": "rbac",
+      "priority": "P0",
+      "riskScore": 1,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-APP-003"
+      ],
+      "actors": [
+        {
+          "role": "viewer",
+          "accountKey": "demo.viewer"
+        },
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [
+        "a pending request"
+      ],
+      "setup": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "250"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "steps": [
+        {
+          "do": "login",
+          "as": "viewer",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "viewer",
+          "path": "{{subject.path}}"
+        }
+      ],
+      "expectations": [
+        {
+          "text": "no \"Approve\" button is shown to them",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 115
+          },
+          "requirementId": "DEMO-REQ-APP-003",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "absent",
+              "as": "viewer",
+              "role": "button",
+              "name": "Approve"
+            }
+          ]
+        },
+        {
+          "text": "the request stays \"Pending\"",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 117
+          },
+          "requirementId": "DEMO-REQ-APP-003",
+          "before": [
+            {
+              "do": "goto",
+              "as": "viewer",
+              "path": "{{subject.path}}"
+            }
+          ],
+          "asserts": [
+            {
+              "kind": "text",
+              "as": "viewer",
+              "value": {
+                "literal": "Pending"
+              }
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique"
+      },
+      "dependencies": [
+        "DEMO-REQ-REQ-001-001"
+      ],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 108
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 115
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 117
+          }
+        ],
+        "mapRefs": [
+          "route-006",
+          "ui-006"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-APP-003-004",
+      "title": "Only approvers can decide — as viewer — API denies access",
+      "feature": "Approval",
+      "scenarioId": "SCN-DEMO-REQ-APP-003",
+      "category": "rbac",
+      "priority": "P0",
+      "riskScore": 1,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-APP-003"
+      ],
+      "actors": [
+        {
+          "role": "viewer",
+          "accountKey": "demo.viewer"
+        },
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [
+        "a pending request"
+      ],
+      "setup": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "250"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "steps": [
+        {
+          "do": "login",
+          "as": "viewer",
+          "invalidPassword": false,
+          "implicit": true
+        }
+      ],
+      "expectations": [
+        {
+          "text": "`POST /api/requests/<id>/approve` returns HTTP 403 for them",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 116
+          },
+          "requirementId": "DEMO-REQ-APP-003",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "apiStatus",
+              "as": "viewer",
+              "method": "POST",
+              "path": "/api/requests/{{subject.id}}/approve",
+              "status": 403
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique"
+      },
+      "dependencies": [
+        "DEMO-REQ-REQ-001-001"
+      ],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 108
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 116
+          }
+        ],
+        "mapRefs": [
+          "route-006",
+          "ui-006"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-AUTH-003-001",
+      "title": "Protect pages from anonymous users",
+      "feature": "Authentication",
+      "scenarioId": "SCN-DEMO-REQ-AUTH-003",
+      "category": "rbac",
+      "priority": "P0",
+      "riskScore": 1,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-AUTH-003"
+      ],
+      "actors": [
+        {
+          "role": "anonymous",
+          "accountKey": null
+        }
+      ],
+      "preconditions": [],
+      "setup": [],
+      "steps": [
+        {
+          "do": "goto",
+          "as": "anonymous",
+          "path": "/"
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the user is redirected to `/login`",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 43
+          },
+          "requirementId": "DEMO-REQ-AUTH-003",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "url",
+              "as": "anonymous",
+              "path": "/login"
+            }
+          ]
+        }
+      ],
+      "data": {},
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 37
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 43
+          }
+        ],
+        "mapRefs": [
+          "route-001",
+          "route-003",
+          "route-010",
+          "route-011"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-AUTH-003-002",
+      "title": "Protect pages from anonymous users — API denies access",
+      "feature": "Authentication",
+      "scenarioId": "SCN-DEMO-REQ-AUTH-003",
+      "category": "rbac",
+      "priority": "P0",
+      "riskScore": 1,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-AUTH-003"
+      ],
+      "actors": [
+        {
+          "role": "anonymous",
+          "accountKey": null
+        }
+      ],
+      "preconditions": [],
+      "setup": [],
+      "steps": [],
+      "expectations": [
+        {
+          "text": "`GET /api/requests` without a session returns HTTP 401",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 44
+          },
+          "requirementId": "DEMO-REQ-AUTH-003",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "apiStatus",
+              "as": "anonymous",
+              "method": "GET",
+              "path": "/api/requests",
+              "status": 401
+            }
+          ]
+        }
+      ],
+      "data": {},
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 37
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 44
+          }
+        ],
+        "mapRefs": [
+          "route-001",
+          "route-003",
+          "route-010",
+          "route-011"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-APP-001-001",
+      "title": "Approver approves a pending request",
+      "feature": "Approval",
+      "scenarioId": "SCN-DEMO-REQ-APP-001",
+      "category": "state-transition",
+      "priority": "P0",
+      "riskScore": 0.9,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-APP-001"
+      ],
+      "actors": [
+        {
+          "role": "approver",
+          "accountKey": "demo.approver"
+        },
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [
+        "a pending request created by the requester"
+      ],
+      "setup": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "250"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "steps": [
+        {
+          "do": "login",
+          "as": "approver",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "approver",
+          "path": "{{subject.path}}"
+        },
+        {
+          "do": "click",
+          "as": "approver",
+          "role": "button",
+          "name": "Approve"
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the request status is \"Approved\"",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 95
+          },
+          "requirementId": "DEMO-REQ-APP-001",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "text",
+              "as": "approver",
+              "value": {
+                "literal": "Approved"
+              }
+            }
+          ]
+        },
+        {
+          "text": "the requester sees the status \"Approved\" for that request",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 96
+          },
+          "requirementId": "DEMO-REQ-APP-001",
+          "before": [
+            {
+              "do": "goto",
+              "as": "requester",
+              "path": "{{subject.path}}"
+            }
+          ],
+          "asserts": [
+            {
+              "kind": "text",
+              "as": "requester",
+              "value": {
+                "literal": "Approved"
+              }
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique"
+      },
+      "dependencies": [
+        "DEMO-REQ-REQ-001-001"
+      ],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 88
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 95
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 96
+          }
+        ],
+        "mapRefs": [
+          "ui-006"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-AUTH-001-001",
+      "title": "Sign in with valid credentials",
+      "feature": "Authentication",
+      "scenarioId": "SCN-DEMO-REQ-AUTH-001",
+      "category": "happy",
+      "priority": "P0",
+      "riskScore": 0.7,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-AUTH-001"
+      ],
+      "actors": [
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [
+        "the user is on `/login`"
+      ],
+      "setup": [],
+      "steps": [
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/login"
+        },
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": false
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the requests page `/` is shown with the heading \"Requests\"",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 24
+          },
+          "requirementId": "DEMO-REQ-AUTH-001",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "url",
+              "as": "requester",
+              "path": "/"
+            },
+            {
+              "kind": "heading",
+              "as": "requester",
+              "name": "Requests"
+            }
+          ]
+        },
+        {
+          "text": "the header shows \"Signed in as Alice (requester)\"",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 25
+          },
+          "requirementId": "DEMO-REQ-AUTH-001",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "text",
+              "as": "requester",
+              "value": {
+                "literal": "Signed in as Alice (requester)"
+              }
+            }
+          ]
+        }
+      ],
+      "data": {},
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 17
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 24
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 25
+          }
+        ],
+        "mapRefs": [
+          "route-001",
+          "route-010",
+          "route-011",
+          "ui-001"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-REQ-001-001",
+      "title": "Create a purchase request",
+      "feature": "Requests",
+      "scenarioId": "SCN-DEMO-REQ-REQ-001",
+      "category": "happy",
+      "priority": "P0",
+      "riskScore": 0.7,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-001"
+      ],
+      "actors": [
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [
+        "the requester is signed in"
+      ],
+      "setup": [],
+      "steps": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "250"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the request detail page shows the title and the status \"Pending\"",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 55
+          },
+          "requirementId": "DEMO-REQ-REQ-001",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "text",
+              "as": "requester",
+              "value": {
+                "ref": "data.title"
+              }
+            },
+            {
+              "kind": "text",
+              "as": "requester",
+              "value": {
+                "literal": "Pending"
+              }
+            }
+          ]
+        },
+        {
+          "text": "the request appears on the requests page `/` with the status \"Pending\"",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 56
+          },
+          "requirementId": "DEMO-REQ-REQ-001",
+          "before": [
+            {
+              "do": "goto",
+              "as": "requester",
+              "path": "/"
+            }
+          ],
+          "asserts": [
+            {
+              "kind": "url",
+              "as": "requester",
+              "path": "/"
+            },
+            {
+              "kind": "text",
+              "as": "requester",
+              "value": {
+                "ref": "data.title"
+              }
+            },
+            {
+              "kind": "text",
+              "as": "requester",
+              "value": {
+                "literal": "Pending"
+              }
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique"
+      },
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 48
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 55
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 56
+          }
+        ],
+        "mapRefs": [
+          "route-001",
+          "ui-002"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-VIEW-001-002",
+      "title": "Viewer is read-only — the viewer has no \"New request\" link",
+      "feature": "Access control",
+      "scenarioId": "SCN-DEMO-REQ-VIEW-001",
+      "category": "rbac",
+      "priority": "P1",
+      "riskScore": 0.6,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-VIEW-001"
+      ],
+      "actors": [
+        {
+          "role": "viewer",
+          "accountKey": "demo.viewer"
+        }
+      ],
+      "preconditions": [],
+      "setup": [],
+      "steps": [
+        {
+          "do": "login",
+          "as": "viewer",
+          "invalidPassword": false,
+          "implicit": true
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the viewer has no \"New request\" link",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 125
+          },
+          "requirementId": "DEMO-REQ-VIEW-001",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "absent",
+              "as": "viewer",
+              "role": "link",
+              "name": "New request"
+            }
+          ]
+        }
+      ],
+      "data": {},
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 119
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 125
+          }
+        ],
+        "mapRefs": [
+          "route-001",
+          "route-004",
+          "ui-002"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-VIEW-001-003",
+      "title": "Viewer is read-only — `POST /api/requests` returns HTTP 403 for the viewer",
+      "feature": "Access control",
+      "scenarioId": "SCN-DEMO-REQ-VIEW-001",
+      "category": "rbac",
+      "priority": "P1",
+      "riskScore": 0.6,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-VIEW-001"
+      ],
+      "actors": [
+        {
+          "role": "viewer",
+          "accountKey": "demo.viewer"
+        }
+      ],
+      "preconditions": [],
+      "setup": [],
+      "steps": [
+        {
+          "do": "login",
+          "as": "viewer",
+          "invalidPassword": false,
+          "implicit": true
+        }
+      ],
+      "expectations": [
+        {
+          "text": "`POST /api/requests` returns HTTP 403 for the viewer",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 126
+          },
+          "requirementId": "DEMO-REQ-VIEW-001",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "apiStatus",
+              "as": "viewer",
+              "method": "POST",
+              "path": "/api/requests",
+              "status": 403
+            }
+          ]
+        }
+      ],
+      "data": {},
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 119
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 126
+          }
+        ],
+        "mapRefs": [
+          "route-001",
+          "route-004",
+          "ui-002"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-APP-002-001",
+      "title": "Approver rejects with a reason",
+      "feature": "Approval",
+      "scenarioId": "SCN-DEMO-REQ-APP-002",
+      "category": "state-transition",
+      "priority": "P1",
+      "riskScore": 0.54,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-APP-002"
+      ],
+      "actors": [
+        {
+          "role": "approver",
+          "accountKey": "demo.approver"
+        },
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [
+        "a pending request created by the requester"
+      ],
+      "setup": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "250"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "steps": [
+        {
+          "do": "login",
+          "as": "approver",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "approver",
+          "path": "{{subject.path}}"
+        },
+        {
+          "do": "fill",
+          "as": "approver",
+          "label": "Reason",
+          "value": {
+            "unique": "reason"
+          }
+        },
+        {
+          "do": "click",
+          "as": "approver",
+          "role": "button",
+          "name": "Reject"
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the request status is \"Rejected\" and the reason is shown",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 105
+          },
+          "requirementId": "DEMO-REQ-APP-002",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "text",
+              "as": "approver",
+              "value": {
+                "ref": "data.reason"
+              }
+            },
+            {
+              "kind": "text",
+              "as": "approver",
+              "value": {
+                "literal": "Rejected"
+              }
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique",
+        "reason": "unique"
+      },
+      "dependencies": [
+        "DEMO-REQ-REQ-001-001"
+      ],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 98
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 105
+          }
+        ],
+        "mapRefs": [
+          "route-007",
+          "ui-007"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-APP-002-002",
+      "title": "Approver rejects with a reason — API rejects invalid input",
+      "feature": "Approval",
+      "scenarioId": "SCN-DEMO-REQ-APP-002",
+      "category": "negative",
+      "priority": "P1",
+      "riskScore": 0.48,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-APP-002"
+      ],
+      "actors": [
+        {
+          "role": "approver",
+          "accountKey": "demo.approver"
+        },
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [
+        "a pending request created by the requester"
+      ],
+      "setup": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "250"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "steps": [
+        {
+          "do": "login",
+          "as": "approver",
+          "invalidPassword": false,
+          "implicit": true
+        }
+      ],
+      "expectations": [
+        {
+          "text": "rejecting without a reason returns HTTP 400 from `POST /api/requests/<id>/reject`",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 106
+          },
+          "requirementId": "DEMO-REQ-APP-002",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "apiStatus",
+              "as": "approver",
+              "method": "POST",
+              "path": "/api/requests/{{subject.id}}/reject",
+              "body": {
+                "reason": ""
+              },
+              "status": 400
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique",
+        "reason": "unique"
+      },
+      "dependencies": [
+        "DEMO-REQ-REQ-001-001"
+      ],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 98
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 106
+          }
+        ],
+        "mapRefs": [
+          "route-007",
+          "ui-007"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-AUTH-002-001",
+      "title": "Reject invalid credentials",
+      "feature": "Authentication",
+      "scenarioId": "SCN-DEMO-REQ-AUTH-002",
+      "category": "negative",
+      "priority": "P1",
+      "riskScore": 0.48,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-AUTH-002"
+      ],
+      "actors": [
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [
+        "the user is on `/login`"
+      ],
+      "setup": [],
+      "steps": [
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/login"
+        },
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": true,
+          "implicit": false
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the alert \"Invalid username or password\" is shown",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 34
+          },
+          "requirementId": "DEMO-REQ-AUTH-002",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "alert",
+              "as": "requester",
+              "text": "Invalid username or password"
+            }
+          ]
+        },
+        {
+          "text": "the user stays on `/login`",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 35
+          },
+          "requirementId": "DEMO-REQ-AUTH-002",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "url",
+              "as": "requester",
+              "path": "/login"
+            }
+          ]
+        }
+      ],
+      "data": {},
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 27
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 34
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 35
+          }
+        ],
+        "mapRefs": [
+          "route-010",
+          "route-011"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-REQ-002-001",
+      "title": "Title is required",
+      "feature": "Requests",
+      "scenarioId": "SCN-DEMO-REQ-REQ-002",
+      "category": "negative",
+      "priority": "P1",
+      "riskScore": 0.48,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-002"
+      ],
+      "actors": [
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [],
+      "setup": [],
+      "steps": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "literal": ""
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "250"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the alert \"Title is required\" is shown",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 64
+          },
+          "requirementId": "DEMO-REQ-REQ-002",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "alert",
+              "as": "requester",
+              "text": "Title is required"
+            }
+          ]
+        },
+        {
+          "text": "no request is created",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 65
+          },
+          "requirementId": "DEMO-REQ-REQ-002",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "apiCountUnchanged",
+              "as": "requester",
+              "path": "/api/requests"
+            }
+          ]
+        }
+      ],
+      "data": {},
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 58
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 64
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 65
+          }
+        ],
+        "mapRefs": [
+          "ui-002"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-REQ-003-001",
+      "title": "Amount limits — amount 1 (accepted)",
+      "feature": "Requests",
+      "scenarioId": "SCN-DEMO-REQ-REQ-003",
+      "category": "boundary",
+      "priority": "P1",
+      "riskScore": 0.48,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-003"
+      ],
+      "actors": [
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [],
+      "setup": [],
+      "steps": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "1"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the request detail page shows the status \"Pending\"",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 76
+          },
+          "requirementId": "DEMO-REQ-REQ-003",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "text",
+              "as": "requester",
+              "value": {
+                "literal": "Pending"
+              }
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique"
+      },
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 67
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 76
+          }
+        ],
+        "mapRefs": [
+          "ui-002"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-REQ-003-002",
+      "title": "Amount limits — amount 10000 (accepted)",
+      "feature": "Requests",
+      "scenarioId": "SCN-DEMO-REQ-REQ-003",
+      "category": "boundary",
+      "priority": "P1",
+      "riskScore": 0.48,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-003"
+      ],
+      "actors": [
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [],
+      "setup": [],
+      "steps": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "10000"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the request detail page shows the status \"Pending\"",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 76
+          },
+          "requirementId": "DEMO-REQ-REQ-003",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "text",
+              "as": "requester",
+              "value": {
+                "literal": "Pending"
+              }
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique"
+      },
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 67
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 76
+          }
+        ],
+        "mapRefs": [
+          "ui-002"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-REQ-003-003",
+      "title": "Amount limits — amount 0 (rejected)",
+      "feature": "Requests",
+      "scenarioId": "SCN-DEMO-REQ-REQ-003",
+      "category": "boundary",
+      "priority": "P1",
+      "riskScore": 0.48,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-003"
+      ],
+      "actors": [
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [],
+      "setup": [],
+      "steps": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "0"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the alert \"Amount must be a whole number between 1 and 10000\" is shown",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 77
+          },
+          "requirementId": "DEMO-REQ-REQ-003",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "alert",
+              "as": "requester",
+              "text": "Amount must be a whole number between 1 and 10000"
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique"
+      },
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 67
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 77
+          }
+        ],
+        "mapRefs": [
+          "ui-002"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-REQ-003-004",
+      "title": "Amount limits — amount 10001 (rejected)",
+      "feature": "Requests",
+      "scenarioId": "SCN-DEMO-REQ-REQ-003",
+      "category": "boundary",
+      "priority": "P1",
+      "riskScore": 0.48,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-003"
+      ],
+      "actors": [
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [],
+      "setup": [],
+      "steps": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "10001"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the alert \"Amount must be a whole number between 1 and 10000\" is shown",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 77
+          },
+          "requirementId": "DEMO-REQ-REQ-003",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "alert",
+              "as": "requester",
+              "text": "Amount must be a whole number between 1 and 10000"
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique"
+      },
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 67
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 77
+          }
+        ],
+        "mapRefs": [
+          "ui-002"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-VIEW-001-001",
+      "title": "Viewer is read-only — the viewer sees all requests on `/`",
+      "feature": "Access control",
+      "scenarioId": "SCN-DEMO-REQ-VIEW-001",
+      "category": "happy",
+      "priority": "P1",
+      "riskScore": 0.42,
+      "status": "NEEDS_REVIEW",
+      "requirementRefs": [
+        "DEMO-REQ-VIEW-001"
+      ],
+      "actors": [
+        {
+          "role": "viewer",
+          "accountKey": "demo.viewer"
+        }
+      ],
+      "preconditions": [],
+      "setup": [],
+      "steps": [
+        {
+          "do": "login",
+          "as": "viewer",
+          "invalidPassword": false,
+          "implicit": true
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the viewer sees all requests on `/`",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 124
+          },
+          "requirementId": "DEMO-REQ-VIEW-001",
+          "before": [],
+          "asserts": [
+            {
+              "kind": "manual",
+              "as": "viewer",
+              "text": "the viewer sees all requests on `/`"
+            }
+          ]
+        }
+      ],
+      "data": {},
+      "dependencies": [],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 119
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 124
+          }
+        ],
+        "mapRefs": [
+          "route-001",
+          "route-004",
+          "ui-002"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-APP-004-001",
+      "title": "Decision is visible in another tab",
+      "feature": "Approval",
+      "scenarioId": "SCN-DEMO-REQ-APP-004",
+      "category": "state-transition",
+      "priority": "P2",
+      "riskScore": 0.27,
+      "status": "READY",
+      "requirementRefs": [
+        "DEMO-REQ-APP-004"
+      ],
+      "actors": [
+        {
+          "role": "approver",
+          "accountKey": "demo.approver"
+        },
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [
+        "a pending request created by the requester"
+      ],
+      "setup": [
+        {
+          "do": "login",
+          "as": "requester",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "requester",
+          "path": "/requests/new"
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Title",
+          "value": {
+            "unique": "title"
+          }
+        },
+        {
+          "do": "fill",
+          "as": "requester",
+          "label": "Amount",
+          "value": {
+            "literal": "250"
+          }
+        },
+        {
+          "do": "click",
+          "as": "requester",
+          "role": "button",
+          "name": "Create request",
+          "capture": "subject"
+        }
+      ],
+      "steps": [
+        {
+          "do": "login",
+          "as": "approver",
+          "invalidPassword": false,
+          "implicit": true
+        },
+        {
+          "do": "goto",
+          "as": "approver",
+          "path": "{{subject.path}}"
+        },
+        {
+          "do": "click",
+          "as": "approver",
+          "role": "button",
+          "name": "Approve"
+        }
+      ],
+      "expectations": [
+        {
+          "text": "the requester sees the status \"Approved\" for that request in a second tab",
+          "source": {
+            "file": "docs/requirements.md",
+            "line": 135
+          },
+          "requirementId": "DEMO-REQ-APP-004",
+          "before": [
+            {
+              "do": "goto",
+              "as": "requester",
+              "path": "{{subject.path}}",
+              "tab": 2
+            }
+          ],
+          "asserts": [
+            {
+              "kind": "text",
+              "as": "requester",
+              "value": {
+                "literal": "Approved"
+              },
+              "tab": 2
+            }
+          ]
+        }
+      ],
+      "data": {
+        "title": "unique"
+      },
+      "dependencies": [
+        "DEMO-REQ-REQ-001-001"
+      ],
+      "blockers": [],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 128
+          },
+          {
+            "file": "docs/requirements.md",
+            "line": 135
+          }
+        ],
+        "mapRefs": [
+          "ui-006"
+        ],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "DEMO-REQ-REQ-004-001",
+      "title": "Requests are easy to find",
+      "feature": "Requests",
+      "scenarioId": "SCN-DEMO-REQ-REQ-004",
+      "category": "happy",
+      "priority": "P2",
+      "riskScore": 0.21,
+      "status": "NEEDS_REVIEW",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-004"
+      ],
+      "actors": [
+        {
+          "role": "requester",
+          "accountKey": "demo.requester"
+        }
+      ],
+      "preconditions": [],
+      "setup": [],
+      "steps": [],
+      "expectations": [],
+      "data": {},
+      "dependencies": [],
+      "blockers": [
+        "no expected result is defined in the requirement"
+      ],
+      "provenance": {
+        "requirementSources": [
+          {
+            "file": "docs/requirements.md",
+            "line": 79
+          }
+        ],
+        "mapRefs": [],
+        "generatedBy": "qa-agent planner (rule-based, no AI)"
+      },
+      "automation": {
+        "specPath": null
+      }
+    }
+  ],
+  "coverage": {
+    "requirements": 12,
+    "withReadyCases": 11,
+    "needsReview": [
+      "DEMO-REQ-VIEW-001-001 (NEEDS_REVIEW)",
+      "DEMO-REQ-REQ-004-001 (NEEDS_REVIEW)"
+    ],
+    "categoriesNotRequired": [
+      "network-failure",
+      "concurrency"
+    ],
+    "unreferencedRoutes": [
+      "GET /api/me",
+      "ANY /api/requests/:param",
+      "POST /api/test/reset",
+      "GET /health",
+      "POST /logout",
+      "POST /requests",
+      "ANY /requests/:param",
+      "ANY /requests/:param/approve",
+      "ANY /requests/:param/reject",
+      "GET /requests/new"
+    ]
+  },
+  "duplicatesMerged": []
+}

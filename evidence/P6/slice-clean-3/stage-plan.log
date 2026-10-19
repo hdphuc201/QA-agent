@@ -1,0 +1,10 @@
+$ qa-agent plan
+plan: sample-approvals
+  requirements: 12 (with READY cases: 11) from docs/requirements.md
+  project map: .qa-agent/discovery/project-map.json
+  cases: 22 — READY 20, NEEDS_REVIEW 2, BLOCKED 0
+  wrote .qa-agent\plan\test-plan.json
+  wrote .qa-agent\plan\test-plan.md
+  wrote .qa-agent\plan\test-cases.csv
+
+# exit=0

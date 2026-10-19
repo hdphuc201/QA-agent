@@ -93,3 +93,16 @@ Imported entries keep their original timestamp and are tagged `imported`.
 - 2026-10-19T12:00:35.648Z | P5 | P5-T05 | complete | completed | evidence: requester creates, approver approves, requester sees Approved (APP-001); forbidden UI and API for requester and viewer (APP-003); session isolation (S1) via qa-agent run: tests/integration/sessions.test.ts exit=0; evidence/P5/parallel-proof.log
 - 2026-10-19T12:00:35.876Z | P5 | P5-T06 | complete | completed | evidence: tests/integration/sessions.test.ts: cancelled run (global timeout) and hard kill followed by a clean run, sessions purged; closed page or context fails loudly and is cleaned up (S4, S5): exit=0
 - 2026-10-19T12:04:08.520Z | P5 | - | gate | passed | docs/PHASE_REVIEWS/P5.md; evidence/P5/test.log; evidence/P5/parallel-proof.log
+- 2026-10-19T12:04:58.170Z | P6 | P6-T01 | start | in_progress
+- 2026-10-19T12:04:58.283Z | P6 | P6-T01 | complete | completed | evidence: examples/sample-app/server.mjs (3 roles, approval workflow, seed REQ-1, test-mode reset, opt-in defect) with examples/sample-app/docs/requirements.md; behaviour verified by tests/unit/sample-app.test.ts: exit=0 (decision in docs/ADR/0004-discovery-engine.md)
+- 2026-10-19T12:04:58.389Z | P6 | P6-T04 | start | in_progress
+- 2026-10-19T12:09:02.644Z | P6 | P6-T02 | start | in_progress
+- 2026-10-19T12:12:19.164Z | P6 | P6-T05 | start | in_progress
+- 2026-10-19T12:18:11.303Z | P6 | P6-T02 | complete | completed | evidence: scripts/smoke/vertical-slice.mjs: discover (live MCP, signed in, 7 pages) -> plan -> generate --validate -> run, all stages exit=0 in evidence/P6/slice-clean-1/summary.json; versioned inputs in evidence/P6/slice-clean-1/run/inputs/versions.json
+- 2026-10-19T12:18:11.452Z | P6 | P6-T03 | start | in_progress
+- 2026-10-19T12:18:11.595Z | P6 | P6-T03 | complete | completed | evidence: 20 READY cases executed: happy 4, negative 3, boundary 4, rbac 8, state-transition 3 (+2 NEEDS_REVIEW not run); 20/20 passed: evidence/P6/slice-clean-1/summary.json
+- 2026-10-19T12:18:11.748Z | P6 | P6-T04 | complete | completed | evidence: two roles in separate contexts plus a second requester tab (DEMO-REQ-APP-004, requesterTab2) generated and passed: evidence/P6/slice-clean-1/generated/approval.spec.ts; non-interactive qa-agent run, no AI per click: evidence/P6/slice-clean-1/stage-run.log
+- 2026-10-19T12:18:11.889Z | P6 | P6-T05 | complete | completed | evidence: SAMPLE_APP_BUG=skip-approve-rbac: exactly DEMO-REQ-APP-003-002 and -004 failed (Expected 403, Received 200), 18/20 passed: evidence/P6/slice-intentional-bug/summary.json; defect off again: 20/20 in evidence/P6/slice-clean-2/summary.json
+- 2026-10-19T12:18:12.031Z | P6 | P6-T06 | start | in_progress
+- 2026-10-19T12:22:02.785Z | P6 | P6-T06 | complete | completed | evidence: three clean runs 20/20 each with identical plan hash and specs: evidence/P6/slice-clean-1/summary.json, evidence/P6/slice-clean-2/summary.json, evidence/P6/slice-clean-3/summary.json; no flaky tests ; quality gate exit=0 (140 tests, 139 pass, 1 skipped): evidence/P6/test.log; review docs/PHASE_REVIEWS/P6.md
+- 2026-10-19T12:22:03.011Z | P6 | - | gate | passed | docs/PHASE_REVIEWS/P6.md; evidence/P6/slice-intentional-bug/summary.json; evidence/P6/slice-clean-3/summary.json

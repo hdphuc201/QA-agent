@@ -1,0 +1,2008 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Coding\\Phuc-Huynh\\QA-agent\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-c",
+      "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\playwright.qa-agent.config.ts",
+      "--grep-invert=@serial",
+      "--workers=2",
+      "--reporter=list,json",
+      "access-control.spec.ts",
+      "approval.spec.ts",
+      "authentication.spec.ts",
+      "requests.spec.ts"
+    ],
+    "configFile": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\playwright.qa-agent.config.ts",
+    "rootDir": "<HOME>/AppData/Local/Temp/qa slice 6EIIin/e2e/generated",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\qa-agent.global-setup.ts",
+    "globalTeardown": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\qa-agent.global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<HOME>/AppData/Local/Temp/qa slice 6EIIin/qa-artifacts/playwright/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "<HOME>/AppData/Local/Temp/qa slice 6EIIin/e2e/generated",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "access-control.spec.ts",
+      "file": "access-control.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Access control",
+          "file": "access-control.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "DEMO-REQ-VIEW-001-002 Viewer is read-only — the viewer has no \"New request\" link",
+              "ok": true,
+              "tags": [
+                "P1",
+                "rbac",
+                "DEMO-REQ-VIEW-001"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-VIEW-001-002",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\access-control.spec.ts",
+                        "line": 17,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-VIEW-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\access-control.spec.ts",
+                        "line": 17,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "viewer: signed-in"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3290,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "steps",
+                          "duration": 2290
+                        },
+                        {
+                          "title": "expect: the viewer has no \"New request\" link (docs/requirements.md:125)",
+                          "duration": 54
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:23.640Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-VIEW-001-002",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\access-control.spec.ts",
+                            "line": 17,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-VIEW-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\access-control.spec.ts",
+                            "line": 17,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "viewer: signed-in"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a8727b05d7c333517069-c77ac8c4dca7c27d454d",
+              "file": "access-control.spec.ts",
+              "line": 17,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-VIEW-001-003 Viewer is read-only — `POST /api/requests` returns HTTP 403 for the viewer",
+              "ok": true,
+              "tags": [
+                "P1",
+                "rbac",
+                "DEMO-REQ-VIEW-001"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-VIEW-001-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\access-control.spec.ts",
+                        "line": 39,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-VIEW-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\access-control.spec.ts",
+                        "line": 39,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "viewer: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1540,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "steps",
+                          "duration": 827
+                        },
+                        {
+                          "title": "expect: `POST /api/requests` returns HTTP 403 for the viewer (docs/requirements.md:126)",
+                          "duration": 287
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:27.596Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-VIEW-001-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\access-control.spec.ts",
+                            "line": 39,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-VIEW-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\access-control.spec.ts",
+                            "line": 39,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "viewer: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a8727b05d7c333517069-d55bdbde66369075e6ba",
+              "file": "access-control.spec.ts",
+              "line": 39,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "approval.spec.ts",
+      "file": "approval.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Approval",
+          "file": "approval.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "DEMO-REQ-APP-001-001 Approver approves a pending request",
+              "ok": true,
+              "tags": [
+                "P0",
+                "state-transition",
+                "DEMO-REQ-APP-001"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-APP-001-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 17,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-APP-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 17,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: signed-in"
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "approver: signed-in"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 5886,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "setup (from DEMO-REQ-REQ-001-001)",
+                          "duration": 1854
+                        },
+                        {
+                          "title": "steps",
+                          "duration": 1636
+                        },
+                        {
+                          "title": "expect: the request status is \"Approved\" (docs/requirements.md:95)",
+                          "duration": 125
+                        },
+                        {
+                          "title": "expect: the requester sees the status \"Approved\" for that request (docs/requirements.md:96)",
+                          "duration": 210
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:23.688Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-APP-001-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 17,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-APP-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 17,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: signed-in"
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "approver: signed-in"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d26ed016eadad41b6e49-5c27eb5b9a176dcd0ba4",
+              "file": "approval.spec.ts",
+              "line": 17,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-APP-002-001 Approver rejects with a reason",
+              "ok": true,
+              "tags": [
+                "P1",
+                "state-transition",
+                "DEMO-REQ-APP-002"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-APP-002-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 56,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-APP-002",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 56,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: reused"
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "approver: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 4211,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "setup (from DEMO-REQ-REQ-001-001)",
+                          "duration": 1039
+                        },
+                        {
+                          "title": "steps",
+                          "duration": 1108
+                        },
+                        {
+                          "title": "expect: the request status is \"Rejected\" and the reason is shown (docs/requirements.md:105)",
+                          "duration": 174
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:30.144Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-APP-002-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 56,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-APP-002",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 56,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: reused"
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "approver: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d26ed016eadad41b6e49-0808361e17b85ea7bd20",
+              "file": "approval.spec.ts",
+              "line": 56,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-APP-002-002 Approver rejects with a reason — API rejects invalid input",
+              "ok": true,
+              "tags": [
+                "P1",
+                "negative",
+                "DEMO-REQ-APP-002"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-APP-002-002",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 96,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-APP-002",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 96,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: reused"
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "approver: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2468,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "setup (from DEMO-REQ-REQ-001-001)",
+                          "duration": 762
+                        },
+                        {
+                          "title": "steps",
+                          "duration": 652
+                        },
+                        {
+                          "title": "expect: rejecting without a reason returns HTTP 400 from `POST /api/requests/<id>/reject` (docs/requirements.md:106)",
+                          "duration": 102
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:34.443Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-APP-002-002",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 96,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-APP-002",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 96,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: reused"
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "approver: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d26ed016eadad41b6e49-1de6d7c2c9f0a55c97d5",
+              "file": "approval.spec.ts",
+              "line": 96,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-APP-003-001 Only approvers can decide — as requester",
+              "ok": true,
+              "tags": [
+                "P0",
+                "rbac",
+                "DEMO-REQ-APP-003"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-APP-003-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 135,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-APP-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 135,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2069,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "setup (from DEMO-REQ-REQ-001-001)",
+                          "duration": 846
+                        },
+                        {
+                          "title": "steps",
+                          "duration": 95
+                        },
+                        {
+                          "title": "expect: no \"Approve\" button is shown to them (docs/requirements.md:115)",
+                          "duration": 85
+                        },
+                        {
+                          "title": "expect: the request stays \"Pending\" (docs/requirements.md:117)",
+                          "duration": 212
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:37.015Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-APP-003-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 135,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-APP-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 135,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d26ed016eadad41b6e49-feb21c47353b9ef48cb2",
+              "file": "approval.spec.ts",
+              "line": 135,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-APP-003-002 Only approvers can decide — as requester — API denies access",
+              "ok": true,
+              "tags": [
+                "P0",
+                "rbac",
+                "DEMO-REQ-APP-003"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-APP-003-002",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 172,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-APP-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 172,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1380,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "setup (from DEMO-REQ-REQ-001-001)",
+                          "duration": 715
+                        },
+                        {
+                          "title": "expect: `POST /api/requests/<id>/approve` returns HTTP 403 for them (docs/requirements.md:116)",
+                          "duration": 48
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:39.188Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-APP-003-002",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 172,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-APP-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 172,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d26ed016eadad41b6e49-3ef83c260a7981675c74",
+              "file": "approval.spec.ts",
+              "line": 172,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-APP-003-003 Only approvers can decide — as viewer",
+              "ok": true,
+              "tags": [
+                "P0",
+                "rbac",
+                "DEMO-REQ-APP-003"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-APP-003-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 205,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-APP-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 205,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: reused"
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "viewer: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2774,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "setup (from DEMO-REQ-REQ-001-001)",
+                          "duration": 706
+                        },
+                        {
+                          "title": "steps",
+                          "duration": 385
+                        },
+                        {
+                          "title": "expect: no \"Approve\" button is shown to them (docs/requirements.md:115)",
+                          "duration": 109
+                        },
+                        {
+                          "title": "expect: the request stays \"Pending\" (docs/requirements.md:117)",
+                          "duration": 231
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:40.665Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-APP-003-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 205,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-APP-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 205,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: reused"
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "viewer: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d26ed016eadad41b6e49-a91d1cdda217cc6f6b8e",
+              "file": "approval.spec.ts",
+              "line": 205,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-APP-003-004 Only approvers can decide — as viewer — API denies access",
+              "ok": true,
+              "tags": [
+                "P0",
+                "rbac",
+                "DEMO-REQ-APP-003"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-APP-003-004",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 244,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-APP-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 244,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: reused"
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "viewer: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2407,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "setup (from DEMO-REQ-REQ-001-001)",
+                          "duration": 752
+                        },
+                        {
+                          "title": "steps",
+                          "duration": 713
+                        },
+                        {
+                          "title": "expect: `POST /api/requests/<id>/approve` returns HTTP 403 for them (docs/requirements.md:116)",
+                          "duration": 49
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:43.535Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-APP-003-004",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 244,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-APP-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 244,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: reused"
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "viewer: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d26ed016eadad41b6e49-74b94345be1e1a665d6b",
+              "file": "approval.spec.ts",
+              "line": 244,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-APP-004-001 Decision is visible in another tab",
+              "ok": true,
+              "tags": [
+                "P2",
+                "state-transition",
+                "DEMO-REQ-APP-004"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-APP-004-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 280,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-APP-004",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                        "line": 280,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: reused"
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "approver: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2860,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "setup (from DEMO-REQ-REQ-001-001)",
+                          "duration": 763
+                        },
+                        {
+                          "title": "steps",
+                          "duration": 441
+                        },
+                        {
+                          "title": "expect: the requester sees the status \"Approved\" for that request in a second tab (docs/requirements.md:135)",
+                          "duration": 200
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:45.998Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-APP-004-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 280,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-APP-004",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\approval.spec.ts",
+                            "line": 280,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: reused"
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "approver: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d26ed016eadad41b6e49-95faf27822fc2d4ddb8b",
+              "file": "approval.spec.ts",
+              "line": 280,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "authentication.spec.ts",
+      "file": "authentication.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Authentication",
+          "file": "authentication.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "DEMO-REQ-AUTH-001-001 Sign in with valid credentials",
+              "ok": true,
+              "tags": [
+                "P0",
+                "happy",
+                "DEMO-REQ-AUTH-001"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-AUTH-001-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                        "line": 17,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-AUTH-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                        "line": 17,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: signed-in"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2626,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "steps",
+                          "duration": 1468
+                        },
+                        {
+                          "title": "expect: the requests page `/` is shown with the heading \"Requests\" (docs/requirements.md:24)",
+                          "duration": 215
+                        },
+                        {
+                          "title": "expect: the header shows \"Signed in as Alice (requester)\" (docs/requirements.md:25)",
+                          "duration": 88
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:29.400Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-AUTH-001-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                            "line": 17,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-AUTH-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                            "line": 17,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: signed-in"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "70f6afe7e350c931056e-828a5888a7cff4921531",
+              "file": "authentication.spec.ts",
+              "line": 17,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-AUTH-002-001 Reject invalid credentials",
+              "ok": true,
+              "tags": [
+                "P1",
+                "negative",
+                "DEMO-REQ-AUTH-002"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-AUTH-002-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                        "line": 46,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-AUTH-002",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                        "line": 46,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2230,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "steps",
+                          "duration": 989
+                        },
+                        {
+                          "title": "expect: the alert \"Invalid username or password\" is shown (docs/requirements.md:34)",
+                          "duration": 127
+                        },
+                        {
+                          "title": "expect: the user stays on `/login` (docs/requirements.md:35)",
+                          "duration": 5
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:32.121Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-AUTH-002-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                            "line": 46,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-AUTH-002",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                            "line": 46,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "70f6afe7e350c931056e-8a5b808f12aa920e5b79",
+              "file": "authentication.spec.ts",
+              "line": 46,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-AUTH-003-001 Protect pages from anonymous users",
+              "ok": true,
+              "tags": [
+                "P0",
+                "rbac",
+                "DEMO-REQ-AUTH-003"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-AUTH-003-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                        "line": 72,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-AUTH-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                        "line": 72,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 976,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "steps",
+                          "duration": 193
+                        },
+                        {
+                          "title": "expect: the user is redirected to `/login` (docs/requirements.md:43)",
+                          "duration": 10
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:34.490Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-AUTH-003-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                            "line": 72,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-AUTH-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                            "line": 72,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "70f6afe7e350c931056e-2a9da5316214f230145f",
+              "file": "authentication.spec.ts",
+              "line": 72,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-AUTH-003-002 Protect pages from anonymous users — API denies access",
+              "ok": true,
+              "tags": [
+                "P0",
+                "rbac",
+                "DEMO-REQ-AUTH-003"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-AUTH-003-002",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                        "line": 92,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-AUTH-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                        "line": 92,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 160,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "expect: `GET /api/requests` without a session returns HTTP 401 (docs/requirements.md:44)",
+                          "duration": 83
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:35.544Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-AUTH-003-002",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                            "line": 92,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-AUTH-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\authentication.spec.ts",
+                            "line": 92,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "70f6afe7e350c931056e-a85a0a09a2a8c2f4922b",
+              "file": "authentication.spec.ts",
+              "line": 92,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "requests.spec.ts",
+      "file": "requests.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Requests",
+          "file": "requests.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "DEMO-REQ-REQ-001-001 Create a purchase request",
+              "ok": true,
+              "tags": [
+                "P0",
+                "happy",
+                "DEMO-REQ-REQ-001"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-REQ-001-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                        "line": 17,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-REQ-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                        "line": 17,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2548,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "steps",
+                          "duration": 837
+                        },
+                        {
+                          "title": "expect: the request detail page shows the title and the status \"Pending\" (docs/requirements.md:55)",
+                          "duration": 529
+                        },
+                        {
+                          "title": "expect: the request appears on the requests page `/` with the status \"Pending\" (docs/requirements.md:56)",
+                          "duration": 440
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:35.816Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-REQ-001-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                            "line": 17,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-REQ-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                            "line": 17,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3dc5dc399f2435702a85-3e2d3ab473496efd60cf",
+              "file": "requests.spec.ts",
+              "line": 17,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-REQ-003-001 Amount limits — amount 1 (accepted)",
+              "ok": true,
+              "tags": [
+                "P1",
+                "boundary",
+                "DEMO-REQ-REQ-003"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-REQ-003-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                        "line": 89,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-REQ-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                        "line": 89,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1533,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "steps",
+                          "duration": 738
+                        },
+                        {
+                          "title": "expect: the request detail page shows the status \"Pending\" (docs/requirements.md:76)",
+                          "duration": 99
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:38.429Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-REQ-003-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                            "line": 89,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-REQ-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                            "line": 89,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3dc5dc399f2435702a85-298cf7f4e135ca3be959",
+              "file": "requests.spec.ts",
+              "line": 89,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-REQ-003-002 Amount limits — amount 10000 (accepted)",
+              "ok": true,
+              "tags": [
+                "P1",
+                "boundary",
+                "DEMO-REQ-REQ-003"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-REQ-003-002",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                        "line": 117,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-REQ-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                        "line": 117,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1675,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "steps",
+                          "duration": 828
+                        },
+                        {
+                          "title": "expect: the request detail page shows the status \"Pending\" (docs/requirements.md:76)",
+                          "duration": 150
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:40.069Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-REQ-003-002",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                            "line": 117,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-REQ-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                            "line": 117,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3dc5dc399f2435702a85-a18df4fc7bfe6d90446f",
+              "file": "requests.spec.ts",
+              "line": 117,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-REQ-003-003 Amount limits — amount 0 (rejected)",
+              "ok": true,
+              "tags": [
+                "P1",
+                "boundary",
+                "DEMO-REQ-REQ-003"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-REQ-003-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                        "line": 145,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-REQ-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                        "line": 145,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1745,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "steps",
+                          "duration": 912
+                        },
+                        {
+                          "title": "expect: the alert \"Amount must be a whole number between 1 and 10000\" is shown (docs/requirements.md:77)",
+                          "duration": 128
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:41.807Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-REQ-003-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                            "line": 145,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-REQ-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                            "line": 145,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3dc5dc399f2435702a85-311edc70a4b6646bdf2f",
+              "file": "requests.spec.ts",
+              "line": 145,
+              "column": 7
+            },
+            {
+              "title": "DEMO-REQ-REQ-003-004 Amount limits — amount 10001 (rejected)",
+              "ok": true,
+              "tags": [
+                "P1",
+                "boundary",
+                "DEMO-REQ-REQ-003"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-REQ-003-004",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                        "line": 177,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-REQ-003",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                        "line": 177,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: reused"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1657,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "steps",
+                          "duration": 821
+                        },
+                        {
+                          "title": "expect: the alert \"Amount must be a whole number between 1 and 10000\" is shown (docs/requirements.md:77)",
+                          "duration": 148
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:09:43.606Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-REQ-003-004",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                            "line": 177,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-REQ-003",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice 6EIIin\\e2e\\generated\\requests.spec.ts",
+                            "line": 177,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: reused"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3dc5dc399f2435702a85-2523162d90531565f1c8",
+              "file": "requests.spec.ts",
+              "line": 177,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T12:09:22.222Z",
+    "duration": 27292.775999999998,
+    "expected": 19,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

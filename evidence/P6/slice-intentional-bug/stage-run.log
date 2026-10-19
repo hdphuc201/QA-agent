@@ -1,0 +1,116 @@
+$ qa-agent run
+
+== parallel: 19 case(s), 2 worker(s)
+
+Running 19 tests using 2 workers
+
+  ok  1 [chromium] › e2e\generated\access-control.spec.ts:17:7 › Access control › DEMO-REQ-VIEW-001-002 Viewer is read-only — the viewer has no "New request" link @P1 @rbac @DEMO-REQ-VIEW-001 (3.6s)
+  ok  3 [chromium] › e2e\generated\access-control.spec.ts:39:7 › Access control › DEMO-REQ-VIEW-001-003 Viewer is read-only — `POST /api/requests` returns HTTP 403 for the viewer @P1 @rbac @DEMO-REQ-VIEW-001 (1.4s)
+  ok  2 [chromium] › e2e\generated\approval.spec.ts:17:7 › Approval › DEMO-REQ-APP-001-001 Approver approves a pending request @P0 @state-transition @DEMO-REQ-APP-001 (7.1s)
+  ok  4 [chromium] › e2e\generated\authentication.spec.ts:17:7 › Authentication › DEMO-REQ-AUTH-001-001 Sign in with valid credentials @P0 @happy @DEMO-REQ-AUTH-001 (1.7s)
+  ok  6 [chromium] › e2e\generated\authentication.spec.ts:46:7 › Authentication › DEMO-REQ-AUTH-002-001 Reject invalid credentials @P1 @negative @DEMO-REQ-AUTH-002 (2.0s)
+
+  ok  7 [chromium] › e2e\generated\authentication.spec.ts:72:7 › Authentication › DEMO-REQ-AUTH-003-001 Protect pages from anonymous users @P0 @rbac @DEMO-REQ-AUTH-003 (1.3s)
+  ok  8 [chromium] › e2e\generated\authentication.spec.ts:92:7 › Authentication › DEMO-REQ-AUTH-003-002 Protect pages from anonymous users — API denies access @P0 @rbac @DEMO-REQ-AUTH-003 (218ms)
+  ok  5 [chromium] › e2e\generated\approval.spec.ts:56:7 › Approval › DEMO-REQ-APP-002-001 Approver rejects with a reason @P1 @state-transition @DEMO-REQ-APP-002 (4.5s)
+  ok  9 [chromium] › e2e\generated\requests.spec.ts:17:7 › Requests › DEMO-REQ-REQ-001-001 Create a purchase request @P0 @happy @DEMO-REQ-REQ-001 (3.2s)
+  ok 10 [chromium] › e2e\generated\approval.spec.ts:96:7 › Approval › DEMO-REQ-APP-002-002 Approver rejects with a reason — API rejects invalid input @P1 @negative @DEMO-REQ-APP-002 (3.7s)
+  ok 11 [chromium] › e2e\generated\requests.spec.ts:89:7 › Requests › DEMO-REQ-REQ-003-001 Amount limits — amount 1 (accepted) @P1 @boundary @DEMO-REQ-REQ-003 (1.7s)
+  ok 12 [chromium] › e2e\generated\approval.spec.ts:135:7 › Approval › DEMO-REQ-APP-003-001 Only approvers can decide — as requester @P0 @rbac @DEMO-REQ-APP-003 (2.2s)
+  ok 13 [chromium] › e2e\generated\requests.spec.ts:117:7 › Requests › DEMO-REQ-REQ-003-002 Amount limits — amount 10000 (accepted) @P1 @boundary @DEMO-REQ-REQ-003 (1.6s)
+  ok 15 [chromium] › e2e\generated\requests.spec.ts:145:7 › Requests › DEMO-REQ-REQ-003-003 Amount limits — amount 0 (rejected) @P1 @boundary @DEMO-REQ-REQ-003 (1.8s)
+  x  14 [chromium] › e2e\generated\approval.spec.ts:172:7 › Approval › DEMO-REQ-APP-003-002 Only approvers can decide — as requester — API denies access @P0 @rbac @DEMO-REQ-APP-003 (2.4s)
+  ok 16 [chromium] › e2e\generated\requests.spec.ts:177:7 › Requests › DEMO-REQ-REQ-003-004 Amount limits — amount 10001 (rejected) @P1 @boundary @DEMO-REQ-REQ-003 (1.3s)
+  ok 17 [chromium] › e2e\generated\approval.spec.ts:205:7 › Approval › DEMO-REQ-APP-003-003 Only approvers can decide — as viewer @P0 @rbac @DEMO-REQ-APP-003 (3.2s)
+  x  18 [chromium] › e2e\generated\approval.spec.ts:244:7 › Approval › DEMO-REQ-APP-003-004 Only approvers can decide — as viewer — API denies access @P0 @rbac @DEMO-REQ-APP-003 (1.7s)
+  ok 19 [chromium] › e2e\generated\approval.spec.ts:280:7 › Approval › DEMO-REQ-APP-004-001 Decision is visible in another tab @P2 @state-transition @DEMO-REQ-APP-004 (3.0s)
+
+
+  1) [chromium] › e2e\generated\approval.spec.ts:172:7 › Approval › DEMO-REQ-APP-003-002 Only approvers can decide — as requester — API denies access @P0 @rbac @DEMO-REQ-APP-003 › expect: `POST /api/requests/<id>/approve` returns HTTP 403 for them (docs/requirements.md:116) 
+
+    Error: POST /api/requests/{{subject.id}}/approve as requester
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 403
+    Received: 200
+
+      197 |             await actors.request('requester')
+      198 |           ).fetch(`/api/requests/${subject.id}/approve`, { method: 'POST' });
+    > 199 |           expect(res.status(), 'POST /api/requests/{{subject.id}}/approve as requester').toBe(403);
+          |                                                                                          ^
+      200 |         }
+      201 |       });
+      202 |     },
+        at <HOME>\AppData\Local\Temp\qa slice l9N7sn\e2e\generated\approval.spec.ts:199:90
+        at <HOME>\AppData\Local\Temp\qa slice l9N7sn\e2e\generated\approval.spec.ts:194:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    qa-artifacts\playwright\test-results\approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: qa-artifacts\playwright\test-results\approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    qa-artifacts\playwright\test-results\approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace qa-artifacts\playwright\test-results\approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › e2e\generated\approval.spec.ts:244:7 › Approval › DEMO-REQ-APP-003-004 Only approvers can decide — as viewer — API denies access @P0 @rbac @DEMO-REQ-APP-003 › expect: `POST /api/requests/<id>/approve` returns HTTP 403 for them (docs/requirements.md:116) 
+
+    Error: POST /api/requests/{{subject.id}}/approve as viewer
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 403
+    Received: 200
+
+      272 |             await actors.request('viewer')
+      273 |           ).fetch(`/api/requests/${subject.id}/approve`, { method: 'POST' });
+    > 274 |           expect(res.status(), 'POST /api/requests/{{subject.id}}/approve as viewer').toBe(403);
+          |                                                                                       ^
+      275 |         }
+      276 |       });
+      277 |     },
+        at <HOME>\AppData\Local\Temp\qa slice l9N7sn\e2e\generated\approval.spec.ts:274:87
+        at <HOME>\AppData\Local\Temp\qa slice l9N7sn\e2e\generated\approval.spec.ts:269:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    qa-artifacts\playwright\test-results\approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    qa-artifacts\playwright\test-results\approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: qa-artifacts\playwright\test-results\approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    qa-artifacts\playwright\test-results\approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace qa-artifacts\playwright\test-results\approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › e2e\generated\approval.spec.ts:172:7 › Approval › DEMO-REQ-APP-003-002 Only approvers can decide — as requester — API denies access @P0 @rbac @DEMO-REQ-APP-003 
+    [chromium] › e2e\generated\approval.spec.ts:244:7 › Approval › DEMO-REQ-APP-003-004 Only approvers can decide — as viewer — API denies access @P0 @rbac @DEMO-REQ-APP-003 
+  17 passed (35.9s)
+
+== serial: 1 case(s), 1 worker(s)
+
+Running 1 test using 1 worker
+
+  ok 1 [chromium] › e2e\generated\requests.spec.ts:52:7 › Requests › DEMO-REQ-REQ-002-001 Title is required @P1 @negative @serial @DEMO-REQ-REQ-002 (2.2s)
+
+  1 passed (4.4s)
+run run-20261019T121247-g7p3: exit=1
+  parallel: 19 case(s), 2 worker(s), exit=1, qa-artifacts/runs/run-20261019T121247-g7p3/results-parallel.json
+  serial: 1 case(s), 1 worker(s), exit=0, qa-artifacts/runs/run-20261019T121247-g7p3/results-serial.json
+  record: qa-artifacts/runs/run-20261019T121247-g7p3/run.json
+
+# exit=1

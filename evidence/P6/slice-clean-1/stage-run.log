@@ -1,0 +1,44 @@
+$ qa-agent run
+
+== parallel: 19 case(s), 2 worker(s)
+
+Running 19 tests using 2 workers
+
+  ok  1 [chromium] › e2e\generated\access-control.spec.ts:17:7 › Access control › DEMO-REQ-VIEW-001-002 Viewer is read-only — the viewer has no "New request" link @P1 @rbac @DEMO-REQ-VIEW-001 (3.3s)
+
+  ok  3 [chromium] › e2e\generated\access-control.spec.ts:39:7 › Access control › DEMO-REQ-VIEW-001-003 Viewer is read-only — `POST /api/requests` returns HTTP 403 for the viewer @P1 @rbac @DEMO-REQ-VIEW-001 (1.5s)
+  ok  2 [chromium] › e2e\generated\approval.spec.ts:17:7 › Approval › DEMO-REQ-APP-001-001 Approver approves a pending request @P0 @state-transition @DEMO-REQ-APP-001 (5.9s)
+
+  ok  4 [chromium] › e2e\generated\authentication.spec.ts:17:7 › Authentication › DEMO-REQ-AUTH-001-001 Sign in with valid credentials @P0 @happy @DEMO-REQ-AUTH-001 (2.6s)
+
+  ok  5 [chromium] › e2e\generated\approval.spec.ts:56:7 › Approval › DEMO-REQ-APP-002-001 Approver rejects with a reason @P1 @state-transition @DEMO-REQ-APP-002 (4.2s)
+  ok  6 [chromium] › e2e\generated\authentication.spec.ts:46:7 › Authentication › DEMO-REQ-AUTH-002-001 Reject invalid credentials @P1 @negative @DEMO-REQ-AUTH-002 (2.2s)
+  ok  8 [chromium] › e2e\generated\authentication.spec.ts:72:7 › Authentication › DEMO-REQ-AUTH-003-001 Protect pages from anonymous users @P0 @rbac @DEMO-REQ-AUTH-003 (976ms)
+  ok  9 [chromium] › e2e\generated\authentication.spec.ts:92:7 › Authentication › DEMO-REQ-AUTH-003-002 Protect pages from anonymous users — API denies access @P0 @rbac @DEMO-REQ-AUTH-003 (160ms)
+  ok  7 [chromium] › e2e\generated\approval.spec.ts:96:7 › Approval › DEMO-REQ-APP-002-002 Approver rejects with a reason — API rejects invalid input @P1 @negative @DEMO-REQ-APP-002 (2.5s)
+  ok 10 [chromium] › e2e\generated\requests.spec.ts:17:7 › Requests › DEMO-REQ-REQ-001-001 Create a purchase request @P0 @happy @DEMO-REQ-REQ-001 (2.5s)
+  ok 11 [chromium] › e2e\generated\approval.spec.ts:135:7 › Approval › DEMO-REQ-APP-003-001 Only approvers can decide — as requester @P0 @rbac @DEMO-REQ-APP-003 (2.1s)
+  ok 12 [chromium] › e2e\generated\requests.spec.ts:89:7 › Requests › DEMO-REQ-REQ-003-001 Amount limits — amount 1 (accepted) @P1 @boundary @DEMO-REQ-REQ-003 (1.5s)
+  ok 13 [chromium] › e2e\generated\approval.spec.ts:172:7 › Approval › DEMO-REQ-APP-003-002 Only approvers can decide — as requester — API denies access @P0 @rbac @DEMO-REQ-APP-003 (1.4s)
+  ok 14 [chromium] › e2e\generated\requests.spec.ts:117:7 › Requests › DEMO-REQ-REQ-003-002 Amount limits — amount 10000 (accepted) @P1 @boundary @DEMO-REQ-REQ-003 (1.7s)
+  ok 15 [chromium] › e2e\generated\approval.spec.ts:205:7 › Approval › DEMO-REQ-APP-003-003 Only approvers can decide — as viewer @P0 @rbac @DEMO-REQ-APP-003 (2.8s)
+  ok 16 [chromium] › e2e\generated\requests.spec.ts:145:7 › Requests › DEMO-REQ-REQ-003-003 Amount limits — amount 0 (rejected) @P1 @boundary @DEMO-REQ-REQ-003 (1.7s)
+  ok 18 [chromium] › e2e\generated\requests.spec.ts:177:7 › Requests › DEMO-REQ-REQ-003-004 Amount limits — amount 10001 (rejected) @P1 @boundary @DEMO-REQ-REQ-003 (1.7s)
+  ok 17 [chromium] › e2e\generated\approval.spec.ts:244:7 › Approval › DEMO-REQ-APP-003-004 Only approvers can decide — as viewer — API denies access @P0 @rbac @DEMO-REQ-APP-003 (2.4s)
+  ok 19 [chromium] › e2e\generated\approval.spec.ts:280:7 › Approval › DEMO-REQ-APP-004-001 Decision is visible in another tab @P2 @state-transition @DEMO-REQ-APP-004 (2.9s)
+
+  19 passed (27.3s)
+
+== serial: 1 case(s), 1 worker(s)
+
+Running 1 test using 1 worker
+
+  ok 1 [chromium] › e2e\generated\requests.spec.ts:52:7 › Requests › DEMO-REQ-REQ-002-001 Title is required @P1 @negative @serial @DEMO-REQ-REQ-002 (2.2s)
+
+  1 passed (4.0s)
+run run-20261019T120920-4rjm: exit=0
+  parallel: 19 case(s), 2 worker(s), exit=0, qa-artifacts/runs/run-20261019T120920-4rjm/results-parallel.json
+  serial: 1 case(s), 1 worker(s), exit=0, qa-artifacts/runs/run-20261019T120920-4rjm/results-serial.json
+  record: qa-artifacts/runs/run-20261019T120920-4rjm/run.json
+
+# exit=0

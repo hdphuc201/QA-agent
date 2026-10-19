@@ -1,0 +1,33 @@
+{
+  "bug": null,
+  "runId": "run-20261019T121525-ta3a",
+  "stages": [
+    {
+      "stage": "discover",
+      "exitCode": 0,
+      "durationMs": 9679
+    },
+    {
+      "stage": "plan",
+      "exitCode": 0,
+      "durationMs": 570
+    },
+    {
+      "stage": "generate --validate",
+      "exitCode": 0,
+      "durationMs": 7033
+    },
+    {
+      "stage": "run",
+      "exitCode": 0,
+      "durationMs": 34328
+    }
+  ],
+  "cases": {
+    "total": 20,
+    "passed": 20,
+    "notPassed": 0
+  },
+  "failed": [],
+  "ok": true
+}

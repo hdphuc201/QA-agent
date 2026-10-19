@@ -48,6 +48,9 @@ export const Value = z.union([
   z.object({ ref: z.string() }), // e.g. "subject.id"
 ]);
 
+/** Extra tab of the role's context (2..4); omitted = the role's main tab. */
+const Tab = z.int().min(2).max(4).optional();
+
 export const StepSchema = z.discriminatedUnion('do', [
   z.object({
     do: z.literal('login'),
@@ -56,28 +59,30 @@ export const StepSchema = z.discriminatedUnion('do', [
     /** Inserted by the planner so a role can act; false when the requirement tests signing in. */
     implicit: z.boolean().default(false),
   }),
-  z.object({ do: z.literal('goto'), as: z.string(), path: z.string() }),
-  z.object({ do: z.literal('fill'), as: z.string(), label: z.string(), value: Value }),
+  z.object({ do: z.literal('goto'), as: z.string(), path: z.string(), tab: Tab }),
+  z.object({ do: z.literal('fill'), as: z.string(), label: z.string(), value: Value, tab: Tab }),
   z.object({
     do: z.literal('click'),
     as: z.string(),
     role: z.enum(['button', 'link']),
     name: z.string(),
     capture: z.string().optional(),
+    tab: Tab,
   }),
   z.object({ do: z.literal('manual'), as: z.string(), text: z.string() }),
 ]);
 
 export const AssertionSchema = z.discriminatedUnion('kind', [
-  z.object({ kind: z.literal('url'), as: z.string(), path: z.string() }),
-  z.object({ kind: z.literal('heading'), as: z.string(), name: z.string() }),
-  z.object({ kind: z.literal('text'), as: z.string(), value: Value }),
-  z.object({ kind: z.literal('alert'), as: z.string(), text: z.string() }),
+  z.object({ kind: z.literal('url'), as: z.string(), path: z.string(), tab: Tab }),
+  z.object({ kind: z.literal('heading'), as: z.string(), name: z.string(), tab: Tab }),
+  z.object({ kind: z.literal('text'), as: z.string(), value: Value, tab: Tab }),
+  z.object({ kind: z.literal('alert'), as: z.string(), text: z.string(), tab: Tab }),
   z.object({
     kind: z.literal('absent'),
     as: z.string(),
     role: z.enum(['button', 'link']),
     name: z.string(),
+    tab: Tab,
   }),
   z.object({
     kind: z.literal('apiStatus'),

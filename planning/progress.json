@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "project": "qa-agent",
-  "activePhase": "P5",
-  "updatedAt": "2026-10-19T12:04:08.585Z",
-  "revision": 80,
+  "activePhase": "P6",
+  "updatedAt": "2026-10-19T12:22:03.032Z",
+  "revision": 93,
   "phases": {
     "P0": {
       "title": "BOOTSTRAP & AUTOMATED PROGRESS",
@@ -700,59 +700,99 @@
     },
     "P6": {
       "title": "END-TO-END HYBRID VERTICAL SLICE (MVP CORE)",
-      "status": "not_started",
-      "gate": "pending",
-      "gateEvidence": [],
-      "startedAt": null,
-      "completedAt": null,
+      "status": "completed",
+      "gate": "passed",
+      "gateEvidence": [
+        {
+          "at": "2026-10-19T12:22:03.011Z",
+          "decision": "passed",
+          "text": "docs/PHASE_REVIEWS/P6.md; evidence/P6/slice-intentional-bug/summary.json; evidence/P6/slice-clean-3/summary.json"
+        }
+      ],
+      "startedAt": "2026-10-19T12:04:58.170Z",
+      "completedAt": "2026-10-19T12:22:03.011Z",
       "tasks": {
         "P6-T01": {
           "title": "Xây demo app/harness nhỏ hoặc dùng sample app được phép với 2 roles, một approval-like workflow, fixtures/seed data, rõ requirements. Không dựng backend phức tạp chỉ để phô diễn.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:04:58.283Z",
+              "text": "examples/sample-app/server.mjs (3 roles, approval workflow, seed REQ-1, test-mode reset, opt-in defect) with examples/sample-app/docs/requirements.md; behaviour verified by tests/unit/sample-app.test.ts: exit=0 (decision in docs/ADR/0004-discovery-engine.md)"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:04:58.170Z",
+          "completedAt": "2026-10-19T12:04:58.283Z"
         },
         "P6-T02": {
           "title": "Chạy pipeline `discover → plan → generate → run` trên demo; lưu intermediate artifacts có version.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:18:11.303Z",
+              "text": "scripts/smoke/vertical-slice.mjs: discover (live MCP, signed in, 7 pages) -> plan -> generate --validate -> run, all stages exit=0 in evidence/P6/slice-clean-1/summary.json; versioned inputs in evidence/P6/slice-clean-1/run/inputs/versions.json"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:09:02.644Z",
+          "completedAt": "2026-10-19T12:18:11.303Z"
         },
         "P6-T03": {
           "title": "Chạy tối thiểu 1 happy path, 1 negative, 1 RBAC, 1 boundary (nếu docs demo hỗ trợ); mục tiêu 10–20 case có giá trị, không thêm case giả để đủ số.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:18:11.595Z",
+              "text": "20 READY cases executed: happy 4, negative 3, boundary 4, rbac 8, state-transition 3 (+2 NEEDS_REVIEW not run); 20/20 passed: evidence/P6/slice-clean-1/summary.json"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:18:11.452Z",
+          "completedAt": "2026-10-19T12:18:11.595Z"
         },
         "P6-T04": {
           "title": "Kiểm thử hai role + multi-tab; CI/non-interactive Playwright runner chạy mà không cần gọi AI cho từng click.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:18:11.748Z",
+              "text": "two roles in separate contexts plus a second requester tab (DEMO-REQ-APP-004, requesterTab2) generated and passed: evidence/P6/slice-clean-1/generated/approval.spec.ts; non-interactive qa-agent run, no AI per click: evidence/P6/slice-clean-1/stage-run.log"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:04:58.389Z",
+          "completedAt": "2026-10-19T12:18:11.748Z"
         },
         "P6-T05": {
           "title": "Dựng một intentional bug trong demo/test fixture và xác nhận engine FAIL đúng; sau đó hoàn nguyên fixture.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:18:11.889Z",
+              "text": "SAMPLE_APP_BUG=skip-approve-rbac: exactly DEMO-REQ-APP-003-002 and -004 failed (Expected 403, Received 200), 18/20 passed: evidence/P6/slice-intentional-bug/summary.json; defect off again: 20/20 in evidence/P6/slice-clean-2/summary.json"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:12:19.164Z",
+          "completedAt": "2026-10-19T12:18:11.889Z"
         },
         "P6-T06": {
           "title": "Chạy lặp lại tối thiểu 3 lần trên state sạch, ghi flake/failure, review P6.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:22:02.785Z",
+              "text": "three clean runs 20/20 each with identical plan hash and specs: evidence/P6/slice-clean-1/summary.json, evidence/P6/slice-clean-2/summary.json, evidence/P6/slice-clean-3/summary.json; no flaky tests"
+            },
+            {
+              "at": "2026-10-19T12:22:02.785Z",
+              "text": "quality gate exit=0 (140 tests, 139 pass, 1 skipped): evidence/P6/test.log; review docs/PHASE_REVIEWS/P6.md"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:18:12.031Z",
+          "completedAt": "2026-10-19T12:22:02.785Z"
         }
       }
     },

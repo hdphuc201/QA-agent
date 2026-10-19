@@ -5,6 +5,7 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { ProjectConfig } from '../config/project-config.schema.ts';
 import { assertWritable, writeProjectFile } from '../config/write-guard.ts';
 import { PW_CONFIG } from '../generator/generate.ts';
@@ -35,6 +36,57 @@ export interface RunRecord {
 }
 
 export const RUNS_DIR = 'qa-artifacts/runs';
+
+const QA_AGENT_VERSION = (
+  JSON.parse(
+    fs.readFileSync(
+      path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../package.json'),
+      'utf8',
+    ),
+  ) as { version: string }
+).version;
+
+/**
+ * Freeze the stage outputs a run used (`inputs/`) plus their versions, so a run can be
+ * reproduced and audited after the plan or specs change.
+ */
+export function snapshotInputs(
+  projectRoot: string,
+  config: ProjectConfig,
+  runDir: string,
+  plan: TestPlan,
+): void {
+  const sources: [string, string][] = [
+    ['.qa-agent/discovery/project-map.json', 'project-map.json'],
+    ['.qa-agent/discovery/observations.json', 'observations.json'],
+    ['.qa-agent/plan/test-plan.json', 'test-plan.json'],
+    [`${config.testOutputRoot}/case-map.json`, 'case-map.json'],
+    [`${config.testOutputRoot}/.qa-agent-manifest.json`, 'generated-manifest.json'],
+  ];
+  const copied: string[] = [];
+  for (const [from, to] of sources) {
+    const abs = path.join(projectRoot, from);
+    if (!fs.existsSync(abs)) continue;
+    writeProjectFile(projectRoot, config, `${runDir}/inputs/${to}`, fs.readFileSync(abs, 'utf8'));
+    copied.push(from);
+  }
+  const manifest = path.join(projectRoot, config.testOutputRoot, '.qa-agent-manifest.json');
+  const versions = {
+    qaAgent: QA_AGENT_VERSION,
+    planSchemaVersion: plan.schemaVersion,
+    planGeneratedAt: plan.generatedAt,
+    generatedPlanHash: fs.existsSync(manifest)
+      ? (JSON.parse(fs.readFileSync(manifest, 'utf8')) as { planHash: string }).planHash
+      : null,
+    inputs: copied,
+  };
+  writeProjectFile(
+    projectRoot,
+    config,
+    `${runDir}/inputs/versions.json`,
+    `${JSON.stringify(versions, null, 2)}\n`,
+  );
+}
 
 export function newRunId(now = new Date()): string {
   return `run-${now.toISOString().replace(/[-:]/g, '').replace(/\..+$/, '')}-${Math.random().toString(36).slice(2, 6)}`;
@@ -94,6 +146,7 @@ export async function runSuite(options: {
     `${runDir}/schedule.json`,
     `${JSON.stringify(schedule, null, 2)}\n`,
   );
+  snapshotInputs(projectRoot, config, runDir, plan);
   const startedAt = new Date().toISOString();
   const phases: RunPhase[] = [];
   const plannedPhases: [RunPhase['name'], string[], number, string][] = [

@@ -14,9 +14,9 @@ export function q(s: string): string {
   return `'${s.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\r/g, '\\r').replace(/\n/g, '\\n')}'`;
 }
 
-/** Role name → safe identifier for the role's page variable. */
-export const pageVar = (role: string) =>
-  `${role.replace(/[^A-Za-z0-9]+(.)?/g, (_, c: string | undefined) => (c ? c.toUpperCase() : ''))}Page`;
+/** Role (+ extra tab) → safe identifier: `requesterPage`, `requesterTab2`. */
+export const pageVar = (role: string, tab?: number) =>
+  `${role.replace(/[^A-Za-z0-9]+(.)?/g, (_, c: string | undefined) => (c ? c.toUpperCase() : ''))}${tab ? `Tab${tab}` : 'Page'}`;
 
 /** Path expression: literal, or a template using the captured subject. */
 export function pathExpr(path: string): string {
@@ -37,7 +37,7 @@ function valueExpr(v: ValueT): string {
 }
 
 function stepCode(s: Step): string[] {
-  const p = pageVar(s.as);
+  const p = pageVar(s.as, 'tab' in s ? s.tab : undefined);
   switch (s.do) {
     case 'login':
       return [
@@ -61,7 +61,7 @@ function stepCode(s: Step): string[] {
 }
 
 function assertCode(a: Assertion, anchor: string | null, counts: Map<string, string>): string[] {
-  const p = pageVar(a.as);
+  const p = pageVar(a.as, 'tab' in a ? a.tab : undefined);
   switch (a.kind) {
     case 'url':
       return [`await expectPath(${p}, ${q(a.path)});`];
@@ -165,6 +165,19 @@ export function caseToTest(c: TestCase): string {
         `const ${pageVar(r)} = await actors.page(${q(r)}${fresh ? ', { fresh: true }' : ''});`,
       );
     }
+  // Extra tabs of a role share its session (same context).
+  const tabs = new Set<string>();
+  for (const x of [
+    ...c.setup,
+    ...c.steps,
+    ...c.expectations.flatMap((e) => [...e.before, ...e.asserts]),
+  ]) {
+    if ('tab' in x && x.tab) tabs.add(JSON.stringify([x.as, x.tab]));
+  }
+  for (const key of [...tabs].sort()) {
+    const [role, tab] = JSON.parse(key) as [string, number];
+    lines.push(`const ${pageVar(role, tab)} = await actors.newTab(${q(role)});`);
+  }
 
   // Baselines for "no X is created": taken after sign-in, before the case's actions.
   const counts = new Map<string, string>();

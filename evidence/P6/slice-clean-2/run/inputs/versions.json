@@ -1,0 +1,13 @@
+{
+  "qaAgent": "0.0.0",
+  "planSchemaVersion": 1,
+  "planGeneratedAt": "2026-10-19T12:14:18.244Z",
+  "generatedPlanHash": "df700571c2df",
+  "inputs": [
+    ".qa-agent/discovery/project-map.json",
+    ".qa-agent/discovery/observations.json",
+    ".qa-agent/plan/test-plan.json",
+    "e2e/generated/case-map.json",
+    "e2e/generated/.qa-agent-manifest.json"
+  ]
+}

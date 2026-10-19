@@ -124,3 +124,12 @@ Format: each requirement is a level-3 heading `### <ID> — <title>` followed by
 - Expected: the viewer sees all requests on `/`
 - Expected: the viewer has no "New request" link
 - Expected: `POST /api/requests` returns HTTP 403 for the viewer
+
+### DEMO-REQ-APP-004 — Decision is visible in another tab
+
+- Feature: Approval
+- Priority: P2
+- Actors: requester, approver
+- Given: a pending request created by the requester
+- When: the approver opens the request and clicks "Approve"
+- Expected: the requester sees the status "Approved" for that request in a second tab

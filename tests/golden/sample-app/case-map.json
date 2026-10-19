@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "planHash": "ee1cc7a47cc7",
+  "planHash": "df700571c2df",
   "cases": [
     {
       "id": "DEMO-REQ-APP-001-001",
@@ -36,6 +36,11 @@
       "id": "DEMO-REQ-APP-003-004",
       "file": "e2e/generated/approval.spec.ts",
       "title": "DEMO-REQ-APP-003-004 Only approvers can decide — as viewer — API denies access"
+    },
+    {
+      "id": "DEMO-REQ-APP-004-001",
+      "file": "e2e/generated/approval.spec.ts",
+      "title": "DEMO-REQ-APP-004-001 Decision is visible in another tab"
     },
     {
       "id": "DEMO-REQ-AUTH-001-001",

@@ -67,4 +67,8 @@ With a subject (`Given: a pending …`), a role's first fill/click happens on th
 | `no "X" button` / `no "X" link`                                                        | element absent                                                                                                            |
 | `no <thing> is created`                                                                | the list API `GET /api/<things>` (from the project map) returns as many items as before                                   |
 
+Ending an `Expected` sentence with `in a second tab` runs its navigation and checks in a second tab of the same role (same session); the tab first opens the subject.
+
+Logins the planner inserts are marked `implicit`. A login written in the requirement (`signs in with …`) tests signing in, so that role always starts from a fresh browser context, never from a cached session.
+
 Network failure and concurrency cases are generated only when a requirement mentions them. If the condition cannot be expressed, those cases are `NEEDS_REVIEW`.

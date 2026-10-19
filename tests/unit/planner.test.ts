@@ -171,10 +171,10 @@ describe('interpreter', () => {
 describe('test matrix for the sample app', () => {
   test('cases per category and status', () => {
     const count = (f: (c: TestPlan['cases'][number]) => boolean) => plan.cases.filter(f).length;
-    assert.equal(plan.cases.length, 21);
+    assert.equal(plan.cases.length, 22);
     assert.equal(
       count((c) => c.status === 'READY'),
-      19,
+      20,
     );
     assert.deepEqual(
       Object.fromEntries(
@@ -183,10 +183,10 @@ describe('test matrix for the sample app', () => {
           count((c) => c.category === k),
         ]),
       ),
-      { happy: 4, negative: 3, boundary: 4, rbac: 8, 'state-transition': 2 },
+      { happy: 4, negative: 3, boundary: 4, rbac: 8, 'state-transition': 3 },
     );
     assert.deepEqual(plan.coverage.categoriesNotRequired, ['network-failure', 'concurrency']);
-    assert.equal(plan.coverage.withReadyCases, 10);
+    assert.equal(plan.coverage.withReadyCases, 11);
   });
 
   test('boundary values each get a case with the matching expectation', () => {

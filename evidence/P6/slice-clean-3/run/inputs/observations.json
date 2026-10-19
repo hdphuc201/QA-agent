@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 1,
+  "projectId": "sample-approvals",
+  "generatedAt": "2026-10-19T12:15:12.125Z",
+  "pages": [
+    {
+      "id": "obs-001",
+      "kind": "page",
+      "provenance": "observed",
+      "url": "http://127.0.0.1:49989/login",
+      "path": "/login",
+      "title": "Sign in · Sample Approvals",
+      "as": "anonymous",
+      "observedAt": "2026-10-19T12:15:13.223Z",
+      "via": "browser_snapshot",
+      "elements": [
+        {
+          "id": "obs-001-e1",
+          "role": "navigation",
+          "name": "Main",
+          "locator": "getByRole('navigation', { name: \"Main\" })"
+        },
+        {
+          "id": "obs-001-e2",
+          "role": "link",
+          "name": "Requests",
+          "locator": "getByRole('link', { name: \"Requests\" })",
+          "href": "/"
+        },
+        {
+          "id": "obs-001-e3",
+          "role": "heading",
+          "name": "Sign in",
+          "locator": "getByRole('heading', { name: \"Sign in\" })",
+          "level": 1
+        },
+        {
+          "id": "obs-001-e4",
+          "role": "textbox",
+          "name": "Username",
+          "locator": "getByRole('textbox', { name: \"Username\" })"
+        },
+        {
+          "id": "obs-001-e5",
+          "role": "textbox",
+          "name": "Password",
+          "locator": "getByRole('textbox', { name: \"Password\" })"
+        },
+        {
+          "id": "obs-001-e6",
+          "role": "button",
+          "name": "Sign in",
+          "locator": "getByRole('button', { name: \"Sign in\" })"
+        }
+      ]
+    },
+    {
+      "id": "obs-002",
+      "kind": "page",
+      "provenance": "observed",
+      "url": "http://127.0.0.1:49989/health",
+      "path": "/health",
+      "title": null,
+      "as": "anonymous",
+      "observedAt": "2026-10-19T12:15:13.525Z",
+      "via": "browser_snapshot",
+      "elements": []
+    },
+    {
+      "id": "obs-003",
+      "kind": "page",
+      "provenance": "observed",
+      "url": "http://127.0.0.1:49989/",
+      "path": "/",
+      "title": "Requests · Sample Approvals",
+      "as": "requester",
+      "observedAt": "2026-10-19T12:15:15.334Z",
+      "via": "browser_snapshot",
+      "elements": [
+        {
+          "id": "obs-003-e1",
+          "role": "navigation",
+          "name": "Main",
+          "locator": "getByRole('navigation', { name: \"Main\" })"
+        },
+        {
+          "id": "obs-003-e2",
+          "role": "link",
+          "name": "Requests",
+          "locator": "getByRole('link', { name: \"Requests\" })",
+          "href": "/"
+        },
+        {
+          "id": "obs-003-e3",
+          "role": "link",
+          "name": "New request",
+          "locator": "getByRole('link', { name: \"New request\" })",
+          "href": "/requests/new"
+        },
+        {
+          "id": "obs-003-e4",
+          "role": "button",
+          "name": "Sign out",
+          "locator": "getByRole('button', { name: \"Sign out\" })"
+        },
+        {
+          "id": "obs-003-e5",
+          "role": "heading",
+          "name": "Requests",
+          "locator": "getByRole('heading', { name: \"Requests\" })",
+          "level": 1
+        },
+        {
+          "id": "obs-003-e6",
+          "role": "columnheader",
+          "name": "Title",
+          "locator": "getByRole('columnheader', { name: \"Title\" })"
+        },
+        {
+          "id": "obs-003-e7",
+          "role": "columnheader",
+          "name": "Amount",
+          "locator": "getByRole('columnheader', { name: \"Amount\" })"
+        },
+        {
+          "id": "obs-003-e8",
+          "role": "columnheader",
+          "name": "Requested by",
+          "locator": "getByRole('columnheader', { name: \"Requested by\" })"
+        },
+        {
+          "id": "obs-003-e9",
+          "role": "columnheader",
+          "name": "Status",
+          "locator": "getByRole('columnheader', { name: \"Status\" })"
+        },
+        {
+          "id": "obs-003-e10",
+          "role": "cell",
+          "name": null,
+          "locator": "getByRole('cell')"
+        },
+        {
+          "id": "obs-003-e11",
+          "role": "link",
+          "name": "Seeded laptop",
+          "locator": "getByRole('link', { name: \"Seeded laptop\" })",
+          "href": "/requests/REQ-1"
+        },
+        {
+          "id": "obs-003-e12",
+          "role": "cell",
+          "name": "1200",
+          "locator": "getByRole('cell', { name: \"1200\" })"
+        },
+        {
+          "id": "obs-003-e13",
+          "role": "cell",
+          "name": "alice",
+          "locator": "getByRole('cell', { name: \"alice\" })"
+        },
+        {
+          "id": "obs-003-e14",
+          "role": "cell",
+          "name": "Pending",
+          "locator": "getByRole('cell', { name: \"Pending\" })"
+        }
+      ]
+    },
+    {
+      "id": "obs-004",
+      "kind": "page",
+      "provenance": "observed",
+      "url": "http://127.0.0.1:49989/health",
+      "path": "/health",
+      "title": null,
+      "as": "requester",
+      "observedAt": "2026-10-19T12:15:15.628Z",
+      "via": "browser_snapshot",
+      "elements": []
+    },
+    {
+      "id": "obs-005",
+      "kind": "page",
+      "provenance": "observed",
+      "url": "http://127.0.0.1:49989/login",
+      "path": "/login",
+      "title": "Sign in · Sample Approvals",
+      "as": "requester",
+      "observedAt": "2026-10-19T12:15:15.862Z",
+      "via": "browser_snapshot",
+      "elements": [
+        {
+          "id": "obs-005-e1",
+          "role": "navigation",
+          "name": "Main",
+          "locator": "getByRole('navigation', { name: \"Main\" })"
+        },
+        {
+          "id": "obs-005-e2",
+          "role": "link",
+          "name": "Requests",
+          "locator": "getByRole('link', { name: \"Requests\" })",
+          "href": "/"
+        },
+        {
+          "id": "obs-005-e3",
+          "role": "heading",
+          "name": "Sign in",
+          "locator": "getByRole('heading', { name: \"Sign in\" })",
+          "level": 1
+        },
+        {
+          "id": "obs-005-e4",
+          "role": "textbox",
+          "name": "Username",
+          "locator": "getByRole('textbox', { name: \"Username\" })"
+        },
+        {
+          "id": "obs-005-e5",
+          "role": "textbox",
+          "name": "Password",
+          "locator": "getByRole('textbox', { name: \"Password\" })"
+        },
+        {
+          "id": "obs-005-e6",
+          "role": "button",
+          "name": "Sign in",
+          "locator": "getByRole('button', { name: \"Sign in\" })"
+        }
+      ]
+    },
+    {
+      "id": "obs-006",
+      "kind": "page",
+      "provenance": "observed",
+      "url": "http://127.0.0.1:49989/requests/new",
+      "path": "/requests/new",
+      "title": "New request · Sample Approvals",
+      "as": "requester",
+      "observedAt": "2026-10-19T12:15:16.083Z",
+      "via": "browser_snapshot",
+      "elements": [
+        {
+          "id": "obs-006-e1",
+          "role": "navigation",
+          "name": "Main",
+          "locator": "getByRole('navigation', { name: \"Main\" })"
+        },
+        {
+          "id": "obs-006-e2",
+          "role": "link",
+          "name": "Requests",
+          "locator": "getByRole('link', { name: \"Requests\" })",
+          "href": "/"
+        },
+        {
+          "id": "obs-006-e3",
+          "role": "link",
+          "name": "New request",
+          "locator": "getByRole('link', { name: \"New request\" })",
+          "href": "/requests/new"
+        },
+        {
+          "id": "obs-006-e4",
+          "role": "button",
+          "name": "Sign out",
+          "locator": "getByRole('button', { name: \"Sign out\" })"
+        },
+        {
+          "id": "obs-006-e5",
+          "role": "heading",
+          "name": "New request",
+          "locator": "getByRole('heading', { name: \"New request\" })",
+          "level": 1
+        },
+        {
+          "id": "obs-006-e6",
+          "role": "textbox",
+          "name": "Title",
+          "locator": "getByRole('textbox', { name: \"Title\" })"
+        },
+        {
+          "id": "obs-006-e7",
+          "role": "textbox",
+          "name": "Amount",
+          "locator": "getByRole('textbox', { name: \"Amount\" })"
+        },
+        {
+          "id": "obs-006-e8",
+          "role": "button",
+          "name": "Create request",
+          "locator": "getByRole('button', { name: \"Create request\" })"
+        }
+      ]
+    },
+    {
+      "id": "obs-007",
+      "kind": "page",
+      "provenance": "observed",
+      "url": "http://127.0.0.1:49989/requests/REQ-1",
+      "path": "/requests/REQ-1",
+      "title": "REQ-1 · Sample Approvals",
+      "as": "requester",
+      "observedAt": "2026-10-19T12:15:16.291Z",
+      "via": "browser_snapshot",
+      "elements": [
+        {
+          "id": "obs-007-e1",
+          "role": "navigation",
+          "name": "Main",
+          "locator": "getByRole('navigation', { name: \"Main\" })"
+        },
+        {
+          "id": "obs-007-e2",
+          "role": "link",
+          "name": "Requests",
+          "locator": "getByRole('link', { name: \"Requests\" })",
+          "href": "/"
+        },
+        {
+          "id": "obs-007-e3",
+          "role": "link",
+          "name": "New request",
+          "locator": "getByRole('link', { name: \"New request\" })",
+          "href": "/requests/new"
+        },
+        {
+          "id": "obs-007-e4",
+          "role": "button",
+          "name": "Sign out",
+          "locator": "getByRole('button', { name: \"Sign out\" })"
+        },
+        {
+          "id": "obs-007-e5",
+          "role": "heading",
+          "name": "Seeded laptop",
+          "locator": "getByRole('heading', { name: \"Seeded laptop\" })",
+          "level": 1
+        },
+        {
+          "id": "obs-007-e6",
+          "role": "term",
+          "name": null,
+          "locator": "getByRole('term')",
+          "text": "ID"
+        },
+        {
+          "id": "obs-007-e7",
+          "role": "definition",
+          "name": null,
+          "locator": "getByRole('definition')",
+          "text": "REQ-1"
+        },
+        {
+          "id": "obs-007-e8",
+          "role": "term",
+          "name": null,
+          "locator": "getByRole('term')",
+          "text": "Amount"
+        },
+        {
+          "id": "obs-007-e9",
+          "role": "definition",
+          "name": null,
+          "locator": "getByRole('definition')",
+          "text": "1200"
+        },
+        {
+          "id": "obs-007-e10",
+          "role": "term",
+          "name": null,
+          "locator": "getByRole('term')",
+          "text": "Requested by"
+        },
+        {
+          "id": "obs-007-e11",
+          "role": "definition",
+          "name": null,
+          "locator": "getByRole('definition')",
+          "text": "alice"
+        },
+        {
+          "id": "obs-007-e12",
+          "role": "term",
+          "name": null,
+          "locator": "getByRole('term')",
+          "text": "Status"
+        },
+        {
+          "id": "obs-007-e13",
+          "role": "definition",
+          "name": null,
+          "locator": "getByRole('definition')",
+          "text": "Pending"
+        }
+      ]
+    }
+  ]
+}

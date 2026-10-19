@@ -180,7 +180,7 @@ describe('P5 gate: sessions, roles, orchestration', { skip }, () => {
     assert.deepEqual(
       record.phases.map((p) => [p.name, p.workers, p.cases]),
       [
-        ['parallel', 2, 18],
+        ['parallel', 2, 19],
         ['serial', 1, 1],
       ],
     );
@@ -220,7 +220,7 @@ describe('P5 gate: sessions, roles, orchestration', { skip }, () => {
     assert.notEqual(res.code, 0);
     const ran = res.report.stats.expected ?? 0;
     assert.ok(ran > 0, 'some tests ran before the timeout (the run really started)');
-    assert.ok(ran < 19, 'not every test ran');
+    assert.ok(ran < 20, 'not every test ran');
     // Playwright does not purge after an interrupted run; the next run's globalSetup and the engine do.
     const leftover = fs.existsSync(path.join(root, 'qa-artifacts/auth'));
     // A hard kill mid-run (no teardown at all) must not poison the next run either.

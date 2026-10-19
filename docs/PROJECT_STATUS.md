@@ -2,12 +2,12 @@
 
 # QA Agent — Project Status
 
-- State revision: 80
-- Last update: 2026-10-19T12:04:08.585Z
-- Active phase: P5 — AUTH, MULTI-TAB, MULTI-ROLE & TEST ORCHESTRATION
-- Task progress: 37/62 completed (59.7%) — share of roadmap tasks, not test coverage
+- State revision: 93
+- Last update: 2026-10-19T12:22:03.032Z
+- Active phase: P6 — END-TO-END HYBRID VERTICAL SLICE (MVP CORE)
+- Task progress: 43/62 completed (69.4%) — share of roadmap tasks, not test coverage
 - In progress: 0 · Blocked: 0
-- Latest gate decision: P5 passed at 2026-10-19T12:04:08.520Z — docs/PHASE_REVIEWS/P5.md; evidence/P5/test.log; evidence/P5/parallel-proof.log
+- Latest gate decision: P6 passed at 2026-10-19T12:22:03.011Z — docs/PHASE_REVIEWS/P6.md; evidence/P6/slice-intentional-bug/summary.json; evidence/P6/slice-clean-3/summary.json
 
 ## Phases
 
@@ -19,7 +19,7 @@
 | P3 | REQUIREMENTS & TEST PLANNING ENGINE | completed | passed | 6/6 |
 | P4 | PLAYWRIGHT CODE GENERATION ENGINE | completed | passed | 6/6 |
 | P5 | AUTH, MULTI-TAB, MULTI-ROLE & TEST ORCHESTRATION | completed | passed | 6/6 |
-| P6 | END-TO-END HYBRID VERTICAL SLICE (MVP CORE) | not_started | pending | 0/6 |
+| P6 | END-TO-END HYBRID VERTICAL SLICE (MVP CORE) | completed | passed | 6/6 |
 | P7 | EVIDENCE, REPORTING & MVP RELEASE CANDIDATE | not_started | pending | 0/6 |
 | P8 | HARDENING, SECURITY & CROSS-PROJECT TESTING | not_started | pending | 0/7 |
 | P9 | CI/CD, PACKAGING & v1.0 | not_started | pending | 0/6 |
@@ -105,12 +105,12 @@ _None_
 
 | Task | Status | Title | Evidence |
 |---|---|---|---|
-| P6-T01 | not_started | Xây demo app/harness nhỏ hoặc dùng sample app được phép với 2 roles, một approval-like workflow, fixtures/seed data, rõ requirements. Không dựng backend phức tạp chỉ để phô diễn. | — |
-| P6-T02 | not_started | Chạy pipeline `discover → plan → generate → run` trên demo; lưu intermediate artifacts có version. | — |
-| P6-T03 | not_started | Chạy tối thiểu 1 happy path, 1 negative, 1 RBAC, 1 boundary (nếu docs demo hỗ trợ); mục tiêu 10–20 case có giá trị, không thêm case giả để đủ số. | — |
-| P6-T04 | not_started | Kiểm thử hai role + multi-tab; CI/non-interactive Playwright runner chạy mà không cần gọi AI cho từng click. | — |
-| P6-T05 | not_started | Dựng một intentional bug trong demo/test fixture và xác nhận engine FAIL đúng; sau đó hoàn nguyên fixture. | — |
-| P6-T06 | not_started | Chạy lặp lại tối thiểu 3 lần trên state sạch, ghi flake/failure, review P6. | — |
+| P6-T01 | completed | Xây demo app/harness nhỏ hoặc dùng sample app được phép với 2 roles, một approval-like workflow, fixtures/seed data, rõ requirements. Không dựng backend phức tạp chỉ để phô diễn. | examples/sample-app/server.mjs (3 roles, approval workflow, seed REQ-1, test-mode reset, opt-in defect) with examples/sample-app/docs/requirements.md; behaviour verified by tests/unit/sample-app.test.ts: exit=0 (decision in docs/ADR/0004-discovery-engine.md) |
+| P6-T02 | completed | Chạy pipeline `discover → plan → generate → run` trên demo; lưu intermediate artifacts có version. | scripts/smoke/vertical-slice.mjs: discover (live MCP, signed in, 7 pages) -> plan -> generate --validate -> run, all stages exit=0 in evidence/P6/slice-clean-1/summary.json; versioned inputs in evidence/P6/slice-clean-1/run/inputs/versions.json |
+| P6-T03 | completed | Chạy tối thiểu 1 happy path, 1 negative, 1 RBAC, 1 boundary (nếu docs demo hỗ trợ); mục tiêu 10–20 case có giá trị, không thêm case giả để đủ số. | 20 READY cases executed: happy 4, negative 3, boundary 4, rbac 8, state-transition 3 (+2 NEEDS_REVIEW not run); 20/20 passed: evidence/P6/slice-clean-1/summary.json |
+| P6-T04 | completed | Kiểm thử hai role + multi-tab; CI/non-interactive Playwright runner chạy mà không cần gọi AI cho từng click. | two roles in separate contexts plus a second requester tab (DEMO-REQ-APP-004, requesterTab2) generated and passed: evidence/P6/slice-clean-1/generated/approval.spec.ts; non-interactive qa-agent run, no AI per click: evidence/P6/slice-clean-1/stage-run.log |
+| P6-T05 | completed | Dựng một intentional bug trong demo/test fixture và xác nhận engine FAIL đúng; sau đó hoàn nguyên fixture. | SAMPLE_APP_BUG=skip-approve-rbac: exactly DEMO-REQ-APP-003-002 and -004 failed (Expected 403, Received 200), 18/20 passed: evidence/P6/slice-intentional-bug/summary.json; defect off again: 20/20 in evidence/P6/slice-clean-2/summary.json |
+| P6-T06 | completed | Chạy lặp lại tối thiểu 3 lần trên state sạch, ghi flake/failure, review P6. | three clean runs 20/20 each with identical plan hash and specs: evidence/P6/slice-clean-1/summary.json, evidence/P6/slice-clean-2/summary.json, evidence/P6/slice-clean-3/summary.json; no flaky tests<br>quality gate exit=0 (140 tests, 139 pass, 1 skipped): evidence/P6/test.log; review docs/PHASE_REVIEWS/P6.md |
 
 ### P7 — EVIDENCE, REPORTING & MVP RELEASE CANDIDATE
 

@@ -60,9 +60,9 @@ describe('isolation analysis', () => {
 });
 
 describe('schedule', () => {
-  test('sample plan: dependency levels, 18 parallel + 1 serial, worker budget', () => {
+  test('sample plan: dependency levels, 19 parallel + 1 serial, worker budget', () => {
     const s = buildSchedule(plan, config({ max: 2, writeHeavy: 1 }));
-    assert.equal(s.parallel.length, 18);
+    assert.equal(s.parallel.length, 19);
     assert.deepEqual(s.serial, ['DEMO-REQ-REQ-002-001']);
     assert.deepEqual(s.workers, { parallel: 2, serial: 1 });
     assert.equal(s.levels.length, 2);

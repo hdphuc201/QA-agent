@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "generator": "qa-agent",
+  "planHash": "df700571c2df",
+  "files": {
+    "access-control.spec.ts": "f6390e9e29154c0eb5abffac3a2ba80cec5fda5b836e06713a1b72bc4243ec41",
+    "approval.spec.ts": "719aaddcd722ace5eabc548bc16f4bdd7dfa2258a48dc332e87f3b74edeed96c",
+    "authentication.spec.ts": "a23e7400c91be5efdc757cb72ec4ab13f6ca49bdaffd3364f10491e1a3e22ae7",
+    "requests.spec.ts": "5ad3279473f55799a358854425c8bdca53e923498eba9e22da643e9b994ffb77",
+    "qa-agent.fixtures.ts": "0ac8be1bc03fd53ba599ea73bffe94548caeebad1ab9cb460c69b6bfe3fb45c7",
+    "playwright.qa-agent.config.ts": "a259ce242c103bd25cfc612c76ffc45dd0477bda1d1317f5ce46d101242d9923",
+    "qa-agent.global-setup.ts": "1be68fff3c5ec7defbeaee597150ec1f7f8190b9c3ef608ef5e65fcdc92f53b3",
+    "qa-agent.global-teardown.ts": "2331b095f79245827d10073829e3093620cf59e2b39387bba2fc693ad06049c8",
+    "case-map.json": "a23f4d688ddeb058957eafb4194d9d993008dd397d93482c887696dbaea77f83"
+  }
+}

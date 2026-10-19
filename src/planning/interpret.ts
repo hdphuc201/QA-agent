@@ -236,5 +236,14 @@ export function interpretExpected(
     );
   }
   if (asserts.length === 0) asserts.push({ kind: 'manual', as, text: s });
+  // "… in a second tab": same role session, another tab of its context (it starts empty).
+  if (/\bin a second tab\b/i.test(s)) {
+    if (!before.some((b) => b.do === 'goto'))
+      before.unshift({ do: 'goto', as, path: '{{subject.path}}' });
+    for (const b of before) if (b.do === 'goto' || b.do === 'fill' || b.do === 'click') b.tab = 2;
+    for (const a of asserts)
+      if (a.kind !== 'apiStatus' && a.kind !== 'apiCountUnchanged' && a.kind !== 'manual')
+        a.tab = 2;
+  }
   return { before, asserts };
 }

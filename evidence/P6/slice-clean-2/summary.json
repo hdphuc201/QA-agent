@@ -1,0 +1,33 @@
+{
+  "bug": null,
+  "runId": "run-20261019T121427-jcc4",
+  "stages": [
+    {
+      "stage": "discover",
+      "exitCode": 0,
+      "durationMs": 13387
+    },
+    {
+      "stage": "plan",
+      "exitCode": 0,
+      "durationMs": 1457
+    },
+    {
+      "stage": "generate --validate",
+      "exitCode": 0,
+      "durationMs": 7922
+    },
+    {
+      "stage": "run",
+      "exitCode": 0,
+      "durationMs": 39007
+    }
+  ],
+  "cases": {
+    "total": 20,
+    "passed": 20,
+    "notPassed": 0
+  },
+  "failed": [],
+  "ok": true
+}

@@ -1,0 +1,7 @@
+$ qa-agent generate --validate
+generate: 20 READY case(s) -> e2e/generated (skipped 2 not READY)
+  written: 9, unchanged: 0, removed: 0
+  typecheck: ok
+  playwright --list: 20 test(s) (expected 20)
+
+# exit=0
