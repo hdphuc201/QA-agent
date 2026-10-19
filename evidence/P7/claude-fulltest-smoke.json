@@ -1,0 +1,61 @@
+{
+  "startedAt": "2026-10-19T14:25:00.568Z",
+  "claudeVersion": "2.1.71 (Claude Code)",
+  "claudeExit": 0,
+  "init": {
+    "pluginCommands": [
+      "qa-agent:discover",
+      "qa-agent:full-test",
+      "qa-agent:plan",
+      "qa-agent:generate",
+      "qa-agent:report",
+      "qa-agent:run"
+    ],
+    "agents": [
+      "general-purpose",
+      "statusline-setup",
+      "Explore",
+      "Plan",
+      "qa-agent:failure-analyzer"
+    ]
+  },
+  "engineCommands": [
+    "node --experimental-strip-types --disable-warning=ExperimentalWarning \"D:/Coding/Phuc-Huynh/QA-agent/src/cli.ts\" full-test --project \"<HOME>/AppData/Local/Temp/qa claude full test div1FK\" --offline 2>&1",
+    "node --experimental-strip-types --disable-warning=ExperimentalWarning \"D:/Coding/Phuc-Huynh/QA-agent/src/cli.ts\" report --project \"<HOME>/AppData/Local/Temp/qa claude full test div1FK\" --run run-20261019T142657-v9nz 2>&1"
+  ],
+  "subagents": [
+    "qa-agent:failure-analyzer"
+  ],
+  "runId": "run-20261019T142657-v9nz",
+  "reportCounts": {
+    "generated": 22,
+    "ready": 20,
+    "executed": 20,
+    "passed": 18,
+    "failed": 2,
+    "blocked": 0,
+    "skipped": 0,
+    "notRun": 2,
+    "flaky": 0
+  },
+  "analyses": [
+    "DEMO-REQ-APP-003-002 probable_app_bug 0.85 rules",
+    "DEMO-REQ-APP-003-004 probable_app_bug 0.85 rules",
+    "DEMO-REQ-APP-003-002 probable_app_bug 0.95 ai",
+    "DEMO-REQ-APP-003-004 probable_app_bug 0.95 ai"
+  ],
+  "aiNotes": [],
+  "aiAnalysisFile": true,
+  "costUsd": 0.67583975,
+  "finalText": "---\n\n## Run `run-20261019T142657-v9nz` — Summary\n\n**Result: FAIL** | 18 passed / 20 executed | 2 failed | 0 blocked | 0 skipped | 2 not run | 0 flaky\n\n### Counts\n\n| Stage | Count |\n|---|---|\n| Generated | 22 |\n| Ready | 20 |\n| Executed | 20 |\n| Passed | 18 |\n| Failed | 2 |\n| Blocked | 0 |\n| Skipped | 0 |\n| Not run | 2 |\n| Flaky | 0 |\n\n### Failures\n\nBoth failures are in requirement **DEMO-REQ-APP-003** (\"Only approvers can decide\") — a **P0** RBAC requirement.\n\n| Case | Error | Rule classification | AI classification |\n|---|---|---|---|\n| `DEMO-REQ-APP-003-002` | `POST /api/requests/REQ-9/approve` as **requester** → got 200, expected 403 | `probable_app_bug` (0.85, rules) | `probable_app_bug` (0.95, ai) |\n| `DEMO-REQ-APP-003-004` | `POST /api/requests/REQ-11/approve` as **viewer** → got 200, expected 403 | `probable_app_bug` (0.85, rules) | `probable_app_bug` (0.95, ai) |\n\n**Root cause (both):** The `/api/requests/<id>/approve` endpoint lacks server-side role authorization — it accepts requests from any authenticated user (requester, viewer) instead of returning HTTP 403. The companion UI-layer tests (003-001, 003-003) passed, confirming sessions and request setup work correctly; the failure is purely a missing API guard. Traced to `docs/requirements.md:116`.\n\n**Evidence:**\n- Screenshot: `qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium/test-failed-1.png`\n- Trace: `…/approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium/trace.zip`\n- Screenshot/Trace for viewer: `…/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/`\n\n### Not-run cases\n\n- `DEMO-REQ-VIEW-001-001` — plan status `NEEDS_REVIEW`\n- `DEMO-REQ-REQ-004-001` — plan status `NEEDS_REVIEW`: no expected result defined in requirement\n\n### Requirement coverage\n\n10/11 requirements with runnable cases fully passing (91%). The failing requirement is `DEMO-REQ-APP-003`.\n\n### Artifacts\n\n- **Report HTML:** `qa-artifacts/runs/run-20261019T142657-v9nz/report/report.html`\n- **Playwright HTML (parallel):** `qa-artifacts/runs/run-20261019T142657-v9nz/html-parallel/index.html`\n- **Playwright HTML (serial):** `qa-artifacts/runs/run-20261019T142657-v9nz/html-serial/index.html`\n- **Summary:** `qa-artifacts/runs/run-20261019T142657-v9nz/report/summary.md`\n\nQA-AGENT-SKILL: full-test | status=implemented | phase=P7",
+  "required": {
+    "claudeExited0": true,
+    "fullTestViaEngine": true,
+    "pipelineCompleted": true,
+    "defectFound": true,
+    "failureAnalyzerUsed": true,
+    "aiAnalysisMerged": true,
+    "skillMarker": true
+  },
+  "result": "PASS"
+}

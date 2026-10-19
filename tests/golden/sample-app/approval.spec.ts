@@ -126,7 +126,10 @@ test.describe('Approval', () => {
           const res = await (
             await actors.request('approver')
           ).fetch(`/api/requests/${subject.id}/reject`, { method: 'POST', data: { reason: '' } });
-          expect(res.status(), 'POST /api/requests/{{subject.id}}/reject as approver').toBe(400);
+          expect(
+            res.status(),
+            'POST ' + `/api/requests/${subject.id}/reject` + ' as approver',
+          ).toBe(400);
         }
       });
     },
@@ -196,7 +199,10 @@ test.describe('Approval', () => {
           const res = await (
             await actors.request('requester')
           ).fetch(`/api/requests/${subject.id}/approve`, { method: 'POST' });
-          expect(res.status(), 'POST /api/requests/{{subject.id}}/approve as requester').toBe(403);
+          expect(
+            res.status(),
+            'POST ' + `/api/requests/${subject.id}/approve` + ' as requester',
+          ).toBe(403);
         }
       });
     },
@@ -271,7 +277,9 @@ test.describe('Approval', () => {
           const res = await (
             await actors.request('viewer')
           ).fetch(`/api/requests/${subject.id}/approve`, { method: 'POST' });
-          expect(res.status(), 'POST /api/requests/{{subject.id}}/approve as viewer').toBe(403);
+          expect(res.status(), 'POST ' + `/api/requests/${subject.id}/approve` + ' as viewer').toBe(
+            403,
+          );
         }
       });
     },

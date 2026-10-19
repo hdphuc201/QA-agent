@@ -1,0 +1,10 @@
+$ qa-agent report
+report run-20261019T123259-bpwy: passed 18/20 executed (ready 20, generated 22), failed 2, blocked 0, skipped 0, not run 2, flaky 0
+  requirements: 11/12 with runnable cases, 10 fully passing
+  DEMO-REQ-APP-003-002: probable_app_bug (0.85, rules) — The application answered with a different HTTP status than the requirement states.
+  DEMO-REQ-APP-003-004: probable_app_bug (0.85, rules) — The application answered with a different HTTP status than the requirement states.
+  wrote qa-artifacts\runs\run-20261019T123259-bpwy\report\results.json
+  wrote qa-artifacts\runs\run-20261019T123259-bpwy\report\summary.md
+  wrote qa-artifacts\runs\run-20261019T123259-bpwy\report\report.html
+
+# exit=1

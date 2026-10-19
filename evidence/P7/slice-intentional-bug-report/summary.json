@@ -1,0 +1,51 @@
+{
+  "bug": "skip-approve-rbac",
+  "runId": "run-20261019T123259-bpwy",
+  "stages": [
+    {
+      "stage": "discover",
+      "exitCode": 0,
+      "durationMs": 19438
+    },
+    {
+      "stage": "plan",
+      "exitCode": 0,
+      "durationMs": 1371
+    },
+    {
+      "stage": "generate --validate",
+      "exitCode": 0,
+      "durationMs": 8979
+    },
+    {
+      "stage": "run",
+      "exitCode": 1,
+      "durationMs": 54485
+    },
+    {
+      "stage": "report",
+      "exitCode": 1,
+      "durationMs": 1116
+    }
+  ],
+  "cases": {
+    "total": 20,
+    "passed": 18,
+    "notPassed": 2
+  },
+  "failed": [
+    {
+      "id": "DEMO-REQ-APP-003-002",
+      "status": "failed",
+      "phase": "parallel",
+      "error": "Error: POST /api/requests/{{subject.id}}/approve as requester"
+    },
+    {
+      "id": "DEMO-REQ-APP-003-004",
+      "status": "failed",
+      "phase": "parallel",
+      "error": "Error: POST /api/requests/{{subject.id}}/approve as viewer"
+    }
+  ],
+  "ok": false
+}

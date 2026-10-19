@@ -1,0 +1,33 @@
+# Clean-environment reproduction of the README "Getting started" steps
+# Source: git ls-files --cached --others --exclude-standard (no node_modules, no generated outputs), copied to a new folder, git init, then:
+$ npm ci
+
+added 104 packages in 1m
+# exit=0
+$ node scripts/quality-gate.mjs P7 --skip-live
+typecheck: exit=0
+lint: exit=1
+format-check: exit=0
+build: exit=0
+test: exit=0 # tests 142 # pass 141 # fail 0 # skipped 1
+plugin-validate: exit=0
+progress-check: exit=0
+QUALITY GATE: 1 check(s) failed
+# exit=1
+$ npm run smoke:mcp
+RESULT {"serverInfo":{"name":"Playwright","version":"1.64.0-alpha-1790635538000"},"protocolVersion":"2025-06-18","toolCount":25,"result":"FAIL","error":"browser_navigate failed: ### Error\nTimeoutError: browserBackend.callTool: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:60523/\", waiting until \"domcontentloaded\"\u001b[22m\n"}
+# exit=1
+$ node scripts/smoke/vertical-slice.mjs
+== discover: exit=0
+== plan: exit=0
+== generate --validate: exit=0
+== run: exit=0
+== report: exit=0
+    "total": 20,
+    "passed": 20,
+  "ok": true
+# exit=0
+
+# Follow-up: lint error fixed in tests/unit/reporting.test.ts (also failed in the repo); smoke:mcp re-run twice in the clean copy:
+RESULT ... "result":"PASS" (run 2)
+RESULT ... "result":"PASS" (run 3)

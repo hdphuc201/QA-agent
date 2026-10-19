@@ -1,6 +1,11 @@
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
-import { makeTextRedactor, redactEvent, redactTranscript } from '../../scripts/smoke/redact.mjs';
+import {
+  makeTextRedactor,
+  passwordValues,
+  redactEvent,
+  redactTranscript,
+} from '../../scripts/smoke/redact.mjs';
 
 const redact = makeTextRedactor({ home: 'C:\\Users\\Jane Doe', user: 'jdoe' });
 
@@ -96,5 +101,21 @@ describe('evidence redaction', () => {
       .map((l) => JSON.parse(l));
     assert.equal(lines[0].cwd, '<HOME>\\tmp');
     assert.equal(lines[1].result, 'token=qa-smoke-abc');
+  });
+
+  test('credential values are masked (passed explicitly or found in QA_AGENT_ACCOUNT_*_PASSWORD)', () => {
+    const r = makeTextRedactor({ home: 'C:\\x', user: 'nobody', secrets: ['hunter22'] });
+    assert.equal(
+      r('REQUESTER_PASS=hunter22 and hunter22'),
+      'REQUESTER_PASS=<REDACTED> and <REDACTED>',
+    );
+    assert.deepEqual(
+      passwordValues({
+        QA_AGENT_ACCOUNT_A_PASSWORD: 'pw1',
+        QA_AGENT_ACCOUNT_A_USERNAME: 'u',
+        X_PASSWORD: 'no',
+      }),
+      ['pw1'],
+    );
   });
 });

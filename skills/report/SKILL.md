@@ -1,18 +1,30 @@
 ---
-description: "QA Agent reporting (skeleton). Will normalise Playwright results, classify failures and produce Markdown/JSON/HTML reports. Not implemented yet."
-argument-hint: "[run-id]"
+description: "QA Agent reporting. Normalises the latest (or a given) run to PASS/FAIL/SKIPPED/BLOCKED/NOT_RUN per case, classifies failures with evidence and confidence, builds requirement coverage and writes results.json, summary.md and report.html. Use when the user asks for test results, a QA report or failure analysis."
+argument-hint: "[--run <runId>]"
 disable-model-invocation: true
 ---
 
-# QA Agent — report (skeleton)
+# QA Agent — report
 
-Status: **skeleton** — implementation is planned for phase P7 of `QA_AGENT_MASTER_ROADMAP.md`.
+Status: **implemented (P7)**. Arguments: $ARGUMENTS
 
-Planned behaviour: Normalise results to PASS/FAIL/SKIPPED/BLOCKED/NOT_RUN, link them to case IDs and requirements, classify failures with confidence, and write Markdown, JSON and HTML reports.
+1. Build the report with the Bash tool (plugin root `${CLAUDE_PLUGIN_ROOT}`; if not substituted, use the directory containing this plugin's `.claude-plugin/plugin.json`):
 
-## When invoked now
+   ```bash
+   node --experimental-strip-types --disable-warning=ExperimentalWarning "${CLAUDE_PLUGIN_ROOT}/src/cli.ts" report --project "<project root>" $ARGUMENTS
+   ```
 
-1. Tell the user this skill is a skeleton and that phase P7 implements it.
-2. Do not explore, plan, generate, run or report anything on its behalf, and never present invented results as QA output.
-3. Echo the arguments received: $ARGUMENTS
-4. End with the line `QA-AGENT-SKILL: report | status=skeleton | phase=P7`.
+   Exit code 1 means some cases failed or were blocked; that is a result, not an error of the command.
+
+2. **Required when there are FAIL or BLOCKED cases:** call the Task tool with `subagent_type: "qa-agent:failure-analyzer"` and a prompt containing the project root and the run ID printed by the command. The agent is read-only and returns a JSON array. Write that array unchanged with the Write tool to `qa-artifacts/runs/<runId>/ai-analysis.json`, then run the report command again with `--run <runId>` so it is validated and merged (entries that do not match a failing case or the schema are rejected and listed under "AI analysis notes"). Skip this only when every executed case passed.
+3. Present `qa-artifacts/runs/<runId>/report/summary.md`:
+   - counts kept apart: generated, ready, executed, passed, failed, blocked, skipped, not run, flaky;
+   - each failure with status, rule-based and AI classification (with confidence and source), and the evidence lines;
+   - requirement coverage (requirement → cases → result) and requirements without runnable cases;
+   - the paths of `report.html`, the Playwright HTML reports, traces and screenshots.
+4. Rules:
+   - PASS/FAIL is Playwright's verdict. Classifications explain; they never overturn it.
+   - Never edit tests, specs, plans or requirements to change a result. Never call a requirement "covered" because many tests exist.
+   - Traces and screenshots can contain session data: mention their paths, do not paste their contents.
+
+End with the line `QA-AGENT-SKILL: report | status=implemented | phase=P7`.

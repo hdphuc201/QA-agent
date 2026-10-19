@@ -104,7 +104,7 @@ test.describe('Authentication', () => {
           const res = await (
             await actors.request('anonymous')
           ).fetch('/api/requests', { method: 'GET' });
-          expect(res.status(), 'GET /api/requests as anonymous').toBe(401);
+          expect(res.status(), 'GET ' + '/api/requests' + ' as anonymous').toBe(401);
         }
       });
     },

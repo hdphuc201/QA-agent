@@ -1,0 +1,7 @@
+$ claude plugin validate .
+# started 2026-10-19T15:03:36.806Z node v22.15.0 on win32
+Validating plugin manifest: D:\Coding\Phuc-Huynh\QA-agent\.claude-plugin\plugin.json
+
+✔ Validation passed
+
+# exit=0

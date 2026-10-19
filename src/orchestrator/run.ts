@@ -2,7 +2,7 @@
 // isolated cases in parallel (worker budget), then shared-state cases serially — and records the run
 // under qa-artifacts/runs/<runId>/. AI is not involved; PASS/FAIL is Playwright's verdict.
 
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -23,8 +23,19 @@ export interface RunPhase {
   durationMs: number;
 }
 
+export interface RunMetadata {
+  qaAgentVersion: string;
+  node: string;
+  platform: string;
+  playwrightVersion: string | null;
+  browser: string;
+  buildId: string;
+  environment: string;
+}
+
 export interface RunRecord {
   schemaVersion: 1;
+  metadata: RunMetadata;
   runId: string;
   projectId: string;
   startedAt: string;
@@ -36,6 +47,33 @@ export interface RunRecord {
 }
 
 export const RUNS_DIR = 'qa-artifacts/runs';
+
+/** Runtime facts for the report. Deliberately no environment dump: it could hold credentials. */
+export function collectMetadata(
+  projectRoot: string,
+  config: ProjectConfig,
+  env: NodeJS.ProcessEnv,
+): RunMetadata {
+  const pwPkg = resolveFromProject(projectRoot, '@playwright/test/package.json');
+  const git = spawnSync('git', ['rev-parse', '--short', 'HEAD'], {
+    cwd: projectRoot,
+    encoding: 'utf8',
+  });
+  const gitHead = git.status === 0 ? git.stdout.trim() : '';
+  return {
+    qaAgentVersion: QA_AGENT_VERSION,
+    node: process.version,
+    platform: `${process.platform} ${process.arch}`,
+    playwrightVersion: pwPkg
+      ? (JSON.parse(fs.readFileSync(pwPkg, 'utf8')) as { version: string }).version
+      : null,
+    browser: env.QA_AGENT_BROWSER_CHANNEL
+      ? `chromium (channel ${env.QA_AGENT_BROWSER_CHANNEL})`
+      : 'chromium',
+    buildId: env.QA_AGENT_BUILD_ID ?? (gitHead ? `git:${gitHead}` : 'unknown'),
+    environment: config.environment,
+  };
+}
 
 const QA_AGENT_VERSION = (
   JSON.parse(
@@ -168,7 +206,9 @@ export async function runSuite(options: {
         pwConfig,
         grep,
         `--workers=${workers}`,
-        '--reporter=list,json',
+        '--reporter=list,json,html',
+        // Per-phase output dir: Playwright empties it at start, so phases must not share one.
+        `--output=${path.join(projectRoot, runDir, `test-results-${name}`)}`,
         ...(options.extraArgs ?? []),
         ...specFiles,
       ],
@@ -179,6 +219,8 @@ export async function runSuite(options: {
           FORCE_COLOR: '0',
           QA_AGENT_RUN_ID: runId,
           PLAYWRIGHT_JSON_OUTPUT_FILE: abs,
+          PLAYWRIGHT_HTML_OUTPUT_DIR: path.join(projectRoot, runDir, `html-${name}`),
+          PLAYWRIGHT_HTML_OPEN: 'never',
         },
         out: options.out,
       },
@@ -202,6 +244,7 @@ export async function runSuite(options: {
   }
   const record: RunRecord = {
     schemaVersion: 1,
+    metadata: collectMetadata(projectRoot, config, options.env),
     runId,
     projectId: config.projectId,
     startedAt,

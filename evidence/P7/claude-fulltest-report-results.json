@@ -1,0 +1,984 @@
+{
+  "schemaVersion": 1,
+  "runId": "run-20261019T142657-v9nz",
+  "projectId": "sample-approvals",
+  "generatedAt": "2026-10-19T14:28:57.805Z",
+  "run": {
+    "startedAt": "2026-10-19T14:26:57.146Z",
+    "finishedAt": "2026-10-19T14:27:54.748Z",
+    "baseURL": "http://127.0.0.1:62577/",
+    "metadata": {
+      "qaAgentVersion": "0.1.0",
+      "node": "v22.15.0",
+      "platform": "win32 x64",
+      "playwrightVersion": "1.63.0",
+      "browser": "chromium (channel chrome)",
+      "buildId": "unknown",
+      "environment": "local"
+    },
+    "exitCode": 1,
+    "phases": [
+      {
+        "name": "parallel",
+        "workers": 2,
+        "grep": "--grep-invert=@serial",
+        "cases": 19,
+        "exitCode": 1,
+        "resultsFile": "qa-artifacts/runs/run-20261019T142657-v9nz/results-parallel.json",
+        "durationMs": 50752
+      },
+      {
+        "name": "serial",
+        "workers": 1,
+        "grep": "--grep=@serial",
+        "cases": 1,
+        "exitCode": 0,
+        "resultsFile": "qa-artifacts/runs/run-20261019T142657-v9nz/results-serial.json",
+        "durationMs": 6750
+      }
+    ]
+  },
+  "results": [
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-APP-003-001",
+      "title": "Only approvers can decide — as requester",
+      "requirementRefs": [
+        "DEMO-REQ-APP-003"
+      ],
+      "category": "rbac",
+      "priority": "P0",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 2568,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 1,
+      "startTime": "2026-10-19T14:27:29.656Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: reused"
+      ],
+      "note": null,
+      "dependsOn": [
+        "DEMO-REQ-REQ-001-001"
+      ]
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-APP-003-002",
+      "title": "Only approvers can decide — as requester — API denies access",
+      "requirementRefs": [
+        "DEMO-REQ-APP-003"
+      ],
+      "category": "rbac",
+      "priority": "P0",
+      "status": "FAIL",
+      "runnerStatus": "failed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 2591,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 1,
+      "startTime": "2026-10-19T14:27:32.284Z",
+      "buildId": "unknown",
+      "error": {
+        "message": "Error: POST /api/requests/REQ-9/approve as requester\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: 403\nReceived: 200",
+        "location": "e2e/generated/approval.spec.ts:205:13"
+      },
+      "attachments": [
+        {
+          "name": "screenshot",
+          "contentType": "image/png",
+          "path": "qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium/test-failed-1.png"
+        },
+        {
+          "name": "error-context",
+          "contentType": "text/markdown",
+          "path": "qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium/error-context.md"
+        },
+        {
+          "name": "trace",
+          "contentType": "application/zip",
+          "path": "qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium/trace.zip"
+        }
+      ],
+      "sessionEvents": [
+        "requester: reused"
+      ],
+      "note": null,
+      "dependsOn": [
+        "DEMO-REQ-REQ-001-001"
+      ]
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-APP-003-003",
+      "title": "Only approvers can decide — as viewer",
+      "requirementRefs": [
+        "DEMO-REQ-APP-003"
+      ],
+      "category": "rbac",
+      "priority": "P0",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 2920,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 2,
+      "startTime": "2026-10-19T14:27:37.914Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: reused",
+        "viewer: reused"
+      ],
+      "note": null,
+      "dependsOn": [
+        "DEMO-REQ-REQ-001-001"
+      ]
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-APP-003-004",
+      "title": "Only approvers can decide — as viewer — API denies access",
+      "requirementRefs": [
+        "DEMO-REQ-APP-003"
+      ],
+      "category": "rbac",
+      "priority": "P0",
+      "status": "FAIL",
+      "runnerStatus": "failed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 2301,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 2,
+      "startTime": "2026-10-19T14:27:41.541Z",
+      "buildId": "unknown",
+      "error": {
+        "message": "Error: POST /api/requests/REQ-11/approve as viewer\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: 403\nReceived: 200",
+        "location": "e2e/generated/approval.spec.ts:280:96"
+      },
+      "attachments": [
+        {
+          "name": "screenshot",
+          "contentType": "image/png",
+          "path": "qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/test-failed-1.png"
+        },
+        {
+          "name": "screenshot",
+          "contentType": "image/png",
+          "path": "qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/test-failed-2.png"
+        },
+        {
+          "name": "error-context",
+          "contentType": "text/markdown",
+          "path": "qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/error-context.md"
+        },
+        {
+          "name": "trace",
+          "contentType": "application/zip",
+          "path": "qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/trace.zip"
+        }
+      ],
+      "sessionEvents": [
+        "requester: reused",
+        "viewer: reused"
+      ],
+      "note": null,
+      "dependsOn": [
+        "DEMO-REQ-REQ-001-001"
+      ]
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-AUTH-003-001",
+      "title": "Protect pages from anonymous users",
+      "requirementRefs": [
+        "DEMO-REQ-AUTH-003"
+      ],
+      "category": "rbac",
+      "priority": "P0",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 1370,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:24.741Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [],
+      "note": null,
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-AUTH-003-002",
+      "title": "Protect pages from anonymous users — API denies access",
+      "requirementRefs": [
+        "DEMO-REQ-AUTH-003"
+      ],
+      "category": "rbac",
+      "priority": "P0",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 168,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:26.311Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [],
+      "note": null,
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-APP-001-001",
+      "title": "Approver approves a pending request",
+      "requirementRefs": [
+        "DEMO-REQ-APP-001"
+      ],
+      "category": "state-transition",
+      "priority": "P0",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 18618,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 1,
+      "startTime": "2026-10-19T14:27:01.458Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: signed-in",
+        "approver: signed-in"
+      ],
+      "note": null,
+      "dependsOn": [
+        "DEMO-REQ-REQ-001-001"
+      ]
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-AUTH-001-001",
+      "title": "Sign in with valid credentials",
+      "requirementRefs": [
+        "DEMO-REQ-AUTH-001"
+      ],
+      "category": "happy",
+      "priority": "P0",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 5662,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:16.438Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: signed-in"
+      ],
+      "note": null,
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-REQ-001-001",
+      "title": "Create a purchase request",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-001"
+      ],
+      "category": "happy",
+      "priority": "P0",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 2388,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:26.554Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: reused"
+      ],
+      "note": null,
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-VIEW-001-002",
+      "title": "Viewer is read-only — the viewer has no \"New request\" link",
+      "requirementRefs": [
+        "DEMO-REQ-VIEW-001"
+      ],
+      "category": "rbac",
+      "priority": "P1",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 10846,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:01.389Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "viewer: signed-in"
+      ],
+      "note": null,
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-VIEW-001-003",
+      "title": "Viewer is read-only — `POST /api/requests` returns HTTP 403 for the viewer",
+      "requirementRefs": [
+        "DEMO-REQ-VIEW-001"
+      ],
+      "category": "rbac",
+      "priority": "P1",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 2399,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:13.791Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "viewer: reused"
+      ],
+      "note": null,
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-APP-002-001",
+      "title": "Approver rejects with a reason",
+      "requirementRefs": [
+        "DEMO-REQ-APP-002"
+      ],
+      "category": "state-transition",
+      "priority": "P1",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 4706,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 1,
+      "startTime": "2026-10-19T14:27:21.617Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: reused",
+        "approver: reused"
+      ],
+      "note": null,
+      "dependsOn": [
+        "DEMO-REQ-REQ-001-001"
+      ]
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-APP-002-002",
+      "title": "Approver rejects with a reason — API rejects invalid input",
+      "requirementRefs": [
+        "DEMO-REQ-APP-002"
+      ],
+      "category": "negative",
+      "priority": "P1",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 3158,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 1,
+      "startTime": "2026-10-19T14:27:26.427Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: reused",
+        "approver: reused"
+      ],
+      "note": null,
+      "dependsOn": [
+        "DEMO-REQ-REQ-001-001"
+      ]
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-AUTH-002-001",
+      "title": "Reject invalid credentials",
+      "requirementRefs": [
+        "DEMO-REQ-AUTH-002"
+      ],
+      "category": "negative",
+      "priority": "P1",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 2357,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:22.225Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [],
+      "note": null,
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-REQ-002-001",
+      "title": "Title is required",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-002"
+      ],
+      "category": "negative",
+      "priority": "P1",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 2336,
+      "browser": "chromium",
+      "phase": "serial",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:51.002Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: signed-in"
+      ],
+      "note": null,
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-REQ-003-001",
+      "title": "Amount limits — amount 1 (accepted)",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-003"
+      ],
+      "category": "boundary",
+      "priority": "P1",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 1734,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:29.061Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: reused"
+      ],
+      "note": null,
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-REQ-003-002",
+      "title": "Amount limits — amount 10000 (accepted)",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-003"
+      ],
+      "category": "boundary",
+      "priority": "P1",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 2013,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:30.891Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: reused"
+      ],
+      "note": null,
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-REQ-003-003",
+      "title": "Amount limits — amount 0 (rejected)",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-003"
+      ],
+      "category": "boundary",
+      "priority": "P1",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 1813,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:33.023Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: reused"
+      ],
+      "note": null,
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-REQ-003-004",
+      "title": "Amount limits — amount 10001 (rejected)",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-003"
+      ],
+      "category": "boundary",
+      "priority": "P1",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 1380,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:34.938Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: reused"
+      ],
+      "note": null,
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-VIEW-001-001",
+      "title": "Viewer is read-only — the viewer sees all requests on `/`",
+      "requirementRefs": [
+        "DEMO-REQ-VIEW-001"
+      ],
+      "category": "happy",
+      "priority": "P1",
+      "status": "NOT_RUN",
+      "runnerStatus": null,
+      "flaky": false,
+      "attempts": 0,
+      "durationMs": 0,
+      "browser": null,
+      "phase": null,
+      "worker": null,
+      "startTime": null,
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [],
+      "note": "plan status NEEDS_REVIEW: needs review",
+      "dependsOn": []
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-APP-004-001",
+      "title": "Decision is visible in another tab",
+      "requirementRefs": [
+        "DEMO-REQ-APP-004"
+      ],
+      "category": "state-transition",
+      "priority": "P2",
+      "status": "PASS",
+      "runnerStatus": "passed",
+      "flaky": false,
+      "attempts": 1,
+      "durationMs": 2423,
+      "browser": "chromium",
+      "phase": "parallel",
+      "worker": 0,
+      "startTime": "2026-10-19T14:27:44.508Z",
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [
+        "requester: reused",
+        "approver: reused"
+      ],
+      "note": null,
+      "dependsOn": [
+        "DEMO-REQ-REQ-001-001"
+      ]
+    },
+    {
+      "runId": "run-20261019T142657-v9nz",
+      "caseId": "DEMO-REQ-REQ-004-001",
+      "title": "Requests are easy to find",
+      "requirementRefs": [
+        "DEMO-REQ-REQ-004"
+      ],
+      "category": "happy",
+      "priority": "P2",
+      "status": "NOT_RUN",
+      "runnerStatus": null,
+      "flaky": false,
+      "attempts": 0,
+      "durationMs": 0,
+      "browser": null,
+      "phase": null,
+      "worker": null,
+      "startTime": null,
+      "buildId": "unknown",
+      "error": null,
+      "attachments": [],
+      "sessionEvents": [],
+      "note": "plan status NEEDS_REVIEW: no expected result is defined in the requirement",
+      "dependsOn": []
+    }
+  ],
+  "analyses": [
+    {
+      "caseId": "DEMO-REQ-APP-003-002",
+      "classification": "probable_app_bug",
+      "confidence": 0.85,
+      "rationale": "The application answered with a different HTTP status than the requirement states.",
+      "evidence": [
+        "error: Error: POST /api/requests/REQ-9/approve as requester | expect(received).toBe(expected) // Object.is equality | Expected: 403 | Received: 200",
+        "at e2e/generated/approval.spec.ts:205:13",
+        "requirement DEMO-REQ-APP-003 (docs/requirements.md:116): \"`POST /api/requests/<id>/approve` returns HTTP 403 for them\"",
+        "screenshot: qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium/test-failed-1.png",
+        "trace: qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium/trace.zip"
+      ],
+      "source": "rules"
+    },
+    {
+      "caseId": "DEMO-REQ-APP-003-004",
+      "classification": "probable_app_bug",
+      "confidence": 0.85,
+      "rationale": "The application answered with a different HTTP status than the requirement states.",
+      "evidence": [
+        "error: Error: POST /api/requests/REQ-11/approve as viewer | expect(received).toBe(expected) // Object.is equality | Expected: 403 | Received: 200",
+        "at e2e/generated/approval.spec.ts:280:96",
+        "requirement DEMO-REQ-APP-003 (docs/requirements.md:116): \"`POST /api/requests/<id>/approve` returns HTTP 403 for them\"",
+        "screenshot: qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/test-failed-1.png",
+        "screenshot: qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/test-failed-2.png",
+        "trace: qa-artifacts/runs/run-20261019T142657-v9nz/test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/trace.zip"
+      ],
+      "source": "rules"
+    },
+    {
+      "caseId": "DEMO-REQ-APP-003-002",
+      "classification": "probable_app_bug",
+      "confidence": 0.95,
+      "rationale": "The API endpoint POST /api/requests/<id>/approve accepted a request made with the requester session and returned HTTP 200. The requirement explicitly mandates HTTP 403 for non-approvers. The test code is correct: it sends the request under the 'requester' actor and asserts status 403. The companion UI test (DEMO-REQ-APP-003-001) passed, confirming the session and request setup are sound. The failure is a direct contradiction of the stated requirement by the application.",
+      "evidence": [
+        "docs/requirements.md:116: \"`POST /api/requests/<id>/approve` returns HTTP 403 for them\"",
+        "error: Expected: 403 Received: 200 — POST /api/requests/REQ-9/approve as requester (e2e/generated/approval.spec.ts:205:13)",
+        "e2e/generated/approval.spec.ts:199-205: res = await actors.request('requester').fetch(`/api/requests/${subject.id}/approve`, { method: 'POST' }); expect(res.status(), ...).toBe(403)",
+        "error-context.md page snapshot: session shows 'Signed in as Alice (requester)', request REQ-9 exists with Status: Pending — environment was functioning normally"
+      ],
+      "source": "ai"
+    },
+    {
+      "caseId": "DEMO-REQ-APP-003-004",
+      "classification": "probable_app_bug",
+      "confidence": 0.95,
+      "rationale": "The API endpoint POST /api/requests/<id>/approve accepted a request made with the viewer session and returned HTTP 200. The requirement explicitly mandates HTTP 403 for non-approvers (including viewers). The test code is correct: it sends the request under the 'viewer' actor and asserts status 403. The companion UI test (DEMO-REQ-APP-003-003) passed, confirming the session and request setup are sound. The failure is a direct contradiction of the stated requirement by the application, and is consistent with the same bug observed in DEMO-REQ-APP-003-002.",
+      "evidence": [
+        "docs/requirements.md:116: \"`POST /api/requests/<id>/approve` returns HTTP 403 for them\"",
+        "error: Expected: 403 Received: 200 — POST /api/requests/REQ-11/approve as viewer (e2e/generated/approval.spec.ts:280:96)",
+        "e2e/generated/approval.spec.ts:277-282: res = await actors.request('viewer').fetch(`/api/requests/${subject.id}/approve`, { method: 'POST' }); expect(res.status(), ...).toBe(403)",
+        "error-context.md page snapshot: session shows 'Signed in as Alice (requester)', request REQ-11 exists with Status: Pending — environment was functioning normally"
+      ],
+      "source": "ai"
+    }
+  ],
+  "aiNotes": [],
+  "coverage": {
+    "requirements": 12,
+    "withCases": 12,
+    "withReadyCases": 11,
+    "withExecutedCases": 11,
+    "fullyPassing": 10,
+    "counts": {
+      "generated": 22,
+      "ready": 20,
+      "executed": 20,
+      "passed": 18,
+      "failed": 2,
+      "blocked": 0,
+      "skipped": 0,
+      "notRun": 2,
+      "flaky": 0
+    },
+    "requirementCoverage": 0.917,
+    "rows": [
+      {
+        "id": "DEMO-REQ-AUTH-001",
+        "title": "Sign in with valid credentials",
+        "priority": "P0",
+        "cases": [
+          {
+            "id": "DEMO-REQ-AUTH-001-001",
+            "planStatus": "READY",
+            "result": "PASS"
+          }
+        ],
+        "verdict": "passing"
+      },
+      {
+        "id": "DEMO-REQ-AUTH-002",
+        "title": "Reject invalid credentials",
+        "priority": "P1",
+        "cases": [
+          {
+            "id": "DEMO-REQ-AUTH-002-001",
+            "planStatus": "READY",
+            "result": "PASS"
+          }
+        ],
+        "verdict": "passing"
+      },
+      {
+        "id": "DEMO-REQ-AUTH-003",
+        "title": "Protect pages from anonymous users",
+        "priority": "P0",
+        "cases": [
+          {
+            "id": "DEMO-REQ-AUTH-003-001",
+            "planStatus": "READY",
+            "result": "PASS"
+          },
+          {
+            "id": "DEMO-REQ-AUTH-003-002",
+            "planStatus": "READY",
+            "result": "PASS"
+          }
+        ],
+        "verdict": "passing"
+      },
+      {
+        "id": "DEMO-REQ-REQ-001",
+        "title": "Create a purchase request",
+        "priority": "P0",
+        "cases": [
+          {
+            "id": "DEMO-REQ-REQ-001-001",
+            "planStatus": "READY",
+            "result": "PASS"
+          }
+        ],
+        "verdict": "passing"
+      },
+      {
+        "id": "DEMO-REQ-REQ-002",
+        "title": "Title is required",
+        "priority": "P1",
+        "cases": [
+          {
+            "id": "DEMO-REQ-REQ-002-001",
+            "planStatus": "READY",
+            "result": "PASS"
+          }
+        ],
+        "verdict": "passing"
+      },
+      {
+        "id": "DEMO-REQ-REQ-003",
+        "title": "Amount limits",
+        "priority": "P1",
+        "cases": [
+          {
+            "id": "DEMO-REQ-REQ-003-001",
+            "planStatus": "READY",
+            "result": "PASS"
+          },
+          {
+            "id": "DEMO-REQ-REQ-003-002",
+            "planStatus": "READY",
+            "result": "PASS"
+          },
+          {
+            "id": "DEMO-REQ-REQ-003-003",
+            "planStatus": "READY",
+            "result": "PASS"
+          },
+          {
+            "id": "DEMO-REQ-REQ-003-004",
+            "planStatus": "READY",
+            "result": "PASS"
+          }
+        ],
+        "verdict": "passing"
+      },
+      {
+        "id": "DEMO-REQ-REQ-004",
+        "title": "Requests are easy to find",
+        "priority": "P2",
+        "cases": [
+          {
+            "id": "DEMO-REQ-REQ-004-001",
+            "planStatus": "NEEDS_REVIEW",
+            "result": "NOT_RUN"
+          }
+        ],
+        "verdict": "needs-review"
+      },
+      {
+        "id": "DEMO-REQ-APP-001",
+        "title": "Approver approves a pending request",
+        "priority": "P0",
+        "cases": [
+          {
+            "id": "DEMO-REQ-APP-001-001",
+            "planStatus": "READY",
+            "result": "PASS"
+          }
+        ],
+        "verdict": "passing"
+      },
+      {
+        "id": "DEMO-REQ-APP-002",
+        "title": "Approver rejects with a reason",
+        "priority": "P1",
+        "cases": [
+          {
+            "id": "DEMO-REQ-APP-002-001",
+            "planStatus": "READY",
+            "result": "PASS"
+          },
+          {
+            "id": "DEMO-REQ-APP-002-002",
+            "planStatus": "READY",
+            "result": "PASS"
+          }
+        ],
+        "verdict": "passing"
+      },
+      {
+        "id": "DEMO-REQ-APP-003",
+        "title": "Only approvers can decide",
+        "priority": "P0",
+        "cases": [
+          {
+            "id": "DEMO-REQ-APP-003-001",
+            "planStatus": "READY",
+            "result": "PASS"
+          },
+          {
+            "id": "DEMO-REQ-APP-003-002",
+            "planStatus": "READY",
+            "result": "FAIL"
+          },
+          {
+            "id": "DEMO-REQ-APP-003-003",
+            "planStatus": "READY",
+            "result": "PASS"
+          },
+          {
+            "id": "DEMO-REQ-APP-003-004",
+            "planStatus": "READY",
+            "result": "FAIL"
+          }
+        ],
+        "verdict": "failing"
+      },
+      {
+        "id": "DEMO-REQ-VIEW-001",
+        "title": "Viewer is read-only",
+        "priority": "P1",
+        "cases": [
+          {
+            "id": "DEMO-REQ-VIEW-001-002",
+            "planStatus": "READY",
+            "result": "PASS"
+          },
+          {
+            "id": "DEMO-REQ-VIEW-001-003",
+            "planStatus": "READY",
+            "result": "PASS"
+          },
+          {
+            "id": "DEMO-REQ-VIEW-001-001",
+            "planStatus": "NEEDS_REVIEW",
+            "result": "NOT_RUN"
+          }
+        ],
+        "verdict": "passing"
+      },
+      {
+        "id": "DEMO-REQ-APP-004",
+        "title": "Decision is visible in another tab",
+        "priority": "P2",
+        "cases": [
+          {
+            "id": "DEMO-REQ-APP-004-001",
+            "planStatus": "READY",
+            "result": "PASS"
+          }
+        ],
+        "verdict": "passing"
+      }
+    ]
+  },
+  "links": {
+    "playwrightHtml": [
+      "qa-artifacts/runs/run-20261019T142657-v9nz/html-parallel/index.html",
+      "qa-artifacts/runs/run-20261019T142657-v9nz/html-serial/index.html"
+    ],
+    "runRecord": "qa-artifacts/runs/run-20261019T142657-v9nz/run.json"
+  }
+}

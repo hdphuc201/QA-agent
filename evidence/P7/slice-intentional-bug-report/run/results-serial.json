@@ -1,0 +1,202 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Coding\\Phuc-Huynh\\QA-agent\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-c",
+      "<HOME>\\AppData\\Local\\Temp\\qa slice vNZRFA\\e2e\\generated\\playwright.qa-agent.config.ts",
+      "--grep=@serial",
+      "--workers=1",
+      "--reporter=list,json,html",
+      "--output=<HOME>\\AppData\\Local\\Temp\\qa slice vNZRFA\\qa-artifacts\\runs\\run-20261019T123259-bpwy\\test-results-serial",
+      "access-control.spec.ts",
+      "approval.spec.ts",
+      "authentication.spec.ts",
+      "requests.spec.ts"
+    ],
+    "configFile": "<HOME>\\AppData\\Local\\Temp\\qa slice vNZRFA\\e2e\\generated\\playwright.qa-agent.config.ts",
+    "rootDir": "<HOME>/AppData/Local/Temp/qa slice vNZRFA/e2e/generated",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": "<HOME>\\AppData\\Local\\Temp\\qa slice vNZRFA\\e2e\\generated\\qa-agent.global-setup.ts",
+    "globalTeardown": "<HOME>\\AppData\\Local\\Temp\\qa slice vNZRFA\\e2e\\generated\\qa-agent.global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<HOME>/AppData/Local/Temp/qa slice vNZRFA/qa-artifacts/runs/run-20261019T123259-bpwy/test-results-serial",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "<HOME>/AppData/Local/Temp/qa slice vNZRFA/e2e/generated",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ],
+      [
+        "html"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "requests.spec.ts",
+      "file": "requests.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Requests",
+          "file": "requests.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "DEMO-REQ-REQ-002-001 Title is required",
+              "ok": true,
+              "tags": [
+                "P1",
+                "negative",
+                "serial",
+                "DEMO-REQ-REQ-002"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "qa-case",
+                      "description": "DEMO-REQ-REQ-002-001",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice vNZRFA\\e2e\\generated\\requests.spec.ts",
+                        "line": 52,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "requirement",
+                      "description": "DEMO-REQ-REQ-002",
+                      "location": {
+                        "file": "<HOME>\\AppData\\Local\\Temp\\qa slice vNZRFA\\e2e\\generated\\requests.spec.ts",
+                        "line": 52,
+                        "column": 7
+                      }
+                    },
+                    {
+                      "type": "qa-session",
+                      "description": "requester: signed-in"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2059,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "steps",
+                          "duration": 1396
+                        },
+                        {
+                          "title": "expect: the alert \"Title is required\" is shown (docs/requirements.md:64)",
+                          "duration": 73
+                        },
+                        {
+                          "title": "expect: no request is created (docs/requirements.md:65)",
+                          "duration": 31
+                        }
+                      ],
+                      "startTime": "2026-10-19T12:33:49.858Z",
+                      "annotations": [
+                        {
+                          "type": "qa-case",
+                          "description": "DEMO-REQ-REQ-002-001",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice vNZRFA\\e2e\\generated\\requests.spec.ts",
+                            "line": 52,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "requirement",
+                          "description": "DEMO-REQ-REQ-002",
+                          "location": {
+                            "file": "<HOME>\\AppData\\Local\\Temp\\qa slice vNZRFA\\e2e\\generated\\requests.spec.ts",
+                            "line": 52,
+                            "column": 7
+                          }
+                        },
+                        {
+                          "type": "qa-session",
+                          "description": "requester: signed-in"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3dc5dc399f2435702a85-b91ecc98c311195cce58",
+              "file": "requests.spec.ts",
+              "line": 52,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T12:33:48.704Z",
+    "duration": 4308.072,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

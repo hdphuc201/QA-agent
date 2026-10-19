@@ -54,7 +54,7 @@ test.describe('Access control', () => {
           const res = await (
             await actors.request('viewer')
           ).fetch('/api/requests', { method: 'POST' });
-          expect(res.status(), 'POST /api/requests as viewer').toBe(403);
+          expect(res.status(), 'POST ' + '/api/requests' + ' as viewer').toBe(403);
         }
       });
     },

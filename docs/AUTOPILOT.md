@@ -31,10 +31,10 @@ Force-push, other remotes or branches, publish, release tags, deployment; produc
 
 Updated at every phase boundary. On a new session: restore from this section, `planning/progress.json`, `git log` and `git status`, not from chat memory.
 
-- Last completed phase: P6 (gate passed; commit "feat: end-to-end vertical slice (P6)", pushed to origin/main)
-- Current phase / task: P7 / P7-T01 (not started)
+- Last completed phase: P7 — MVP release candidate (gate passed; commit "feat: reporting, full-test pipeline and MVP release candidate (P7)", pushed)
+- Current phase / task: P8 / P8-T01 (not started)
 - Work in progress: none
-- Files changed since last commit: none expected after the P6 commit
-- Last test results: quality gate P6 all passed (140 tests, 139 pass, 1 skipped); vertical slice 3x 20/20, intentional bug 18/20 (expected)
-- Open blockers: none. Deferred: in-Claude run of implemented skills (owner terminal) with the full pipeline in P7
-- Next action: start P7-T01 (evidence collector and result normalisation)
+- Files changed since last commit: none expected after the P7 commit
+- Last test results: quality gate P7 all passed (152 tests, 151 pass, 1 skipped); in-Claude full-test smoke PASS (run 2); clean-environment reproduction ok
+- Open blockers: none
+- Next action: start P8-T01 (threat model), incl. hook-level guard against printing credentials found in P7

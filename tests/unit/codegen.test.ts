@@ -64,7 +64,7 @@ describe('codegen', () => {
     );
     assert.match(
       auth,
-      /expect\(res\.status\(\), 'GET \/api\/requests as anonymous'\)\.toBe\(401\);/,
+      /expect\(res\.status\(\), 'GET ' \+ '\/api\/requests' \+ ' as anonymous'\)\.toBe\(401\);/,
     );
     const reject = caseToTest(byId('DEMO-REQ-APP-002-002'));
     assert.match(

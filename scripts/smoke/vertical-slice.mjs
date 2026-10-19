@@ -17,7 +17,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const { values } = parseArgs({
   options: { bug: { type: 'string' }, out: { type: 'string' }, keep: { type: 'boolean' } },
 });
-const redact = makeTextRedactor();
+// The demo passwords below are passed to child processes only; they must never reach evidence.
+const redact = makeTextRedactor({ secrets: ['alice-demo', 'bob-demo', 'victor-demo'] });
 const say = (/** @type {string} */ s) => process.stdout.write(`${s}\n`);
 
 // 1. Fresh target project (no generated outputs), own node_modules via a junction.
@@ -79,12 +80,13 @@ function cli(args) {
 
 // 3. The pipeline.
 const stages = [];
-for (const args of [['discover'], ['plan'], ['generate', '--validate'], ['run']]) {
+for (const args of [['discover'], ['plan'], ['generate', '--validate'], ['run'], ['report']]) {
   const t0 = Date.now();
   const r = await cli(args);
   stages.push({ stage: args.join(' '), exitCode: r.code, durationMs: Date.now() - t0, log: r.out });
   say(`== ${args.join(' ')}: exit=${r.code}`);
-  if (args[0] !== 'run' && r.code !== 0) {
+  // run/report exit 1 when tests fail: that is a result, not a broken pipeline.
+  if (args[0] !== 'run' && args[0] !== 'report' && r.code !== 0) {
     say(r.out);
     break;
   }

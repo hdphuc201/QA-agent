@@ -13,7 +13,9 @@ import { runDiscover } from './discovery/discover.ts';
 import { startPlaywrightTools } from './discovery/explorer.ts';
 import { runGenerate } from './generator/generate.ts';
 import { validateGenerated } from './generator/validate.ts';
+import { runFullTest } from './orchestrator/full-test.ts';
 import { runSuite } from './orchestrator/run.ts';
+import { runReport } from './reporting/report.ts';
 import { loadPlan, runPlan } from './planning/plan-stage.ts';
 
 export const EXIT = { OK: 0, FAILED: 1, USAGE: 2, CONFIG: 3 } as const;
@@ -34,7 +36,11 @@ Commands:
   generate [--validate]    READY cases -> <testOutputRoot>/*.spec.ts (+ fixtures, Playwright config, case map);
                            --validate type-checks the output and lists it with Playwright
   run                      run the generated suite (isolated cases in parallel, shared-state cases serially);
-                           credentials from QA_AGENT_ACCOUNT_<KEY>_USERNAME/_PASSWORD; records qa-artifacts/runs/<id>/`;
+                           credentials from QA_AGENT_ACCOUNT_<KEY>_USERNAME/_PASSWORD; records qa-artifacts/runs/<id>/
+  report [--run <id>]      normalised results, failure analysis, requirement coverage ->
+                           qa-artifacts/runs/<id>/report/{results.json,summary.md,report.html}
+  full-test [--offline] [--resume]
+                           discover -> plan -> generate -> run -> report; --resume skips unchanged finished stages`;
 
 export interface Context {
   projectRoot: string;
@@ -69,6 +75,8 @@ export async function main(argv: string[], io: Io): Promise<number> {
         project: { type: 'string' },
         offline: { type: 'boolean' },
         validate: { type: 'boolean' },
+        resume: { type: 'boolean' },
+        run: { type: 'string' },
         help: { type: 'boolean', short: 'h' },
       },
     });
@@ -140,6 +148,51 @@ export async function main(argv: string[], io: Io): Promise<number> {
           ].join('\n'),
         );
         return record.exitCode === 0 ? EXIT.OK : EXIT.FAILED;
+      }
+      case 'report': {
+        const ctx = loadContext(parsed.values.project, io);
+        const { report, files } = runReport({
+          projectRoot: ctx.projectRoot,
+          config: ctx.config,
+          env: io.env,
+          ...(parsed.values.run ? { runId: parsed.values.run } : {}),
+        });
+        const c = report.coverage.counts;
+        io.out(
+          [
+            `report ${report.runId}: passed ${c.passed}/${c.executed} executed (ready ${c.ready}, generated ${c.generated}), failed ${c.failed}, blocked ${c.blocked}, skipped ${c.skipped}, not run ${c.notRun}, flaky ${c.flaky}`,
+            `  requirements: ${report.coverage.withReadyCases}/${report.coverage.requirements} with runnable cases, ${report.coverage.fullyPassing} fully passing`,
+            ...report.analyses.map(
+              (a) =>
+                `  ${a.caseId}: ${a.classification} (${a.confidence}, ${a.source}) — ${a.rationale}`,
+            ),
+            ...files.map((f) => `  wrote ${path.relative(ctx.projectRoot, f)}`),
+          ].join('\n'),
+        );
+        return c.failed + c.blocked === 0 ? EXIT.OK : EXIT.FAILED;
+      }
+      case 'full-test': {
+        const ctx = loadContext(parsed.values.project, io);
+        const res = await runFullTest({
+          projectRoot: ctx.projectRoot,
+          pluginRoot: ctx.pluginRoot,
+          config: ctx.config,
+          env: { ...io.env },
+          out: io.out,
+          offline: parsed.values.offline === true,
+          resume: parsed.values.resume === true,
+        });
+        io.out(
+          [
+            `full-test: ${res.failedStage ? `stopped at ${res.failedStage}: ${res.error}` : 'all stages completed'}`,
+            `  ran: ${res.ran.join(', ') || '—'}; resumed: ${res.resumed.join(', ') || '—'}`,
+            ...res.reportFiles.map((f) => `  report: ${path.relative(ctx.projectRoot, f)}`),
+            `  state: .qa-agent/full-test-state.json`,
+          ].join('\n'),
+        );
+        if (res.failedStage) return EXIT.FAILED;
+        const last = res.state.stages.report?.summary ?? '';
+        return /failed 0, blocked 0/.test(last) ? EXIT.OK : EXIT.FAILED;
       }
       case 'generate': {
         const ctx = loadContext(parsed.values.project, io);

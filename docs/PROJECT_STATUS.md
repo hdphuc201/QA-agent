@@ -2,12 +2,12 @@
 
 # QA Agent — Project Status
 
-- State revision: 93
-- Last update: 2026-10-19T12:22:03.032Z
-- Active phase: P6 — END-TO-END HYBRID VERTICAL SLICE (MVP CORE)
-- Task progress: 43/62 completed (69.4%) — share of roadmap tasks, not test coverage
+- State revision: 106
+- Last update: 2026-10-19T15:04:22.839Z
+- Active phase: P7 — EVIDENCE, REPORTING & MVP RELEASE CANDIDATE
+- Task progress: 49/62 completed (79.0%) — share of roadmap tasks, not test coverage
 - In progress: 0 · Blocked: 0
-- Latest gate decision: P6 passed at 2026-10-19T12:22:03.011Z — docs/PHASE_REVIEWS/P6.md; evidence/P6/slice-intentional-bug/summary.json; evidence/P6/slice-clean-3/summary.json
+- Latest gate decision: P7 passed at 2026-10-19T15:04:22.805Z — docs/PHASE_REVIEWS/P7.md; evidence/P7/claude-fulltest-smoke.json; evidence/P7/clean-env.log
 
 ## Phases
 
@@ -20,7 +20,7 @@
 | P4 | PLAYWRIGHT CODE GENERATION ENGINE | completed | passed | 6/6 |
 | P5 | AUTH, MULTI-TAB, MULTI-ROLE & TEST ORCHESTRATION | completed | passed | 6/6 |
 | P6 | END-TO-END HYBRID VERTICAL SLICE (MVP CORE) | completed | passed | 6/6 |
-| P7 | EVIDENCE, REPORTING & MVP RELEASE CANDIDATE | not_started | pending | 0/6 |
+| P7 | EVIDENCE, REPORTING & MVP RELEASE CANDIDATE | completed | passed | 6/6 |
 | P8 | HARDENING, SECURITY & CROSS-PROJECT TESTING | not_started | pending | 0/7 |
 | P9 | CI/CD, PACKAGING & v1.0 | not_started | pending | 0/6 |
 
@@ -116,12 +116,12 @@ _None_
 
 | Task | Status | Title | Evidence |
 |---|---|---|---|
-| P7-T01 | not_started | Evidence collector: Playwright JSON + HTML report, trace on failure, screenshots, runtime metadata (không lộ secret). | — |
-| P7-T02 | not_started | Normalize results: `PASS`, `FAIL`, `SKIPPED`, `BLOCKED`, `NOT_RUN` + duration + browser + build hash + case ID. | — |
-| P7-T03 | not_started | AI Failure Analyzer trả `probable_app_bug`, `test_automation_issue`, `environment_issue`, `insufficient_evidence` cùng rationale/evidence/confidence. AI không rewrite test/expected result tự ý. | — |
-| P7-T04 | not_started | Requirements coverage report: links từ requirement → test cases → executions; phân biệt count generated/executed/passed. | — |
-| P7-T05 | not_started | Lệnh report và `full-test` phối hợp các stage, hỗ trợ recover/resume, tạo Markdown executive summary. | — |
-| P7-T06 | not_started | README Getting Started, config guide, demo walkthrough, `docs/PHASE_REVIEWS/P7.md`, final MVP gate. | — |
+| P7-T01 | completed | Evidence collector: Playwright JSON + HTML report, trace on failure, screenshots, runtime metadata (không lộ secret). | src/orchestrator/run.ts: Playwright JSON + HTML report per phase, per-phase output dir with trace (retain-on-failure) and screenshots (only-on-failure), run metadata without env dump; evidence/P7/slice-intentional-bug-report/run/report/results.json<br>tests/integration/full-test.test.ts asserts the Playwright HTML report exists: exit=0 |
+| P7-T02 | completed | Normalize results: `PASS`, `FAIL`, `SKIPPED`, `BLOCKED`, `NOT_RUN` + duration + browser + build hash + case ID. | src/reporting/normalize.ts: PASS/FAIL/SKIPPED/BLOCKED/NOT_RUN with duration, browser, build id, case and requirement IDs, ANSI stripped, passwords masked; tests/unit/reporting.test.ts: exit=0 |
+| P7-T03 | completed | AI Failure Analyzer trả `probable_app_bug`, `test_automation_issue`, `environment_issue`, `insufficient_evidence` cùng rationale/evidence/confidence. AI không rewrite test/expected result tự ý. | src/reporting/analyze.ts rules (probable_app_bug, test_automation_issue, environment_issue, insufficient_evidence with rationale, evidence, confidence) + read-only agents/failure-analyzer.md merged via validated ai-analysis.json; tests/unit/reporting.test.ts and tests/contract/plugin.test.ts: exit=0<br>intentional defect classified probable_app_bug 0.85 with requirement line, trace and screenshot: evidence/P7/slice-intentional-bug-report/run/report/summary.md |
+| P7-T04 | completed | Requirements coverage report: links từ requirement → test cases → executions; phân biệt count generated/executed/passed. | src/reporting/coverage.ts requirement -> cases -> executions; generated, ready, executed, passed, failed, blocked, skipped, notRun, flaky kept apart (skipped is not executed); tests/unit/reporting.test.ts: exit=0 |
+| P7-T05 | completed | Lệnh report và `full-test` phối hợp các stage, hỗ trợ recover/resume, tạo Markdown executive summary. | src/orchestrator/full-test.ts + qa-agent report and full-test with resumable state and Markdown executive summary; tests/integration/full-test.test.ts: exit=0, 3/3 (full run 20/20, resume, stop and recover) |
+| P7-T06 | completed | README Getting Started, config guide, demo walkthrough, `docs/PHASE_REVIEWS/P7.md`, final MVP gate. | README.md rewritten, docs/CONFIG_GUIDE.md, docs/WALKTHROUGH.md, docs/PLUGIN.md; clean-environment reproduction evidence/P7/clean-env.log; in-Claude full-test smoke PASS evidence/P7/claude-fulltest-smoke.json<br>quality gate exit=0 (152 tests, 151 pass, 1 skipped): evidence/P7/test.log; review docs/PHASE_REVIEWS/P7.md |
 
 ### P8 — HARDENING, SECURITY & CROSS-PROJECT TESTING
 

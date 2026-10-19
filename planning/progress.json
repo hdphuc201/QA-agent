@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "project": "qa-agent",
-  "activePhase": "P6",
-  "updatedAt": "2026-10-19T12:22:03.032Z",
-  "revision": 93,
+  "activePhase": "P7",
+  "updatedAt": "2026-10-19T15:04:22.839Z",
+  "revision": 106,
   "phases": {
     "P0": {
       "title": "BOOTSTRAP & AUTOMATED PROGRESS",
@@ -798,59 +798,107 @@
     },
     "P7": {
       "title": "EVIDENCE, REPORTING & MVP RELEASE CANDIDATE",
-      "status": "not_started",
-      "gate": "pending",
-      "gateEvidence": [],
-      "startedAt": null,
-      "completedAt": null,
+      "status": "completed",
+      "gate": "passed",
+      "gateEvidence": [
+        {
+          "at": "2026-10-19T15:04:22.805Z",
+          "decision": "passed",
+          "text": "docs/PHASE_REVIEWS/P7.md; evidence/P7/claude-fulltest-smoke.json; evidence/P7/clean-env.log"
+        }
+      ],
+      "startedAt": "2026-10-19T12:23:10.571Z",
+      "completedAt": "2026-10-19T15:04:22.805Z",
       "tasks": {
         "P7-T01": {
           "title": "Evidence collector: Playwright JSON + HTML report, trace on failure, screenshots, runtime metadata (không lộ secret).",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:42:43.199Z",
+              "text": "src/orchestrator/run.ts: Playwright JSON + HTML report per phase, per-phase output dir with trace (retain-on-failure) and screenshots (only-on-failure), run metadata without env dump; evidence/P7/slice-intentional-bug-report/run/report/results.json"
+            },
+            {
+              "at": "2026-10-19T12:42:43.199Z",
+              "text": "tests/integration/full-test.test.ts asserts the Playwright HTML report exists: exit=0"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:23:10.571Z",
+          "completedAt": "2026-10-19T12:42:43.199Z"
         },
         "P7-T02": {
           "title": "Normalize results: `PASS`, `FAIL`, `SKIPPED`, `BLOCKED`, `NOT_RUN` + duration + browser + build hash + case ID.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:42:43.311Z",
+              "text": "src/reporting/normalize.ts: PASS/FAIL/SKIPPED/BLOCKED/NOT_RUN with duration, browser, build id, case and requirement IDs, ANSI stripped, passwords masked; tests/unit/reporting.test.ts: exit=0"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:32:27.529Z",
+          "completedAt": "2026-10-19T12:42:43.311Z"
         },
         "P7-T03": {
           "title": "AI Failure Analyzer trả `probable_app_bug`, `test_automation_issue`, `environment_issue`, `insufficient_evidence` cùng rationale/evidence/confidence. AI không rewrite test/expected result tự ý.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:42:43.415Z",
+              "text": "src/reporting/analyze.ts rules (probable_app_bug, test_automation_issue, environment_issue, insufficient_evidence with rationale, evidence, confidence) + read-only agents/failure-analyzer.md merged via validated ai-analysis.json; tests/unit/reporting.test.ts and tests/contract/plugin.test.ts: exit=0"
+            },
+            {
+              "at": "2026-10-19T12:42:43.415Z",
+              "text": "intentional defect classified probable_app_bug 0.85 with requirement line, trace and screenshot: evidence/P7/slice-intentional-bug-report/run/report/summary.md"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:35:41.247Z",
+          "completedAt": "2026-10-19T12:42:43.415Z"
         },
         "P7-T04": {
           "title": "Requirements coverage report: links từ requirement → test cases → executions; phân biệt count generated/executed/passed.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:42:43.527Z",
+              "text": "src/reporting/coverage.ts requirement -> cases -> executions; generated, ready, executed, passed, failed, blocked, skipped, notRun, flaky kept apart (skipped is not executed); tests/unit/reporting.test.ts: exit=0"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:35:41.467Z",
+          "completedAt": "2026-10-19T12:42:43.527Z"
         },
         "P7-T05": {
           "title": "Lệnh report và `full-test` phối hợp các stage, hỗ trợ recover/resume, tạo Markdown executive summary.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T12:42:43.646Z",
+              "text": "src/orchestrator/full-test.ts + qa-agent report and full-test with resumable state and Markdown executive summary; tests/integration/full-test.test.ts: exit=0, 3/3 (full run 20/20, resume, stop and recover)"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:35:41.645Z",
+          "completedAt": "2026-10-19T12:42:43.646Z"
         },
         "P7-T06": {
           "title": "README Getting Started, config guide, demo walkthrough, `docs/PHASE_REVIEWS/P7.md`, final MVP gate.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T15:04:22.503Z",
+              "text": "README.md rewritten, docs/CONFIG_GUIDE.md, docs/WALKTHROUGH.md, docs/PLUGIN.md; clean-environment reproduction evidence/P7/clean-env.log; in-Claude full-test smoke PASS evidence/P7/claude-fulltest-smoke.json"
+            },
+            {
+              "at": "2026-10-19T15:04:22.503Z",
+              "text": "quality gate exit=0 (152 tests, 151 pass, 1 skipped): evidence/P7/test.log; review docs/PHASE_REVIEWS/P7.md"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T12:42:43.754Z",
+          "completedAt": "2026-10-19T15:04:22.503Z"
         }
       }
     },

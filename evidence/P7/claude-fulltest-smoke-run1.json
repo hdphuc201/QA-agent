@@ -1,0 +1,56 @@
+{
+  "startedAt": "2026-10-19T13:27:40.324Z",
+  "claudeVersion": "2.1.71 (Claude Code)",
+  "claudeExit": 0,
+  "init": {
+    "pluginCommands": [
+      "qa-agent:generate",
+      "qa-agent:report",
+      "qa-agent:full-test",
+      "qa-agent:run",
+      "qa-agent:discover",
+      "qa-agent:plan"
+    ],
+    "agents": [
+      "general-purpose",
+      "statusline-setup",
+      "Explore",
+      "Plan",
+      "qa-agent:failure-analyzer"
+    ]
+  },
+  "engineCommands": [
+    "node --experimental-strip-types --disable-warning=ExperimentalWarning \"D:/Coding/Phuc-Huynh/QA-agent/src/cli.ts\" full-test --project \"<HOME>\\AppData\\Local\\Temp\\qa claude full test aKrrjs\" --offline 2>&1"
+  ],
+  "subagents": [],
+  "runId": "run-20261019T132920-pmly",
+  "reportCounts": {
+    "generated": 22,
+    "ready": 20,
+    "executed": 20,
+    "passed": 18,
+    "failed": 2,
+    "blocked": 0,
+    "skipped": 0,
+    "notRun": 2,
+    "flaky": 0
+  },
+  "analyses": [
+    "DEMO-REQ-APP-003-002 probable_app_bug 0.85 rules",
+    "DEMO-REQ-APP-003-004 probable_app_bug 0.85 rules"
+  ],
+  "aiNotes": [],
+  "aiAnalysisFile": false,
+  "costUsd": 0.26088775,
+  "finalText": "## QA Run Summary — `run-20261019T132920-pmly`\n\n**Result: 18/20 passed, 2 failed** | Duration: ~43s | http://127.0.0.1:55886/ (local) | Playwright 1.63.0\n\n---\n\n### Failures (2) — both classified as `probable_app_bug` (confidence 0.85)\n\n**DEMO-REQ-APP-003-002** `@P0 @rbac`  \n`POST /api/requests/<id>/approve` as **requester** — expected HTTP 403, received **200**  \n- Requirement: `docs/requirements.md:116` — only approvers can decide  \n- Screenshot: `qa-artifacts/runs/run-20261019T132920-pmly/test-results-parallel/approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium/test-failed-1.png`  \n- Trace: `…/trace.zip`\n\n**DEMO-REQ-APP-003-004** `@P0 @rbac`  \n`POST /api/requests/<id>/approve` as **viewer** — expected HTTP 403, received **200**  \n- Same requirement: `DEMO-REQ-APP-003`  \n- Screenshot: `qa-artifacts/runs/run-20261019T132920-pmly/test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/test-failed-2.png`\n\n**Root cause:** The `POST /api/requests/:id/approve` endpoint does not enforce role-based access control — it accepts requests from non-approver roles (requester, viewer) and returns 200 instead of 403.\n\n---\n\n### Not Run (2)\n\n| Case | Reason |\n|---|---|\n| DEMO-REQ-VIEW-001-001 | `NEEDS_REVIEW` — plan flagged for manual review |\n| DEMO-REQ-REQ-004-001 | `NEEDS_REVIEW` — requirement has no defined expected result |\n\n---\n\n### Requirement Coverage — 92% (11/12 requirements with runnable cases)\n\n| Verdict | Requirements |\n|---|---|\n| Passing (10) | AUTH-001, AUTH-002, AUTH-003, REQ-001, REQ-002, REQ-003, APP-001, APP-002, APP-004, VIEW-001 (partial) |\n| **Failing (1)** | **APP-003 — Only approvers can decide** |\n| Needs review (1) | REQ-004 — Requests are easy to find |\n\n---\n\n### Artifacts\n\n- Summary: `qa-artifacts/runs/run-20261019T132920-pmly/report/summary.md`\n- Results JSON: `qa-artifacts/runs/run-20261019T132920-pmly/report/results.json`\n- HTML report: `qa-artifacts/runs/run-20261019T132920-pmly/report/report.html`\n- Playwright HTML (parallel): `qa-artifacts/runs/run-20261019T132920-pmly/html-parallel/index.html`\n\nQA-AGENT-SKILL: full-test | status=implemented | phase=P7",
+  "required": {
+    "claudeExited0": true,
+    "fullTestViaEngine": true,
+    "pipelineCompleted": true,
+    "defectFound": true,
+    "failureAnalyzerUsed": false,
+    "aiAnalysisMerged": false,
+    "skillMarker": true
+  },
+  "result": "FAIL"
+}

@@ -13,13 +13,24 @@ const OWN = 'qa-agent';
 /** @param {string} s */
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
+/** Values of every `QA_AGENT_ACCOUNT_*_PASSWORD` in an environment (must never reach evidence). */
+/** @param {Record<string, string | undefined>} env @returns {string[]} */
+export function passwordValues(env) {
+  return Object.entries(env)
+    .filter(([k, v]) => /^QA_AGENT_ACCOUNT_.+_PASSWORD$/.test(k) && v && v.length >= 3)
+    .map(([, v]) => /** @type {string} */ (v));
+}
+
 /**
- * @param {{ home?: string, user?: string }} [ctx]
+ * @param {{ home?: string, user?: string, secrets?: string[] }} [ctx]
  * @returns {(text: string) => string}
  */
 export function makeTextRedactor(ctx = {}) {
   const home = ctx.home ?? os.homedir();
   const user = ctx.user ?? os.userInfo().username;
+  const secrets = [...new Set([...(ctx.secrets ?? []), ...passwordValues(process.env)])].sort(
+    (a, b) => b.length - a.length,
+  );
   const homes = new Set([home, home.replace(/\\/g, '/'), home.replace(/\\/g, '\\\\')]);
   const patterns = [...homes]
     .filter((h) => h.length > 3)
@@ -28,6 +39,7 @@ export function makeTextRedactor(ctx = {}) {
   const userRe = user && user.length >= 3 ? new RegExp(`\\b${escapeRe(user)}\\b`, 'gi') : null;
   return (text) => {
     let out = text;
+    for (const s of secrets) out = out.split(s).join('<REDACTED>');
     for (const re of patterns) out = out.replace(re, '<HOME>');
     if (userRe) out = out.replace(userRe, '<USER>');
     return out;

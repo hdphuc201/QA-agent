@@ -93,7 +93,8 @@ function assertCode(a: Assertion, anchor: string | null, counts: Map<string, str
       return [
         `{`,
         `const res = await (await actors.request(${q(a.as)})).fetch(${pathExpr(a.path)}, { ${opts.join(', ')} });`,
-        `expect(res.status(), ${q(`${a.method} ${a.path} as ${a.as}`)}).toBe(${a.status});`,
+        // The message shows the concrete path (subject id resolved), e.g. "POST /api/requests/REQ-7/approve".
+        `expect(res.status(), ${q(`${a.method} `)} + ${pathExpr(a.path)} + ${q(` as ${a.as}`)}).toBe(${a.status});`,
         `}`,
       ];
     }

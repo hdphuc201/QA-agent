@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>QA report run-20261019T142657-v9nz</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font:14px/1.45 system-ui,sans-serif;margin:24px;color:#1b1f24;background:#fff}
+table{border-collapse:collapse;width:100%;margin:12px 0}td,th{border:1px solid #d0d7de;padding:6px;vertical-align:top;text-align:left}
+th{background:#f6f8fa}.b{padding:1px 6px;border-radius:8px;font-weight:600;font-size:12px}
+.pass,.passing{background:#dafbe1;color:#116329}.fail,.failing{background:#ffebe9;color:#a40e26}
+.blocked,.needs-review{background:#fff8c5;color:#7d4e00}.not_run,.not-run,.skipped,.no-cases{background:#eaeef2;color:#424a53}
+pre{white-space:pre-wrap;font-size:12px}small{display:block;color:#57606a}
+@media (prefers-color-scheme: dark){body{background:#0d1117;color:#e6edf3}th{background:#161b22}td,th{border-color:#30363d}}
+</style></head><body>
+<h1>QA report — sample-approvals</h1>
+<p>Run <code>run-20261019T142657-v9nz</code> · 2026-10-19T14:26:57.146Z → 2026-10-19T14:27:54.748Z · http://127.0.0.1:62577/ (local) · build unknown · chromium (channel chrome)</p>
+<p><b>Passed 18</b> / executed 20 · failed 2 · blocked 0 · skipped 0 · not run 2 · flaky 0 · generated 22, ready 20 · requirement coverage 92%</p>
+<p>PASS/FAIL comes from Playwright assertions; classifications explain failures and carry a confidence. <a href="../html-parallel/index.html">Playwright report</a> · <a href="../html-serial/index.html">Playwright report</a></p>
+<h2>Cases</h2><table><tr><th>Case</th><th>Status</th><th>Title</th><th>Requirements</th><th>Category</th><th>Duration</th><th>Analysis</th><th>Evidence</th></tr>
+<tr><td>DEMO-REQ-APP-003-001</td><td><span class="b pass">PASS</span></td><td>Only approvers can decide — as requester</td><td>DEMO-REQ-APP-003</td><td>rbac</td><td>2.6s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-APP-003-002</td><td><span class="b fail">FAIL</span></td><td>Only approvers can decide — as requester — API denies access</td><td>DEMO-REQ-APP-003</td><td>rbac</td><td>2.6s</td><td>probable_app_bug (0.85, rules)<br>probable_app_bug (0.95, ai)<details><summary>error</summary><pre>Error: POST /api/requests/REQ-9/approve as requester
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200</pre></details></td><td><a href="../test-results-parallel/approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium/test-failed-1.png">screenshot</a> <a href="../test-results-parallel/approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium/error-context.md">error-context</a> <a href="../test-results-parallel/approval-Approval-DEMO-REQ-ac926-quester-—-API-denies-access-chromium/trace.zip">trace</a></td></tr>
+<tr><td>DEMO-REQ-APP-003-003</td><td><span class="b pass">PASS</span></td><td>Only approvers can decide — as viewer</td><td>DEMO-REQ-APP-003</td><td>rbac</td><td>2.9s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-APP-003-004</td><td><span class="b fail">FAIL</span></td><td>Only approvers can decide — as viewer — API denies access</td><td>DEMO-REQ-APP-003</td><td>rbac</td><td>2.3s</td><td>probable_app_bug (0.85, rules)<br>probable_app_bug (0.95, ai)<details><summary>error</summary><pre>Error: POST /api/requests/REQ-11/approve as viewer
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200</pre></details></td><td><a href="../test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/test-failed-1.png">screenshot</a> <a href="../test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/test-failed-2.png">screenshot</a> <a href="../test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/error-context.md">error-context</a> <a href="../test-results-parallel/approval-Approval-DEMO-REQ-7ce5d--viewer-—-API-denies-access-chromium/trace.zip">trace</a></td></tr>
+<tr><td>DEMO-REQ-AUTH-003-001</td><td><span class="b pass">PASS</span></td><td>Protect pages from anonymous users</td><td>DEMO-REQ-AUTH-003</td><td>rbac</td><td>1.4s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-AUTH-003-002</td><td><span class="b pass">PASS</span></td><td>Protect pages from anonymous users — API denies access</td><td>DEMO-REQ-AUTH-003</td><td>rbac</td><td>0.2s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-APP-001-001</td><td><span class="b pass">PASS</span></td><td>Approver approves a pending request</td><td>DEMO-REQ-APP-001</td><td>state-transition</td><td>18.6s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-AUTH-001-001</td><td><span class="b pass">PASS</span></td><td>Sign in with valid credentials</td><td>DEMO-REQ-AUTH-001</td><td>happy</td><td>5.7s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-REQ-001-001</td><td><span class="b pass">PASS</span></td><td>Create a purchase request</td><td>DEMO-REQ-REQ-001</td><td>happy</td><td>2.4s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-VIEW-001-002</td><td><span class="b pass">PASS</span></td><td>Viewer is read-only — the viewer has no &quot;New request&quot; link</td><td>DEMO-REQ-VIEW-001</td><td>rbac</td><td>10.8s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-VIEW-001-003</td><td><span class="b pass">PASS</span></td><td>Viewer is read-only — `POST /api/requests` returns HTTP 403 for the viewer</td><td>DEMO-REQ-VIEW-001</td><td>rbac</td><td>2.4s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-APP-002-001</td><td><span class="b pass">PASS</span></td><td>Approver rejects with a reason</td><td>DEMO-REQ-APP-002</td><td>state-transition</td><td>4.7s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-APP-002-002</td><td><span class="b pass">PASS</span></td><td>Approver rejects with a reason — API rejects invalid input</td><td>DEMO-REQ-APP-002</td><td>negative</td><td>3.2s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-AUTH-002-001</td><td><span class="b pass">PASS</span></td><td>Reject invalid credentials</td><td>DEMO-REQ-AUTH-002</td><td>negative</td><td>2.4s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-REQ-002-001</td><td><span class="b pass">PASS</span></td><td>Title is required</td><td>DEMO-REQ-REQ-002</td><td>negative</td><td>2.3s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-REQ-003-001</td><td><span class="b pass">PASS</span></td><td>Amount limits — amount 1 (accepted)</td><td>DEMO-REQ-REQ-003</td><td>boundary</td><td>1.7s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-REQ-003-002</td><td><span class="b pass">PASS</span></td><td>Amount limits — amount 10000 (accepted)</td><td>DEMO-REQ-REQ-003</td><td>boundary</td><td>2.0s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-REQ-003-003</td><td><span class="b pass">PASS</span></td><td>Amount limits — amount 0 (rejected)</td><td>DEMO-REQ-REQ-003</td><td>boundary</td><td>1.8s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-REQ-003-004</td><td><span class="b pass">PASS</span></td><td>Amount limits — amount 10001 (rejected)</td><td>DEMO-REQ-REQ-003</td><td>boundary</td><td>1.4s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-VIEW-001-001</td><td><span class="b not_run">NOT_RUN</span></td><td>Viewer is read-only — the viewer sees all requests on `/`</td><td>DEMO-REQ-VIEW-001</td><td>happy</td><td>0.0s</td><td><small>plan status NEEDS_REVIEW: needs review</small></td><td></td></tr>
+<tr><td>DEMO-REQ-APP-004-001</td><td><span class="b pass">PASS</span></td><td>Decision is visible in another tab</td><td>DEMO-REQ-APP-004</td><td>state-transition</td><td>2.4s</td><td></td><td></td></tr>
+<tr><td>DEMO-REQ-REQ-004-001</td><td><span class="b not_run">NOT_RUN</span></td><td>Requests are easy to find</td><td>DEMO-REQ-REQ-004</td><td>happy</td><td>0.0s</td><td><small>plan status NEEDS_REVIEW: no expected result is defined in the requirement</small></td><td></td></tr>
+</table>
+<h2>Requirement coverage</h2><table><tr><th>Requirement</th><th>Title</th><th>Verdict</th><th>Cases</th></tr>
+<tr><td>DEMO-REQ-AUTH-001</td><td>Sign in with valid credentials</td><td><span class="b passing">passing</span></td><td>DEMO-REQ-AUTH-001-001 PASS</td></tr>
+<tr><td>DEMO-REQ-AUTH-002</td><td>Reject invalid credentials</td><td><span class="b passing">passing</span></td><td>DEMO-REQ-AUTH-002-001 PASS</td></tr>
+<tr><td>DEMO-REQ-AUTH-003</td><td>Protect pages from anonymous users</td><td><span class="b passing">passing</span></td><td>DEMO-REQ-AUTH-003-001 PASS, DEMO-REQ-AUTH-003-002 PASS</td></tr>
+<tr><td>DEMO-REQ-REQ-001</td><td>Create a purchase request</td><td><span class="b passing">passing</span></td><td>DEMO-REQ-REQ-001-001 PASS</td></tr>
+<tr><td>DEMO-REQ-REQ-002</td><td>Title is required</td><td><span class="b passing">passing</span></td><td>DEMO-REQ-REQ-002-001 PASS</td></tr>
+<tr><td>DEMO-REQ-REQ-003</td><td>Amount limits</td><td><span class="b passing">passing</span></td><td>DEMO-REQ-REQ-003-001 PASS, DEMO-REQ-REQ-003-002 PASS, DEMO-REQ-REQ-003-003 PASS, DEMO-REQ-REQ-003-004 PASS</td></tr>
+<tr><td>DEMO-REQ-REQ-004</td><td>Requests are easy to find</td><td><span class="b needs-review">needs-review</span></td><td>DEMO-REQ-REQ-004-001 NOT_RUN</td></tr>
+<tr><td>DEMO-REQ-APP-001</td><td>Approver approves a pending request</td><td><span class="b passing">passing</span></td><td>DEMO-REQ-APP-001-001 PASS</td></tr>
+<tr><td>DEMO-REQ-APP-002</td><td>Approver rejects with a reason</td><td><span class="b passing">passing</span></td><td>DEMO-REQ-APP-002-001 PASS, DEMO-REQ-APP-002-002 PASS</td></tr>
+<tr><td>DEMO-REQ-APP-003</td><td>Only approvers can decide</td><td><span class="b failing">failing</span></td><td>DEMO-REQ-APP-003-001 PASS, DEMO-REQ-APP-003-002 FAIL, DEMO-REQ-APP-003-003 PASS, DEMO-REQ-APP-003-004 FAIL</td></tr>
+<tr><td>DEMO-REQ-VIEW-001</td><td>Viewer is read-only</td><td><span class="b passing">passing</span></td><td>DEMO-REQ-VIEW-001-002 PASS, DEMO-REQ-VIEW-001-003 PASS, DEMO-REQ-VIEW-001-001 NOT_RUN</td></tr>
+<tr><td>DEMO-REQ-APP-004</td><td>Decision is visible in another tab</td><td><span class="b passing">passing</span></td><td>DEMO-REQ-APP-004-001 PASS</td></tr>
+</table>
+<p><small>Traces and screenshots may contain session data and typed values; keep them inside the team.</small></p>
+</body></html>

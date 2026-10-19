@@ -17,6 +17,8 @@ const IMPLEMENTED: Record<string, string> = {
   plan: 'P3',
   generate: 'P4',
   run: 'P5',
+  report: 'P7',
+  'full-test': 'P7',
 };
 // Fields accepted by the locally verified Claude Code CLI (2.1.71). `displayName` is rejected there.
 const MANIFEST_FIELDS = new Set([
@@ -29,6 +31,7 @@ const MANIFEST_FIELDS = new Set([
   'license',
   'keywords',
 ]);
+const AGENT_FIELDS = new Set(['name', 'description', 'tools', 'model']);
 const SKILL_FIELDS = new Set([
   'description',
   'argument-hint',
@@ -167,5 +170,28 @@ describe('skills', () => {
     assert.match(body, /`localhost` or `127\.0\.0\.1`/);
     assert.match(body, /Otherwise refuse and stop/);
     assert.match(body, /do not invent page content/);
+  });
+});
+
+describe('agents', () => {
+  test('failure-analyzer is read-only and documents the classification contract', () => {
+    const dir = path.join(root, 'agents');
+    assert.deepEqual(fs.readdirSync(dir).sort(), ['failure-analyzer.md']);
+    const { fields, body } = frontmatter(path.join(dir, 'failure-analyzer.md'));
+    for (const key of Object.keys(fields))
+      assert.ok(AGENT_FIELDS.has(key), `unsupported agent field ${key}`);
+    assert.equal(fields.name, 'failure-analyzer');
+    assert.ok(typeof fields.description === 'string' && /read-only/i.test(fields.description));
+    const tools = String(fields.tools).split(/,\s*/).sort();
+    assert.deepEqual(tools, ['Glob', 'Grep', 'Read'], 'no Write/Edit/Bash: it cannot change tests');
+    for (const c of [
+      'probable_app_bug',
+      'test_automation_issue',
+      'environment_issue',
+      'insufficient_evidence',
+    ]) {
+      assert.ok(body.includes(c), c);
+    }
+    assert.match(body, /never propose changing an expected result/);
   });
 });

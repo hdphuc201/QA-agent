@@ -91,6 +91,18 @@ const GENERATED_SPECS = [
   'requests.spec',
 ];
 
+const CANCEL_SPEC = `import { test } from './qa-agent.fixtures';
+
+test('C1 quick, no browser', async () => {});
+
+test('C2 signs in, then hangs until the global timeout', async ({ actors }) => {
+  await actors.login('requester');
+  await new Promise((resolve) => setTimeout(resolve, 120_000));
+});
+
+test('C3 never reached', async () => {});
+`;
+
 let app: { url: string; close: () => Promise<void> };
 let root = '';
 let config: ProjectConfig;
@@ -213,14 +225,39 @@ describe('P5 gate: sessions, roles, orchestration', { skip }, () => {
   });
 
   test('a cancelled run (global timeout) stops cleanly and the next run is clean', async () => {
+    // Deterministic cancellation (independent of machine load): C1 passes without a browser, C2
+    // signs in (creating a cached session) and then hangs until the global timeout, C3 never starts.
+    fs.writeFileSync(path.join(root, 'e2e/generated/qa-cancel-probe.spec.ts'), CANCEL_SPEC);
     const res = await playwright(
-      ['--global-timeout=8000', '--workers=1', ...GENERATED_SPECS],
+      ['--global-timeout=45000', '--workers=1', 'qa-cancel-probe'],
       path.join(root, 'qa-artifacts/cancelled.json'),
     );
+    fs.rmSync(path.join(root, 'e2e/generated/qa-cancel-probe.spec.ts'));
     assert.notEqual(res.code, 0);
-    const ran = res.report.stats.expected ?? 0;
-    assert.ok(ran > 0, 'some tests ran before the timeout (the run really started)');
-    assert.ok(ran < 20, 'not every test ran');
+    type Suite = {
+      specs?: { title: string; tests: { results: { status: string }[] }[] }[];
+      suites?: Suite[];
+    };
+    const specs = (s: Suite): NonNullable<Suite['specs']> => [
+      ...(s.specs ?? []),
+      ...(s.suites ?? []).flatMap(specs),
+    ];
+    const all = ((res.report as unknown as { suites: Suite[] }).suites ?? []).flatMap(specs);
+    // Result-level status (passed / failed / interrupted / skipped), not the test-level outcome.
+    const statusOf = (title: string) =>
+      all.find((s) => s.title.startsWith(title))?.tests[0]?.results.at(-1)?.status ?? 'not run';
+    assert.equal(statusOf('C1'), 'passed', 'the run really started');
+    // Playwright 1.63 records the cut-off test as "skipped" (older versions: "interrupted") and
+    // reports the global timeout as a run error; QA Agent normalises it to NOT_RUN (unit-tested).
+    const observed = JSON.stringify(
+      all.map((s) => [s.title, s.tests[0]?.results.map((r) => r.status)]),
+    );
+    assert.ok(['skipped', 'interrupted'].includes(statusOf('C2')), `C2 was cut off: ${observed}`);
+    assert.match(
+      JSON.stringify(res.report.errors),
+      /Timed out waiting 45s for the test suite to run/,
+    );
+    assert.equal(statusOf('C3'), 'not run', `the last test never started: ${observed}`);
     // Playwright does not purge after an interrupted run; the next run's globalSetup and the engine do.
     const leftover = fs.existsSync(path.join(root, 'qa-artifacts/auth'));
     // A hard kill mid-run (no teardown at all) must not poison the next run either.

@@ -10,7 +10,7 @@ Status: **implemented (P5)**. Arguments: $ARGUMENTS
 
 1. Preconditions: `/qa-agent:generate` has produced `<testOutputRoot>/` (with `case-map.json`), the app is running at the configured `baseURL`, and the target project has `@playwright/test` and a browser.
 2. Safety: run only against the configured `local` / `staging` environment. Never point `QA_AGENT_BASE_URL` at production or at an origin outside `allowedOrigins` (the runtime refuses it anyway). The run may call the configured `testData.resetPath`.
-3. Credentials: the user provides `QA_AGENT_ACCOUNT_<ACCOUNT_KEY>_USERNAME` / `_PASSWORD` in their environment for each role. Never ask for passwords in chat, never write them to files, never echo them. A missing variable makes the affected tests fail with `QA_AGENT_BLOCKED: …`; report those as BLOCKED, not as app bugs.
+3. Credentials: the user provides `QA_AGENT_ACCOUNT_<ACCOUNT_KEY>_USERNAME` / `_PASSWORD` in their environment for each role. Never ask for passwords in chat, never write them to files, never echo or print them (to check presence use only `node -e "for (const k of Object.keys(process.env).filter((k) => k.startsWith('QA_AGENT_ACCOUNT_'))) console.log(k, process.env[k] ? 'set' : 'MISSING')"`). A missing variable makes the affected tests fail with `QA_AGENT_BLOCKED: …`; report those as BLOCKED, not as app bugs.
 4. Run the engine with the Bash tool (plugin root `${CLAUDE_PLUGIN_ROOT}`; if not substituted, use the directory containing this plugin's `.claude-plugin/plugin.json`):
 
    ```bash
