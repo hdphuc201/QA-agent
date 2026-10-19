@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "project": "qa-agent",
   "activePhase": "P9",
-  "updatedAt": "2026-10-19T17:17:05.345Z",
-  "revision": 122,
+  "updatedAt": "2026-10-19T17:27:49.634Z",
+  "revision": 126,
   "phases": {
     "P0": {
       "title": "BOOTSTRAP & AUTOMATED PROGRESS",
@@ -1023,26 +1023,36 @@
       "tasks": {
         "P9-T01": {
           "title": "Setup GitHub Actions hoặc CI tương đương theo nền tảng được phép: lint/typecheck/unit/integration/plugin validate.",
-          "status": "in_progress",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T17:27:48.904Z",
+              "text": ".github/workflows/ci.yml: GitHub Actions run 39293246586 conclusion success — checks ubuntu-latest + windows-latest (typecheck, lint, format, build, unit+contract 153 of 153, claude plugin validate 2.1.71, progress check), evidence/P9/ci-run-1.log"
+            }
+          ],
           "blockers": [],
           "startedAt": "2026-10-19T17:17:05.343Z",
-          "completedAt": null
+          "completedAt": "2026-10-19T17:27:48.904Z"
         },
         "P9-T02": {
           "title": "Chạy Playwright regression có cache/browser install phù hợp CI, artifact retention, failure summaries.",
-          "status": "not_started",
-          "evidence": [],
+          "status": "completed",
+          "evidence": [
+            {
+              "at": "2026-10-19T17:27:49.401Z",
+              "text": "integration job of run 39293246586 success: Playwright browser cache (actions/cache keyed on package-lock), npx playwright install --with-deps chromium firefox webkit, MCP warm-up, integration 16 of 16 serial (both apps, security, cross-browser), vertical slice ok; JUnit artifacts with 14-day retention + failure summary via scripts/ci/junit-summary.mjs in the job summary; evidence/P9/ci-run-1.log"
+            }
+          ],
           "blockers": [],
-          "startedAt": null,
-          "completedAt": null
+          "startedAt": "2026-10-19T17:27:49.143Z",
+          "completedAt": "2026-10-19T17:27:49.401Z"
         },
         "P9-T03": {
           "title": "Package/version plugin; test install từ directory/marketplace theo docs hiện hành; release notes/CHANGELOG.",
-          "status": "not_started",
+          "status": "in_progress",
           "evidence": [],
           "blockers": [],
-          "startedAt": null,
+          "startedAt": "2026-10-19T17:27:49.628Z",
           "completedAt": null
         },
         "P9-T04": {

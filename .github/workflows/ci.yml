@@ -41,6 +41,8 @@ jobs:
       - run: npm run lint
       - run: npm run format:check
       - run: npm run build
+      - name: bundled engine (bin/qa-agent.mjs) is up to date
+        run: npm run bundle:check
       - name: unit + contract tests
         run: npm run test:unit:ci
       - name: plugin validate (Claude Code ${{ env.CLAUDE_CODE_VERSION }})

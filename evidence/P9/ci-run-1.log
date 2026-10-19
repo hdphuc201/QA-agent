@@ -1,0 +1,28 @@
+# GitHub Actions run 39293246586 (commit 8c22857, workflow .github/workflows/ci.yml)
+# https://github.com/hdphuc201/QA-agent/actions/runs/39293246586
+conclusion: success
+checks (windows-latest): success (2026-10-19T17:20:22Z -> 2026-10-19T17:21:40Z)
+checks (ubuntu-latest): success (2026-10-19T17:20:22Z -> 2026-10-19T17:21:05Z)
+integration: success (2026-10-19T17:21:43Z -> 2026-10-19T17:26:00Z)
+  [job 118199056393] ℹ tests 153
+  [job 118199056393] ℹ pass 153
+  [job 118199056393] ℹ fail 0
+  [job 118199056393] ℹ skipped 0
+  [job 118199056393] check OK
+  [job 118199056771] ℹ tests 153
+  [job 118199056771] ℹ pass 153
+  [job 118199056771] ℹ fail 0
+  [job 118199056771] ℹ skipped 0
+  [job 118199056771] ✔ Validation passed
+  [job 118199056771] check OK
+  [job 118199724247] ℹ tests 16
+  [job 118199724247] ℹ pass 16
+  [job 118199724247] ℹ fail 0
+  [job 118199724247] ℹ skipped 0
+  [job 118199724247]   "ok": true
+junit-unit-windows-latest 6281 bytes, expires 2026-11-02T17:21:32Z
+junit-unit-ubuntu-latest 6245 bytes, expires 2026-11-02T17:20:58Z
+integration-results 53614 bytes, expires 2026-11-02T17:25:52Z
+2026-10-19T17:21:53.1989893Z Cache restored successfully
+2026-10-19T17:21:53.2013132Z Cache restored from key: node-cache-Linux-x64-npm-7ed0932e88b756b49ba82e474255ac64f985648052c3b103c234397a93ac3ddc
+2026-10-19T17:21:54.4170412Z Cache not found for input keys: playwright-Linux-7ed0932e88b756b49ba82e474255ac64f985648052c3b103c234397a93ac3ddc

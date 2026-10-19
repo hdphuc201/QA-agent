@@ -12,7 +12,7 @@ Status: **implemented (P3)**. Arguments: $ARGUMENTS
 2. Run the deterministic planner with the Bash tool (plugin root `${CLAUDE_PLUGIN_ROOT}`; if not substituted, use the directory containing this plugin's `.claude-plugin/plugin.json`):
 
    ```bash
-   node --experimental-strip-types --disable-warning=ExperimentalWarning "${CLAUDE_PLUGIN_ROOT}/src/cli.ts" plan --project "<project root>"
+   node "${CLAUDE_PLUGIN_ROOT}/bin/qa-agent.mjs" plan --project "<project root>"
    ```
 
 3. Summarise `.qa-agent/plan/test-plan.md`: cases per status and category, the highest-risk cases, `NEEDS_REVIEW` / `BLOCKED` cases with their blockers, requirements without READY cases, and routes no requirement mentions.

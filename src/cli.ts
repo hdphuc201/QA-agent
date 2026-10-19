@@ -222,8 +222,8 @@ export async function main(argv: string[], io: Io): Promise<number> {
             expected: res.cases.length * ctx.config.browsers.length,
           });
           lines.push(
-            `  typecheck: ${v.typecheck.ok ? 'ok' : 'FAILED'}`,
-            `  playwright --list: ${v.listed} test(s) (expected ${res.cases.length})`,
+            `  typecheck: ${!v.typecheck.ran ? 'NOT RUN' : v.typecheck.ok ? 'ok' : 'FAILED'}`,
+            `  playwright --list: ${v.listed} test(s) (expected ${res.cases.length * ctx.config.browsers.length})`,
           );
           if (!v.typecheck.ok) lines.push(v.typecheck.output);
           ok &&= v.ok;

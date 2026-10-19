@@ -1,0 +1,17 @@
+{
+  "name": "qa-agent",
+  "owner": {
+    "name": "hdphuc201"
+  },
+  "metadata": {
+    "description": "QA Agent Claude Code plugin (single-plugin marketplace)"
+  },
+  "plugins": [
+    {
+      "name": "qa-agent",
+      "source": "./",
+      "description": "Hybrid QA for web apps: explore with Playwright MCP, plan from requirements, generate repeatable Playwright Test specs, run them with roles and sessions, and report with evidence and failure analysis.",
+      "version": "0.1.0"
+    }
+  ]
+}

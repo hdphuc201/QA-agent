@@ -14,7 +14,7 @@ Status: **implemented (P5)**. Arguments: $ARGUMENTS
 4. Run the engine with the Bash tool (plugin root `${CLAUDE_PLUGIN_ROOT}`; if not substituted, use the directory containing this plugin's `.claude-plugin/plugin.json`):
 
    ```bash
-   node --experimental-strip-types --disable-warning=ExperimentalWarning "${CLAUDE_PLUGIN_ROOT}/src/cli.ts" run --project "<project root>"
+   node "${CLAUDE_PLUGIN_ROOT}/bin/qa-agent.mjs" run --project "<project root>"
    ```
 
 5. Report exactly what Playwright reported per phase (`parallel` / `serial`): passed, failed, skipped, flaky, plus the run ID and the paths `qa-artifacts/runs/<runId>/run.json`, `results-*.json`, `schedule.json`. PASS/FAIL is Playwright's verdict, not yours. Detailed reporting and failure analysis belong to `/qa-agent:report`.

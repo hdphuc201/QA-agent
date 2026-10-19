@@ -8,7 +8,8 @@ import { PW_CONFIG } from './generate.ts';
 
 export interface ValidationResult {
   ok: boolean;
-  typecheck: { ok: boolean; output: string };
+  /** `ran: false` when no TypeScript is installed (target project or plugin checkout). */
+  typecheck: { ran: boolean; ok: boolean; output: string };
   listed: number;
   listOutput: string;
   problems: string[];
@@ -41,8 +42,18 @@ export function validateGenerated(options: {
   const problems: string[] = [];
   const outAbs = path.join(projectRoot, outputRoot);
 
-  // 1. Strict TypeScript compile of the generated files only.
-  const tsc = path.join(pluginRoot, 'node_modules/typescript/bin/tsc');
+  // 1. Strict TypeScript compile of the generated files only, with the target project's
+  // TypeScript, else the plugin checkout's (an installed plugin has no node_modules).
+  const fromPlugin = (rel: string) => {
+    const p = path.join(pluginRoot, 'node_modules', rel);
+    return fs.existsSync(p) ? p : null;
+  };
+  const tsc =
+    resolveFromProject(projectRoot, 'typescript/bin/tsc') ?? fromPlugin('typescript/bin/tsc');
+  // Playwright's typings import node modules, so the compile needs @types/node.
+  const nodeTypes = resolveFromProject(projectRoot, '@types/node/package.json')
+    ? null
+    : fromPlugin('@types');
   const workDir = path.join(projectRoot, 'qa-artifacts/qa-agent');
   fs.mkdirSync(workDir, { recursive: true });
   const tsconfig = path.join(workDir, 'tsconfig.generated.json');
@@ -58,8 +69,8 @@ export function validateGenerated(options: {
           module: 'ESNext',
           moduleResolution: 'Bundler',
           skipLibCheck: true,
-          // Playwright's own typings import node modules, so Playwright projects carry @types/node.
           types: ['node'],
+          ...(nodeTypes ? { typeRoots: [nodeTypes] } : {}),
         },
         include: [path.relative(workDir, path.join(outAbs, '**/*.ts')).split(path.sep).join('/')],
       },
@@ -67,12 +78,22 @@ export function validateGenerated(options: {
       2,
     ),
   );
-  const tc = spawnSync(process.execPath, [tsc, '-p', tsconfig], {
-    encoding: 'utf8',
-    cwd: projectRoot,
-  });
-  const typecheck = { ok: tc.status === 0, output: `${tc.stdout}${tc.stderr}`.trim() };
-  if (!typecheck.ok) problems.push('generated code does not type-check');
+  let typecheck: ValidationResult['typecheck'];
+  if (tsc) {
+    const tc = spawnSync(process.execPath, [tsc, '-p', tsconfig], {
+      encoding: 'utf8',
+      cwd: projectRoot,
+    });
+    typecheck = { ran: true, ok: tc.status === 0, output: `${tc.stdout}${tc.stderr}`.trim() };
+    if (!typecheck.ok) problems.push('generated code does not type-check');
+  } else {
+    // Not a pass: reported as "not run". Playwright's --list below still compiles every file.
+    typecheck = {
+      ran: false,
+      ok: false,
+      output: 'TypeScript is not installed in the target project; strict type-check not run',
+    };
+  }
 
   // 2. Playwright discovery with the target project's own @playwright/test.
   const cli = resolveFromProject(projectRoot, '@playwright/test/cli');

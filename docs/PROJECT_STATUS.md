@@ -2,10 +2,10 @@
 
 # QA Agent — Project Status
 
-- State revision: 122
-- Last update: 2026-10-19T17:17:05.345Z
+- State revision: 126
+- Last update: 2026-10-19T17:27:49.634Z
 - Active phase: P9 — CI/CD, PACKAGING & v1.0
-- Task progress: 56/62 completed (90.3%) — share of roadmap tasks, not test coverage
+- Task progress: 58/62 completed (93.5%) — share of roadmap tasks, not test coverage
 - In progress: 1 · Blocked: 0
 - Latest gate decision: P8 passed at 2026-10-19T17:16:14.691Z — docs/PHASE_REVIEWS/P8.md; node scripts/quality-gate.mjs P8 exit=0 (evidence/P8/test.log); execution-layer policies, 2 target apps, benchmark baseline evidence/P8/benchmark.md, no secret leak via artifacts (tests/integration/security-live.test.ts)
 
@@ -22,11 +22,11 @@
 | P6 | END-TO-END HYBRID VERTICAL SLICE (MVP CORE) | completed | passed | 6/6 |
 | P7 | EVIDENCE, REPORTING & MVP RELEASE CANDIDATE | completed | passed | 6/6 |
 | P8 | HARDENING, SECURITY & CROSS-PROJECT TESTING | completed | passed | 7/7 |
-| P9 | CI/CD, PACKAGING & v1.0 | in_progress | pending | 0/6 |
+| P9 | CI/CD, PACKAGING & v1.0 | in_progress | pending | 2/6 |
 
 ## In progress
 
-- P9-T01 — Setup GitHub Actions hoặc CI tương đương theo nền tảng được phép: lint/typecheck/unit/integration/plugin validate. (since 2026-10-19T17:17:05.343Z)
+- P9-T03 — Package/version plugin; test install từ directory/marketplace theo docs hiện hành; release notes/CHANGELOG. (since 2026-10-19T17:27:49.628Z)
 
 ## Blocked
 
@@ -139,9 +139,9 @@ _None_
 
 | Task | Status | Title | Evidence |
 |---|---|---|---|
-| P9-T01 | in_progress | Setup GitHub Actions hoặc CI tương đương theo nền tảng được phép: lint/typecheck/unit/integration/plugin validate. | — |
-| P9-T02 | not_started | Chạy Playwright regression có cache/browser install phù hợp CI, artifact retention, failure summaries. | — |
-| P9-T03 | not_started | Package/version plugin; test install từ directory/marketplace theo docs hiện hành; release notes/CHANGELOG. | — |
+| P9-T01 | completed | Setup GitHub Actions hoặc CI tương đương theo nền tảng được phép: lint/typecheck/unit/integration/plugin validate. | .github/workflows/ci.yml: GitHub Actions run 39293246586 conclusion success — checks ubuntu-latest + windows-latest (typecheck, lint, format, build, unit+contract 153 of 153, claude plugin validate 2.1.71, progress check), evidence/P9/ci-run-1.log |
+| P9-T02 | completed | Chạy Playwright regression có cache/browser install phù hợp CI, artifact retention, failure summaries. | integration job of run 39293246586 success: Playwright browser cache (actions/cache keyed on package-lock), npx playwright install --with-deps chromium firefox webkit, MCP warm-up, integration 16 of 16 serial (both apps, security, cross-browser), vertical slice ok; JUnit artifacts with 14-day retention + failure summary via scripts/ci/junit-summary.mjs in the job summary; evidence/P9/ci-run-1.log |
+| P9-T03 | in_progress | Package/version plugin; test install từ directory/marketplace theo docs hiện hành; release notes/CHANGELOG. | — |
 | P9-T04 | not_started | Viết tutorial cài đặt vào 2 target projects, example config và CLI usage. | — |
 | P9-T05 | not_started | Release dry-run, compatibility matrix, licensing/security checklist. **Không publish thật nếu chưa được người dùng đồng ý.** | — |
 | P9-T06 | not_started | Final readiness review và `v1.0` gate. | — |

@@ -13,7 +13,7 @@ Status: **implemented (P4)**. Arguments: $ARGUMENTS
 3. Run the deterministic generator with the Bash tool (plugin root `${CLAUDE_PLUGIN_ROOT}`; if not substituted, use the directory that contains this plugin's `.claude-plugin/plugin.json`). Add `--validate` unless `$ARGUMENTS` contains `--no-validate`:
 
    ```bash
-   node --experimental-strip-types --disable-warning=ExperimentalWarning "${CLAUDE_PLUGIN_ROOT}/src/cli.ts" generate --validate --project "<project root>"
+   node "${CLAUDE_PLUGIN_ROOT}/bin/qa-agent.mjs" generate --validate --project "<project root>"
    ```
 
 4. Report the written / unchanged / removed files, the type-check result and how many tests `playwright --list` found versus READY cases.

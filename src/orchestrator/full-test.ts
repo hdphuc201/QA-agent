@@ -173,7 +173,7 @@ export async function runFullTest(options: {
             expected: g.cases.length * config.browsers.length, // one per browser project
           });
           if (!v.ok) throw new Error(`validation failed: ${v.problems.join('; ')}`);
-          summary = `${g.cases.length} tests, type-check ok, ${v.listed} listed`;
+          summary = `${g.cases.length} tests, type-check ${v.typecheck.ran ? 'ok' : 'not run (no TypeScript)'}, ${v.listed} listed`;
           break;
         }
         case 'run': {

@@ -16,7 +16,7 @@ Status: **implemented (P2)**. Arguments: $ARGUMENTS
 3. Run the deterministic engine with the Bash tool (the plugin root is `${CLAUDE_PLUGIN_ROOT}`; if that text was not substituted, use the directory that contains this plugin's `.claude-plugin/plugin.json`):
 
    ```bash
-   node --experimental-strip-types --disable-warning=ExperimentalWarning "${CLAUDE_PLUGIN_ROOT}/src/cli.ts" discover --project "<project root>"
+   node "${CLAUDE_PLUGIN_ROOT}/bin/qa-agent.mjs" discover --project "<project root>"
    ```
 
    Add `--offline` when the user wants a static (docs/source only) map or the app is not running.

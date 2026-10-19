@@ -11,7 +11,7 @@ Status: **implemented (P7)**. Arguments: $ARGUMENTS
 1. Build the report with the Bash tool (plugin root `${CLAUDE_PLUGIN_ROOT}`; if not substituted, use the directory containing this plugin's `.claude-plugin/plugin.json`):
 
    ```bash
-   node --experimental-strip-types --disable-warning=ExperimentalWarning "${CLAUDE_PLUGIN_ROOT}/src/cli.ts" report --project "<project root>" $ARGUMENTS
+   node "${CLAUDE_PLUGIN_ROOT}/bin/qa-agent.mjs" report --project "<project root>" $ARGUMENTS
    ```
 
    Exit code 1 means some cases failed or were blocked; that is a result, not an error of the command.

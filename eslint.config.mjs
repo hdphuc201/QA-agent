@@ -8,6 +8,7 @@ export default tseslint.config(
       'node_modules/',
       'coverage/',
       'dist/',
+      'bin/',
       '.serena/',
       '.code-review-graph/',
       'tests/golden/',

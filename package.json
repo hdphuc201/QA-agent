@@ -13,6 +13,8 @@
     "format:check": "prettier --check .",
     "format": "prettier --write .",
     "build": "tsc -p tsconfig.build.json",
+    "bundle": "node scripts/bundle.mjs",
+    "bundle:check": "node scripts/bundle.mjs --check",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "node --test --experimental-strip-types --disable-warning=ExperimentalWarning \"tests/unit/**/*.test.ts\" \"tests/contract/**/*.test.ts\"",
     "test:integration": "node --test --experimental-strip-types --disable-warning=ExperimentalWarning --test-concurrency=1 \"tests/integration/**/*.test.ts\"",
@@ -29,6 +31,7 @@
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.63.0",
     "@types/node": "22.20.5",
+    "esbuild": "0.28.1",
     "eslint": "10.12.0",
     "globals": "17.13.0",
     "prettier": "3.9.9",
@@ -37,5 +40,8 @@
   },
   "dependencies": {
     "zod": "4.6.5"
+  },
+  "bin": {
+    "qa-agent": "bin/qa-agent.mjs"
   }
 }

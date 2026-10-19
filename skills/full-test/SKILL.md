@@ -18,7 +18,7 @@ Status: **implemented (P7)**. Arguments: $ARGUMENTS
 2. Run the pipeline with the Bash tool (plugin root `${CLAUDE_PLUGIN_ROOT}`; if not substituted, use the directory containing this plugin's `.claude-plugin/plugin.json`):
 
    ```bash
-   node --experimental-strip-types --disable-warning=ExperimentalWarning "${CLAUDE_PLUGIN_ROOT}/src/cli.ts" full-test --project "<project root>" $ARGUMENTS
+   node "${CLAUDE_PLUGIN_ROOT}/bin/qa-agent.mjs" full-test --project "<project root>" $ARGUMENTS
    ```
 
    `--offline` skips live exploration; `--resume` skips stages that finished before with unchanged inputs (state in `.qa-agent/full-test-state.json`).
@@ -30,7 +30,7 @@ Status: **implemented (P7)**. Arguments: $ARGUMENTS
    3. Re-run only the report so the analysis is validated and merged:
 
       ```bash
-      node --experimental-strip-types --disable-warning=ExperimentalWarning "${CLAUDE_PLUGIN_ROOT}/src/cli.ts" report --project "<project root>" --run <runId>
+      node "${CLAUDE_PLUGIN_ROOT}/bin/qa-agent.mjs" report --project "<project root>" --run <runId>
       ```
 
    Skip this step only when every executed case passed.
